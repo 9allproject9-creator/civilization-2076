@@ -54,7 +54,7 @@ body.cine #help{opacity:0}
 .screen button.pri{background:var(--accent);border-color:var(--accent);color:#1b140c}
 .screen button:hover{filter:brightness(1.1)}
 .screen .keys{margin-top:26px;font-size:13px;color:var(--dim);line-height:1.8}
-.screen .credit{position:absolute;bottom:14px;left:16px;right:16px;font-size:11px;color:#8a8478}
+.screen .credit{position:absolute;bottom:8px;left:16px;right:16px;font-size:10px;line-height:1.4;color:#8a8478}
 #end{display:none}
 #touch{display:none;transition:opacity .4s}
 .tbtn{position:fixed;z-index:6;width:68px;height:68px;border-radius:50%;background:rgba(0,0,0,.45);border:2px solid rgba(255,255,255,.35);color:#fff;font-size:20px;font-weight:800;display:flex;align-items:center;justify-content:center;touch-action:none}
@@ -86,10 +86,10 @@ body.cine #help{opacity:0}
 <div id="start" class="screen">
   <h1>문명</h1>
   <div class="sub">멸망 후 50년 뒤 · 2076년</div>
-  <div class="fan">(팬 게임) · EP.1 「시작」 · EP.2 「일상」 · EP.3 「낚시왕」 · EP.4 「첫 삽」 · EP.5 「월동준비」</div>
-  <div class="btns"><button class="pri" id="bNew">새로 시작</button><button id="bEp2">EP.2 「일상」부터</button><button id="bEp3">EP.3 「낚시왕」부터</button><button id="bEp4">EP.4 「첫 삽」부터</button><button id="bEp5">EP.5 「월동준비」부터</button><button id="bCont" style="display:none">이어하기</button></div>
+  <div class="fan">(팬 게임) · EP.1 「시작」 · EP.2 「일상」 · EP.3 「낚시왕」 · EP.4 「첫 삽」 · EP.5 「월동준비」 · EP.6 「과거의 오르골」</div>
+  <div class="btns"><button class="pri" id="bNew">새로 시작</button><button id="bEp2">EP.2 「일상」부터</button><button id="bEp3">EP.3 「낚시왕」부터</button><button id="bEp4">EP.4 「첫 삽」부터</button><button id="bEp5">EP.5 「월동준비」부터</button><button id="bEp6">EP.6 「과거의 오르골」부터</button><button id="bCont" style="display:none">이어하기</button></div>
   <div class="keys" id="keys">WASD 이동 · Shift 달리기 · E 상호작용 · F 리어카 · Space 장면 넘기기<br>화면 클릭 후 마우스로 시점 회전</div>
-  <div class="credit">유튜브 채널 「문명」의 「문명2」 EP.1 「시작」 · EP.2 「일상」 · EP.3 「낚시왕」 · EP.4 「첫 삽」 · EP.5 「월동준비」를 바탕으로 만든 비공식 팬 게임입니다. · 나레이션 목소리: 타입캐스트(Typecast) AI 성우 「필재」</div>
+  <div class="credit">유튜브 채널 「문명」의 「문명2」 EP.1 「시작」 · EP.2 「일상」 · EP.3 「낚시왕」 · EP.4 「첫 삽」 · EP.5 「월동준비」 · EP.6 「과거의 오르골」을 바탕으로 만든 비공식 팬 게임입니다. · 나레이션 목소리: 타입캐스트(Typecast) AI 성우 「필재」</div>
 </div>
 <div id="end" class="screen">
   <h1 id="endT" style="font-size:clamp(34px,8vw,64px)">EP.1 「시작」</h1>
@@ -222,6 +222,7 @@ function terrainH(x,z){
   const rd=Math.abs(x-RIVER_X); h=Math.min(h,-3.8+3.8*smooth(13,24,rd));
   const r=Math.hypot(x,z); if(r>330) h+=(r-330)*.16*(.65+.35*Math.sin(Math.atan2(z,x)*5+1));
   const hd=Math.hypot(x-HILL.x,z-HILL.z); if(hd<HILL.r) h+=HILL.h*(.5+.5*Math.cos(Math.PI*hd/HILL.r));
+  if(z<-138){const sa=smooth(-140,-162,z)*smooth(-272,-250,z); if(sa>0) h=h*(1-sa)+Math.min(h,-3.8)*sa;} // EP.6 북쪽 바다
   return h;
 }
 const BR={x0:118,x1:212,z0:-50,z1:-40,deck:5};
@@ -240,6 +241,7 @@ roadSeg(-152,-20,-34,-20,3.6,M.dirt);
 roadSeg(40,streamZ(40)-15,40,-45,3.4,M.dirt);
 roadSeg(38,-45,119,-45,9,M.asphalt);
 roadSeg(212,-45,330,-45,9,M.asphalt);
+roadSeg(215,-45,215,-136,3.4,M.dirt); roadSeg(182,-136,312,-136,3.6,M.dirt); // EP.6 해안도로
 {const g=new THREE.PlaneGeometry(30,12);g.rotateX(-Math.PI/2);const m=new THREE.Mesh(g,M.asphalt);m.position.set(95,.03,-55);m.receiveShadow=true;scene.add(m);roads.push({ax:80,az:-55,bx:110,bz:-55,w:12});}
 
 /* ground */
@@ -343,12 +345,12 @@ let fireLight,fireGlass,stoveDoor,smallPot,potOnStove,bigPot,homeBoxes=[],cupMes
   colliders.push({x0:-2.56,x1:-1.88,z0:5.5,z1:6.15,y0:0,y1:.9});
   fireLight=new THREE.PointLight(0xff8a3a,4,9,1.8); fireLight.position.set(-2.1,.6,6.3); scene.add(fireLight);
   P.stove=V(-1.95,0,6.75);
-  // sleeping bag — right of the stove
-  const bag=new THREE.Group(); bag.position.set(-.3,0,5.82); scene.add(bag);
+  // sleeping bag — far-right corner seen from the door, along the east wall, head at the back
+  const bag=new THREE.Group(); bag.position.set(2.27,0,6.55); bag.rotation.y=-Math.PI/2; scene.add(bag);
   const b1=shadow(new THREE.Mesh(new THREE.CapsuleGeometry(.32,1.45,8,16),M.bag)); b1.rotation.z=Math.PI/2; b1.scale.set(.42,1,1); b1.position.y=.15; bag.add(b1);
   const b2=shadow(new THREE.Mesh(new THREE.SphereGeometry(.45,16,12),std({color:0x5f6064,roughness:1}))); b2.scale.set(1.3,.32,.9); b2.position.set(.35,.2,.05); bag.add(b2);
   const pil=shadow(new THREE.Mesh(new THREE.CapsuleGeometry(.12,.3,6,10),std({color:0x3d3f44,roughness:1}))); pil.rotation.x=Math.PI/2; pil.position.set(-1.0,.1,0); bag.add(pil);
-  P.bag=V(-.3,0,6.4);
+  P.bag=V(1.55,0,6.6);
   // stones with stainless pots — immediately right of the door
   const sA=shadow(new THREE.Mesh(new RoundedBoxGeometry(.9,.5,1.0,2,.06),M.stone)); sA.position.set(2.2,.25,11.0); scene.add(sA);
   const sB=shadow(new THREE.Mesh(new RoundedBoxGeometry(.7,.36,.9,2,.06),M.stone)); sB.position.set(2.32,.18,12.15); scene.add(sB);
@@ -365,12 +367,13 @@ let fireLight,fireGlass,stoveDoor,smallPot,potOnStove,bigPot,homeBoxes=[],cupMes
   soupPot=makePot(.2,.2,false); soupPot.position.set(-2.22,.87,5.82); scene.add(soupPot);
   const soup=new THREE.Mesh(new THREE.CircleGeometry(.19,20),std({color:0x8a3b1c,roughness:.25})); soup.rotation.x=-Math.PI/2; soup.position.y=.16; soupPot.add(soup);
   for(let i=0;i<8;i++){const s=new THREE.Mesh(new THREE.SphereGeometry(.05,8,6),new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:0,depthWrite:false}));s.userData.k=i/8;scene.add(s);steam.push(s);}
-  // tea cup on wooden wall support
-  box(.06,.08,.6,M.wood,-2.84,1.42,7.6,{});
-  for(const z of [7.4,7.8]){const pg=shadow(new THREE.Mesh(new THREE.CylinderGeometry(.012,.012,.1,6),M.wood));pg.rotation.z=Math.PI/2;pg.position.set(-2.78,1.44,z);scene.add(pg);}
+  // oyster-shell cup hanging from a nail on the back wall, above the head of the sleeping bag
+  {const nail=shadow(new THREE.Mesh(new THREE.CylinderGeometry(.012,.014,.1,8),M.wood));nail.rotation.x=Math.PI/2;nail.position.set(1.85,1.64,5.17);scene.add(nail);
+   scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([V(1.85,1.64,5.17),V(1.84,1.47,5.19)]),new THREE.LineBasicMaterial({color:0xb8a27a})));}
   cupMesh=makeOyster();
-  cupMesh.position.set(-2.72,1.3,7.6); cupMesh.rotation.set(0,0,-1.0); scene.add(cupMesh); cupMesh.userData.home=cupMesh.position.clone(); cupMesh.userData.rot=cupMesh.rotation.clone();
-  P.cup=V(-2.2,0,7.6);
+  cupMesh.position.set(1.84,1.36,5.24); cupMesh.rotation.set(Math.PI/2-.45,.3,.08); cupMesh.scale.setScalar(1.3); scene.add(cupMesh); cupMesh.userData.home=cupMesh.position.clone(); cupMesh.userData.rot=cupMesh.rotation.clone();
+  P.cup=V(1.6,0,5.95);
+  {const dawn=new THREE.PointLight(0xb4c2da,5,6,1.4);dawn.position.set(1.9,2.1,7.2);scene.add(dawn);}
   // clam shells (heap → scattered) and tiny footprints
   const shellM=std({color:0xd8d2c4,roughness:.55});
   for(let i=0;i<20;i++){const s=shadow(new THREE.Mesh(new THREE.SphereGeometry(.032,8,6,0,Math.PI*2,0,Math.PI/2),shellM));s.scale.set(1,.45,1.15);
@@ -378,14 +381,14 @@ let fireLight,fireGlass,stoveDoor,smallPot,potOnStove,bigPot,homeBoxes=[],cupMes
     s.userData={heap,scat,ry:rand()*6,flip:rand()<.4,delay:rand()*.5}; scene.add(s); shells.push(s);}
   const fpm=new THREE.MeshBasicMaterial({color:0x0c0c0c,transparent:true,opacity:.55,depthWrite:false});
   for(let i=0;i<36;i++){const k=i/36,x=.8+k*1.8+Math.sin(i*1.7)*.12,z=12.1-k*6.6;for(const s of [-1,1]){const f=new THREE.Mesh(new THREE.CircleGeometry(.014,6),fpm);f.scale.set(1,1.5,1);f.rotation.x=-Math.PI/2;f.position.set(x+s*.035,.016,z+(s>0?.03:0));f.userData.k=k;scene.add(f);prints.push(f);}}
-  const crack=new THREE.Mesh(new THREE.PlaneGeometry(.26,.12),M.dark); crack.position.set(2.74,.07,5.5); crack.rotation.y=-Math.PI/2; scene.add(crack);
-  crackPlug=new THREE.Group(); crackPlug.position.set(2.7,0,5.5); scene.add(crackPlug);
+  const crack=new THREE.Mesh(new THREE.PlaneGeometry(.26,.12),M.dark); crack.position.set(2.74,.07,8.0); crack.rotation.y=-Math.PI/2; scene.add(crack);
+  crackPlug=new THREE.Group(); crackPlug.position.set(2.7,0,8.0); scene.add(crackPlug);
   for(let i=0;i<5;i++){const r=shadow(new THREE.Mesh(rockGeo(300+i),M.stone));r.scale.setScalar(R(.04,.07));r.position.set(R(-.04,.02),R(.03,.12),R(-.12,.12));crackPlug.add(r);}
   const mudB=shadow(new THREE.Mesh(new THREE.SphereGeometry(.2,14,10),M.mud)); mudB.scale.set(.25,.6,1); mudB.position.set(.01,.1,0); crackPlug.add(mudB); crackPlug.userData.mud=mudB;
-  P.shells=V(.7,0,11.9); P.door=V(-.5,0,12.2); P.crack=V(2.2,0,5.9);
+  P.shells=V(.7,0,11.9); P.door=V(-.5,0,12.2); P.crack=V(2.2,0,8.1);
   homeBoxes=[makeContainer(),makeContainer(),makeContainer()];
-  homeBoxes.forEach((b,i)=>{b.position.set(1.0+i*.5,0,5.6);scene.add(b);});
-  P.boxes=V(1.5,0,6.4);
+  homeBoxes.forEach((b,i)=>{b.position.set(-.95+i*.47,0,5.6);scene.add(b);});
+  P.boxes=V(-.48,0,6.4);
   // big 들통 (stock pot / bucket)
   bucket=new THREE.Group(); bucket.add(shadow(new THREE.Mesh(lathe([[0,0],[.22,0],[.24,.02],[.24,.42],[.25,.425],[.235,.43]],28),M.steel)));
   for(const s of [-1,1]){const hd=new THREE.Mesh(new THREE.TorusGeometry(.05,.01,6,12,Math.PI),M.steel);hd.position.set(s*.245,.36,0);hd.rotation.set(0,s>0?Math.PI/2:-Math.PI/2,Math.PI/2);bucket.add(hd);}
@@ -394,7 +397,7 @@ let fireLight,fireGlass,stoveDoor,smallPot,potOnStove,bigPot,homeBoxes=[],cupMes
   bucket.position.set(2.25,0,9.6); bucket.userData.home=bucket.position.clone(); scene.add(bucket);
   P.bucket=V(1.6,0,9.6);
   // stuffed small pot with 돼지감자 (EP.2)
-  potFill=makePot(.13,.14,false); for(let i=0;i<5;i++){const p=shadow(new THREE.Mesh(rockGeo(400+i),std({color:0x9a7650,roughness:.9})));p.scale.setScalar(.045);p.position.set(R(-.06,.06),.13,R(-.06,.06));potFill.add(p);} potFill.position.set(2.0,0,5.85); scene.add(potFill);
+  potFill=makePot(.13,.14,false); for(let i=0;i<5;i++){const p=shadow(new THREE.Mesh(rockGeo(400+i),std({color:0x9a7650,roughness:.9})));p.scale.setScalar(.045);p.position.set(R(-.06,.06),.13,R(-.06,.06));potFill.add(p);} potFill.position.set(.4,0,5.85); scene.add(potFill);
   // dinner set
   dinner=new THREE.Group(); scene.add(dinner);
   const sb=makeBowl(.1); sb.position.set(-1.78,.01,7.0); dinner.add(sb);
@@ -502,8 +505,8 @@ function makeCharacter(){
   return {root,mesh,headMesh,hips,spine,chest,neck,head,ua,fa,hd,th,sh,ft,pack};
 }
 const char=makeCharacter(); scene.add(char.root);
-const sleepHead=shadow(new THREE.Mesh(new THREE.SphereGeometry(.28,40,28),std({color:0x090909,roughness:.7}))); sleepHead.position.set(-1.25,.3,5.82); scene.add(sleepHead);
-const player={pos:V(-.4,0,6.6),y:0,theta:Math.PI,speed:0,phase:0,pose:'stand'};
+const sleepHead=shadow(new THREE.Mesh(new THREE.SphereGeometry(.28,40,28),std({color:0x090909,roughness:.7}))); sleepHead.position.set(2.27,.3,5.85); scene.add(sleepHead);
+const player={pos:V(1.5,0,6.6),y:0,theta:Math.PI,speed:0,phase:0,pose:'stand'};
 
 /* ================= REST STOP ================= */
 let kitchenBoxes;
@@ -667,9 +670,10 @@ blocks.push({x0:.2,x1:4.4,z0:14.3,z1:18.2});
 /* EP.4 places — reserved before trees and grass are scattered, so nothing grows inside them */
 const LIB=V(300,0,-60), FARM=V(50,0,-33), FLD={x0:6.2,x1:11.8,z0:3.5,z1:13.5}, FCX=9, FCZ=8.5;
 const FROW=[0,1,2].map(i=>V(FCX,0,FLD.z0+(i+.5)*(FLD.z1-FLD.z0)/3));
-const WHET=V(5.1,0,13.1), MORT4=V(13.1,0,8.5), CYL=V(2.45,0,6.3), WSEAT=V(2.25,0,9.0), LIB_SHELF=V(296,1.2,-60.7), LIB_TABLE=V(300.4,.82,-63.3), FARM_SHELF=V(50.4,.95,-29.7);
+const WHET=V(5.1,0,13.1), MORT4=V(13.1,0,8.5), CYL=V(.62,0,5.5), WSEAT=V(2.25,0,9.0), LIB_SHELF=V(296,1.2,-60.7), LIB_TABLE=V(300.4,.82,-63.3), FARM_SHELF=V(50.4,.95,-29.7);
 const BASIN=V(13.0,0,10.3), PAIL=V(13.9,0,9.4), GAR=V(116,0,-69), GREASE=V(114.5,1.02,-71.6), SNAGS=[V(-1,0,-47.5),V(4.5,0,-46.5),V(10,0,-48)], GREEN=V(7.5,0,-50.8), STACKP=V(-4.6,0,9);
-blocks.push({x0:110,x1:122,z0:-74,z1:-63},{x0:-3,x1:13,z0:-52.5,z1:-44.5},{x0:-5,x1:-3,z0:4.5,z1:13.5},{x0:292,x1:308,z0:-66,z1:-53.5},{x0:44,x1:56,z0:-38,z1:-28},{x0:5.2,x1:14.6,z0:2.6,z1:14.2});
+const HARB=V(250,0,-146), MILL=V(262,0,-292), MILLVIEW=V(300,0,-137), COAST=V(215,0,-128), CITY=V(275,0,-95), GIFT_SHOP=V(236,0,-58), GIFT=V(237.5,0,-60.5), BREAK=V(190,0,-147);
+blocks.push({x0:236,x1:264,z0:-142,z1:-128},{x0:264,x1:286,z0:-103,z1:-85},{x0:183,x1:198,z0:-151,z1:-140},{x0:110,x1:122,z0:-74,z1:-63},{x0:-3,x1:13,z0:-52.5,z1:-44.5},{x0:-5,x1:-3,z0:4.5,z1:13.5},{x0:292,x1:308,z0:-66,z1:-53.5},{x0:44,x1:56,z0:-38,z1:-28},{x0:5.2,x1:14.6,z0:2.6,z1:14.2});
 const meshTex=col=>{const c=document.createElement('canvas');c.width=c.height=128;const g=c.getContext('2d');g.strokeStyle=col;g.lineWidth=2.4;for(let i=0;i<=128;i+=10){g.beginPath();g.moveTo(i,0);g.lineTo(i,128);g.stroke();g.beginPath();g.moveTo(0,i);g.lineTo(128,i);g.stroke();}const t=new THREE.CanvasTexture(c);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.colorSpace=THREE.SRGBColorSpace;return t;};
 const granite=canvasTex(128,128,(g,w,h)=>{speckle(g,w,h,'#9a9894',50);for(let i=0;i<500;i++){g.fillStyle=rand()<.5?'rgba(30,30,30,.8)':'rgba(240,238,232,.8)';g.fillRect(rand()*w,rand()*h,R(1,2.5),R(1,2.5));}});
 function makeFish(){
@@ -1074,23 +1078,26 @@ const ORDER=['wake','wood','stove','pot','boil','drink','exit','tarp','kitchen',
   'e2_check','e2_forest','e2_leaves','e2_acorns','e2_stones','e2_mud','e2_return','e2_plug','e2_bucket','e2_water','e2_soak','e2_potato','e2_roast','e2_soup','e2_eat','e2_dishes','e2_wash','e2_trap','e2_home','end2',
   'e3_trap','e3_cart','e3_bridge','e3_check','e3_rebait','e3_town','e3_hw1','e3_hw2','e3_mortar','e3_home','e3_window','e3_gaps','e3_ashscoop','e3_ash','e3_bridge2','e3_catch','e3_fire','e3_clean','e3_grill','e3_eat','end3',
   'e4_search','e4_read','e4_center','e4_tools','e4_home','e4_sharpen','e4_cut','e4_pick','e4_rake','e4_mortar','e4_spread','e4_turn','e4_ridge','e4_seed','e4_sow','e4_fire','e4_eat','end4',
-  'e5_open','e5_pound','e5_settle','e5_cart','e5_garage','e5_grease','e5_return','e5_fix','e5_test','e5_hill','e5_saw','e5_green','e5_haul','e5_stack','e5_strain','e5_cook','e5_eat','e5_door','end5'];
+  'e5_open','e5_pound','e5_settle','e5_cart','e5_garage','e5_grease','e5_return','e5_fix','e5_test','e5_hill','e5_saw','e5_green','e5_haul','e5_stack','e5_strain','e5_cook','e5_eat','e5_door','end5',
+  'e6_intro','e6_mill','e6_city','e6_map','e6_shop','e6_gift','e6_mussel','e6_home','e6_cook','e6_eat','e6_box','end6'];
 const SI=n=>ORDER.indexOf(n);
 const OBJ={wake:'침낭에서 일어나기',wood:'리어카에서 마른 장작 꺼내기',stove:'난로 철문을 열고 불씨 위에 장작 얹기',pot:'작은 스텐 냄비에 물 담기',boil:'달궈진 난로 위에서 물 끓이기',drink:'벽 나무 지지대의 굴 껍데기 잔으로 따뜻한 물 마시기',exit:'채비를 마치고 밖으로 나서기',tarp:'리어카 방수포 들춰 보기',kitchen:'섬진강 휴게소 본관 — 식당 주방 다시 수색하기',seeds:'숙소로 돌아가 종자와 설명서를 스텐 용기에 옮겨 담기',food:'남은 식량(부들 뿌리·마른 냉이·말린 미역) 따로 저장하기',pull:'빈 리어카를 끌고 밖으로 나서기',village:'창고 아래 길을 따라 낡은 마을로 가기',shop:'빛바랜 간판의 낚시가게 뒤지기',roots:'돌아가는 길에 숙소 근처 수풀과 둑 살피기',branches:'숙소 근처 마른 나무에서 긴 나뭇가지 자르기',sticks:'뿌리식물 자리마다 나뭇가지 꽂기',larvae:'쓰러진 고목에서 하늘소 유충 얻기',bridge:'섬진강 휴게소를 지나 섬진강교로 가기',lines:'다리 난간에 낚싯줄 내려 묶기',home:'집으로 돌아가기',end1:'EP.1 완료',
   e2_check:'구석의 스텐 밀폐 용기들 열어 확인하기',e2_forest:'숙소 인근 참나무숲으로 가기',e2_leaves:'수북한 마른 낙엽 들춰 보기',e2_acorns:'도토리 주워 담기',e2_stones:'구멍을 막을 돌멩이 줍기',e2_mud:'끈적한 진흙 퍼 담기',e2_return:'숙소로 돌아가기',e2_plug:'벽 틈새에 돌 쑤셔 넣고 진흙 바르기',e2_bucket:'큰 들통 챙기기',e2_water:'냇가에서 들통에 물 받기',e2_soak:'들통 내려놓고 도토리 쏟아 불리기',e2_potato:'작은 스텐 냄비에 돼지감자 채우기',e2_roast:'난로 철문 열고 냄비를 안쪽 구석에 밀어 넣기',e2_soup:'난로 상판에서 냉이국 끓이기',e2_eat:'난롯가에 앉아 식사하기',e2_dishes:'설거지 거리와 페트병 통발 챙기기',e2_wash:'냇가에서 그릇 씻기',e2_trap:'물가에 페트병 통발 설치하기',e2_home:'집으로 돌아가기',end2:'EP.2 완료',
   e3_trap:'냇가의 페트병 통발 건져 올리기',e3_cart:'새우를 챙겨 리어카 끌고 나서기',e3_bridge:'리어카를 끌고 섬진강교로 가기',e3_check:'여덟 개의 낚싯줄 차례로 당겨 확인하기',e3_rebait:'새우 미끼 꿰고 돌멩이 무게추 달아 던지기',e3_town:'리어카를 끌고 다리 건너 시내로 내려가기',e3_hw1:'처음 발견했던 철물점 구석의 철망 살피기',e3_hw2:'더 걸어가 다른 철물점의 안쪽 창고 뒤지기',e3_mortar:'돌아오는 길, 옛 농가의 돌절구 리어카에 싣기',e3_home:'숙소로 돌아가기',e3_window:'창문을 스테인리스 철망으로 보강하기',e3_gaps:'외벽 틈새를 철수세미로 막기',e3_ashscoop:'삽으로 화목 난로의 하얀 재 퍼내기',e3_ash:'집 둘레를 따라 재 뿌리기',e3_bridge2:'해가 지기 전 다시 섬진강교로 가기',e3_catch:'낚싯줄 다시 당겨 올리기',e3_fire:'집 앞마당에 모닥불 피우기',e3_clean:'농어 손질하고 한 마리는 포 떠서 훈제하기',e3_grill:'나머지 한 마리 소금구이 하기',e3_eat:'모닥불 앞에 앉아 농어 소금구이 먹기',end3:'EP.3 완료',
   e4_search:'무너진 서가에서 농사 책 찾기',e4_read:'빛이 드는 책상에서 돋보기로 책 읽기',e4_center:'집으로 가는 길, 마을 어귀의 영농자재센터에 들르기',e4_tools:'철제 선반에서 쓸 만한 농기구 챙기기',e4_home:'집으로 돌아가기',e4_sharpen:'숫돌에 낫 갈기',e4_cut:'억새와 가시덤불 밑동부터 베어 내기',e4_pick:'곡괭이로 굳은 땅 부수기',e4_rake:'쇠스랑으로 풀뿌리와 돌멩이 긁어내기',e4_mortar:'돌절구에 재첩 껍데기 빻아 석회 가루 만들기',e4_spread:'석회 가루와 나뭇재를 밭에 골고루 뿌리기',e4_turn:'삽으로 흙을 뒤집어 골고루 섞기',e4_ridge:'양옆에 물길 파고 가운데 두둑 만들기',e4_seed:'집 안 원통형 밀폐 용기에서 보리 종자 꺼내기',e4_sow:'두둑에 골을 파고 보리 씨앗 심기',e4_fire:'집으로 돌아가 화목 난로에 불 지피기',e4_eat:'창가에 걸터앉아 쉬기',end4:'EP.4 완료',
-  e5_open:'구석의 대형 스텐 들통 뚜껑 열어 보기',e5_pound:'깐 도토리를 마당의 돌절구에 빻기',e5_settle:'으깬 도토리를 물에 풀고 전분물 따라 내기',e5_cart:'마당 한편의 리어카 살펴보기',e5_garage:'휴게소 한편의 낡은 차량 관리 창고로 가기',e5_grease:'무너진 선반에서 쓸 만한 것 찾기',e5_return:'집으로 돌아가 리어카 고치기',e5_fix:'리어카 바퀴 분해하고 구리스 바르기',e5_test:'리어카 손잡이를 잡고 끌어 보기',e5_hill:'리어카를 끌고 뒷산 비탈면으로 가기',e5_saw:'고사목을 톱으로 켜고 손도끼로 쪼개 싣기',e5_green:'생나무 기둥 한 그루 베어 싣기',e5_haul:'땔감을 실은 리어카 끌고 집으로 돌아가기',e5_stack:'장작을 창고 외벽 처마 밑에 쌓기',e5_strain:'아침에 걸러 둔 들통 확인하기',e5_cook:'난로 위에서 도토리묵 쑤기',e5_eat:'난롯가에 앉아 도토리묵 먹기',e5_door:'문을 열고 밤공기 마주하기',end5:'EP.5 완료 — 자유롭게 둘러보기'};
+  e5_open:'구석의 대형 스텐 들통 뚜껑 열어 보기',e5_pound:'깐 도토리를 마당의 돌절구에 빻기',e5_settle:'으깬 도토리를 물에 풀고 전분물 따라 내기',e5_cart:'마당 한편의 리어카 살펴보기',e5_garage:'휴게소 한편의 낡은 차량 관리 창고로 가기',e5_grease:'무너진 선반에서 쓸 만한 것 찾기',e5_return:'집으로 돌아가 리어카 고치기',e5_fix:'리어카 바퀴 분해하고 구리스 바르기',e5_test:'리어카 손잡이를 잡고 끌어 보기',e5_hill:'리어카를 끌고 뒷산 비탈면으로 가기',e5_saw:'고사목을 톱으로 켜고 손도끼로 쪼개 싣기',e5_green:'생나무 기둥 한 그루 베어 싣기',e5_haul:'땔감을 실은 리어카 끌고 집으로 돌아가기',e5_stack:'장작을 창고 외벽 처마 밑에 쌓기',e5_strain:'아침에 걸러 둔 들통 확인하기',e5_cook:'난로 위에서 도토리묵 쑤기',e5_eat:'난롯가에 앉아 도토리묵 먹기',e5_door:'문을 열고 밤공기 마주하기',end5:'EP.5 완료',
+  e6_intro:'섬진강교를 건너 해안도로로 나가기',e6_mill:'해안도로를 따라 동쪽으로 더 걸어가기',e6_city:'해안가를 벗어나 시내의 시청으로 가기',e6_map:'어두운 로비의 금속 안내 지도 살펴보기',e6_shop:'상가 거리 걸어 보기',e6_gift:'기념품 가게의 무너진 진열대 뒤지기',e6_mussel:'하구 방파제 아래의 홍합 채집하기',e6_home:'집으로 돌아가기',e6_cook:'화목 난로에 홍합탕 끓이기',e6_eat:'난롯가에 앉아 홍합탕 먹기',e6_box:'주워 온 오르골 꺼내 보기',end6:'EP.6 완료 — 자유롭게 둘러보기'};
 const TOD={wake:0,wood:.02,stove:.03,pot:.04,boil:.05,drink:.06,exit:.08,tarp:.1,kitchen:.18,seeds:.28,food:.3,pull:.33,village:.4,shop:.45,roots:.52,branches:.55,sticks:.58,larvae:.66,bridge:.76,lines:.8,home:.92,end1:1,
   e2_check:1,e2_forest:1.02,e2_leaves:1.03,e2_acorns:1.03,e2_stones:1.04,e2_mud:1.04,e2_return:1.06,e2_plug:1.08,e2_bucket:1.1,e2_water:1.11,e2_soak:1.12,e2_potato:1.14,e2_roast:1.14,e2_soup:1.15,e2_eat:1.16,e2_dishes:1.18,e2_wash:1.19,e2_trap:1.2,e2_home:1.2,end2:1.2,
   e3_trap:0,e3_cart:.03,e3_bridge:.06,e3_check:.09,e3_rebait:.11,e3_town:.28,e3_hw1:.36,e3_hw2:.44,e3_mortar:.52,e3_home:.6,e3_window:.62,e3_gaps:.66,e3_ashscoop:.7,e3_ash:.72,e3_bridge2:.86,e3_catch:.9,e3_fire:1.0,e3_clean:1.03,e3_grill:1.05,e3_eat:1.07,end3:1.1,
   e4_search:.12,e4_read:.14,e4_center:.3,e4_tools:.33,e4_home:.4,e4_sharpen:.42,e4_cut:.46,e4_pick:.53,e4_rake:.6,e4_mortar:.62,e4_spread:.65,e4_turn:.68,e4_ridge:.72,e4_seed:.78,e4_sow:.8,e4_fire:1.14,e4_eat:1.18,end4:1.2,
-  e5_open:.06,e5_pound:.1,e5_settle:.14,e5_cart:.18,e5_garage:.28,e5_grease:.32,e5_return:.38,e5_fix:.42,e5_test:.46,e5_hill:.52,e5_saw:.6,e5_green:.74,e5_haul:.9,e5_stack:.97,e5_strain:1.06,e5_cook:1.1,e5_eat:1.15,e5_door:1.2,end5:1.2};
+  e5_open:.06,e5_pound:.1,e5_settle:.14,e5_cart:.18,e5_garage:.28,e5_grease:.32,e5_return:.38,e5_fix:.42,e5_test:.46,e5_hill:.52,e5_saw:.6,e5_green:.74,e5_haul:.9,e5_stack:.97,e5_strain:1.06,e5_cook:1.1,e5_eat:1.15,e5_door:1.2,end5:1.2,
+  e6_intro:.14,e6_mill:.3,e6_city:.42,e6_map:.48,e6_shop:.56,e6_gift:.6,e6_mussel:.78,e6_home:.9,e6_cook:1.08,e6_eat:1.12,e6_box:1.16,end6:1.2};
 let stage='wake',sticks=[0,0,0,0,0],tied=[0,0,0,0,0,0,0,0],acorns=[0,0,0,0,0,0],stones=[0,0,0,0],ash=[0,0,0,0],cut=[0,0,0,0],pick=[0,0,0],spread=[0,0,0],snags=[0,0,0];
 let fireLevel=.22,fireTarget=.22,tarpOpen=0,tarpTarget=0,doorTarget=0,shellK=0,printK=0,steamK=0,started=false,ended=false,leafAnim=-1;
 const sum=a=>a.reduce((p,c)=>p+c,0);
 const P_VILLAGE=V(-75,0,-20), SAVE_KEY='civ2076_save_v3';
-const epNo=()=>SI(stage)>=SI('e5_open')?5:SI(stage)>=SI('e4_search')?4:SI(stage)>=SI('e3_trap')?3:SI(stage)>=SI('e2_check')?2:1;
+const epNo=()=>SI(stage)>=SI('e6_intro')?6:SI(stage)>=SI('e5_open')?5:SI(stage)>=SI('e4_search')?4:SI(stage)>=SI('e3_trap')?3:SI(stage)>=SI('e2_check')?2:1;
 
 /* captions */
 const capEl=$('caption'); let capTimer=0;
@@ -1214,7 +1221,7 @@ function applyVisuals(){
   [bookHeld,magHeld,cardHeld,rakeHeld,pestleHeld,packHeld,jerkyHeld].forEach(o=>o.visible=false);
   sickleHeld.visible = stage==='e4_cut'; pickHeld.visible = stage==='e4_pick';
   tod.target = TOD[stage];
-  const ep=epNo(); $('epl').textContent = ep===5 ? 'EP.5 「월동준비」 · 2076년 11월' : ep===4 ? 'EP.4 「첫 삽」 · 2076년 11월' : ep===3 ? 'EP.3 「낚시왕」 · 2076년 11월' : ep===2 ? 'EP.2 「일상」 · 2076년 11월 · 밤' : 'EP.1 「시작」 · 2076년 11월';
+  const ep=epNo(); $('epl').textContent = ep===6 ? 'EP.6 「과거의 오르골」 · 2076년 12월' : ep===5 ? 'EP.5 「월동준비」 · 2076년 11월' : ep===4 ? 'EP.4 「첫 삽」 · 2076년 11월' : ep===3 ? 'EP.3 「낚시왕」 · 2076년 11월' : ep===2 ? 'EP.2 「일상」 · 2076년 11월 · 밤' : 'EP.1 「시작」 · 2076년 11월';
 }
 function invList(){
   const s=SI(stage),L=[];
@@ -1259,8 +1266,8 @@ function attachCart(){cart.attached=true;applyVisuals();updateHUD();burst(300,'l
 function detachCart(){cart.attached=false;cart.pitch=0;placeCart();applyVisuals();updateHUD();save();burst(260,'lowpass',.15,.2);}
 
 /* ---- fixed targets & the side each action is done from ---- */
-const TG={cart:()=>{const c=cartCenter();c.y=.7;return c;},stove:V(-2.2,.6,5.85),stoveTop:V(-2.15,.9,5.82),stoveFront:V(-2.2,.42,6.1),pots:V(2.1,.55,11.2),cup:V(-2.72,1.3,7.6),boxes:V(1.5,.2,5.6),food:V(2.0,.2,5.6),crack:V(2.72,.1,5.5),bucket:V(2.25,.35,9.6),kitchen:V(104,1.05,-77.45),shop:V(-79.2,.05,-30.25),tree:V(10,1.6,1.5),logs:V(45.3,.75,-7.4),window:V(2.78,1.6,9)};
-const FROM={cart:[1,.15],stove:[.35,1],pots:[-1,0],cup:[1,0],boxes:[0,1],crack:[-.6,1],bucket:[-1,0],kitchen:[0,1],shop:[.5,1],logs:[-.3,1],window:[-1,0]};
+const TG={cart:()=>{const c=cartCenter();c.y=.7;return c;},stove:V(-2.2,.6,5.85),stoveTop:V(-2.15,.9,5.82),stoveFront:V(-2.2,.42,6.1),pots:V(2.1,.55,11.2),cup:V(1.84,1.38,5.2),boxes:V(-.48,.2,5.6),food:V(-.01,.2,5.6),crack:V(2.72,.1,8.0),bucket:V(2.25,.35,9.6),kitchen:V(104,1.05,-77.45),shop:V(-79.2,.05,-30.25),tree:V(10,1.6,1.5),logs:V(45.3,.75,-7.4),window:V(2.78,1.6,9)};
+const FROM={cart:[1,.15],stove:[.35,1],pots:[-1,0],cup:[-.25,1],boxes:[0,1],crack:[-1,.15],bucket:[-1,0],kitchen:[0,1],shop:[.5,1],logs:[-.3,1],window:[-1,0]};
 const rail=i=>V(lineSpots[i].x,5.95,-49.9);
 
 /* ================= SCENES ================= */
@@ -1269,9 +1276,9 @@ function introEP1(){
   play([
     {cam:C([9,3.5,27],[0,1.5,9],[7,3.2,24],[0,1.4,9]),dur:4,say:'세상이 멸망한 지 50년.'},
     {cam:C([.4,1.7,8.6],[2.9,1.7,9],[.2,1.6,8.2],[2.9,1.7,8.6]),dur:4.2,say:'창문 너머로 어스름한 새벽빛이 스며들며 눈이 떠진다.'},
-    {cam:C([-.6,.95,7.2],[-1.25,.3,5.85],[-.8,.8,6.9],[-1.25,.3,5.85]),dur:3.8,say:'이렇게 깊고 온전한 숙면이 얼마 만인지 모른다.'},
+    {cam:C([.7,1.3,7.8],[2.1,.75,5.6],[.82,1.2,7.55],[2.1,.7,5.6]),dur:3.8,say:'이렇게 깊고 온전한 숙면이 얼마 만인지 모른다.'},
     {dur:3.2,say:'따뜻한 침낭 속에서 조금 더 눈을 붙이고 싶지만…'},
-    {cam:C([0,2.4,12.4],[-.8,.5,6.5]),dur:4,say:'다가올 혹독한 겨울을 나려면, 부지런히 몸을 움직여야 한다.'},
+    {cam:C([0,2.4,12.4],[1.6,.5,6.5]),dur:4,say:'다가올 혹독한 겨울을 나려면, 부지런히 몸을 움직여야 한다.'},
   ],()=>hint('[E] 키로 침낭에서 일어나자.',3));
 }
 function introEP2(){
@@ -1279,7 +1286,7 @@ function introEP2(){
   if(cart.attached) detachCart(); player.pos.set(1.2,0,8.2); player.y=0; player.theta=Math.PI*.8;
   play([
     {cam:C([0,2.5,11.8],[2.5,.2,5.6]),dur:3.5,say:'세상이 멸망한 지 50년.'},
-    {cam:C([1.4,.6,7.2],[2.74,.08,5.5]),dur:3.5,say:'벽면 틈새로 불청객들이 자취를 감췄다.'},
+    {cam:C([1.2,.6,10.2],[2.74,.08,8.0]),dur:3.5,say:'벽면 틈새로 불청객들이 자취를 감췄다.'},
   ],()=>hint('구석의 스텐 용기부터 확인하자.',3));
 }
 function introEP3(){
@@ -1306,7 +1313,7 @@ function cardCam(){const p=player.pos,t=player.theta,fx=Math.sin(t),fz=Math.cos(
 function handCam(o={}){const p=player.pos,t=player.theta,fx=Math.sin(t),fz=Math.cos(t),rx=-Math.cos(t),rz=Math.sin(t),fc=o.fc??.6,r=o.r??.6,h=o.h??1.45,f=o.f??.3,ly=o.ly??1.0;return [V(p.x+fx*fc+rx*r,player.y+h,p.z+fz*fc+rz*r),V(p.x+fx*f,player.y+ly,p.z+fz*f),null,null];}
 const pourCup=()=>{cupMesh.position.set(-1.95,.92,5.95);cupMesh.rotation.set(0,0,0);};
 const S = {
-  wake(){ play([{cam:C([.3,1.8,9.2],[-.6,.8,6.4]),dur:2.2,say:'침낭을 걷고 몸을 일으킨다.',fn(){player.pos.set(-.4,0,6.7);player.theta=Math.PI*.15;go('wood');}}],()=>hint('난로 불씨가 꺼지기 전에 장작부터 꺼내자.',3.5)); },
+  wake(){ play([{cam:C([.2,1.8,9.4],[1.7,.8,6.6]),dur:2.2,say:'침낭을 걷고 몸을 일으킨다.',fn(){player.pos.set(1.5,0,6.7);player.theta=-Math.PI*.6;go('wood');}}],()=>hint('난로 불씨가 꺼지기 전에 장작부터 꺼내자.',3.5)); },
   wood(){ play([{at:[TG.cart(),{from:FROM.cart,d:.85},{dist:2.0,h:1.45}],dur:2.8,say:'방수포를 젖히고 마른 장작 몇 개를 꺼낸다.',pose:'reach',fn(){tarpTarget=1;},end(){tarpTarget=0;toast('+ 마른 장작 ×3');go('stove');}}]); },
   stove(){ play([
     {at:[TG.stove,{from:FROM.stove,d:.85},{dist:1.9,h:1.3}],dur:2.2,say:'화목 난로의 철문을 연다.',pose:'reach',fn(){doorTarget=1;burst(400,'lowpass',.2,.2);}},
@@ -1385,8 +1392,8 @@ const S = {
     {at:[rail(i),{from:[0,1],d:.7,y:5},{dist:1.8,h:1.3,ly:.35}],dur:2.6,say:'낚싯바늘에 하늘소 유충을 꿰고, 합사줄을 풀어 난간에 묶어 내린다.',pose:'reach',fn(){tied[i]=1;g.visible=true;burst(1800,'highpass',.08,.4);},up(k){g.userData.ln.geometry.setDrawRange(0,k<.5?2:3);}},
   ],()=>{const n=sum(tied);toast(`낚싯줄 (${n}/8)`);if(n===8){play([{cam:C([140,7.5,-51.5],[165,0,-50.5],[144,7,-51.5],[170,0,-50.5]),dur:4,say:'모두 여덟 개의 낚싯줄이 차가운 강물 속으로 묵묵히 잠겼다.',end(){go('home');}}],()=>hint('집으로 돌아가자.',3));}else{updateHUD();save();}}); },
   home(){ ended=true; play([
-    {cam:C([-2.4,2.4,12.4],[1.2,.3,7.5]),dur:3,say:'집으로 돌아오자, 끝내 우려했던 일이 벌어졌다.',fn(){if(cart.attached)detachCart();mark(V(2.6,0,5.6),{pos:[-.6,11.0]});}},
-    {cam:C([1.4,.5,8.6],[2.6,0,5.6]),dur:4.2,say:'날카로운 소리와 함께, 검은 그림자 두어 개가 재빠르게 벽면 틈새로 사라진다.',fn(){ratT=0;rats.forEach(r=>r.visible=true);squeak();setTimeout(squeak,450);},up(k,dt){ratStep(dt);}},
+    {cam:C([-2.4,2.4,12.4],[1.2,.3,7.5]),dur:3,say:'집으로 돌아오자, 끝내 우려했던 일이 벌어졌다.',fn(){if(cart.attached)detachCart();mark(V(2.6,0,8.0),{pos:[-.6,11.0]});}},
+    {cam:C([.7,.6,10.4],[2.6,.05,8.0]),dur:4.2,say:'날카로운 소리와 함께, 검은 그림자 두어 개가 재빠르게 벽면 틈새로 사라진다.',fn(){ratT=0;rats.forEach(r=>r.visible=true);squeak();setTimeout(squeak,450);},up(k,dt){ratStep(dt);}},
     {cam:C([0,2.5,12.4],[0,.8,7],[0,2.6,13.6],[0,1,7]),dur:4.4,say:'세상이 멸망한 지 50년. 불청객들의 침입이 시작되었다.',end(){rats.forEach(r=>r.visible=false);}},
   ],()=>{go('end1');showEnd(1);}); },
   /* ---------- EP.2 ---------- */
@@ -1428,7 +1435,7 @@ const S = {
   ],()=>hint('난로 철문을 열고 냄비를 안쪽 구석에 밀어 넣자.',3.5)); },
   e2_roast(){ play([
     {at:[TG.stoveFront,{from:FROM.stove,d:.7},{dist:1.6,h:1.0}],dur:2.2,say:'화목 난로의 철문을 열고,',pose:'crouch',fn(){doorTarget=1;}},
-    {cam:close(TG.stoveFront,{dist:1.0,h:.45}),dur:3.4,say:'달궈진 안쪽 구석에 냄비를 그대로 밀어 넣어 익힌다.',fn(){potFill.visible=true;},up(k){potFill.position.set(-2.2+(1-k)*.25,.2,5.85+(1-k)*.9);if(k>.9)potFill.visible=false;},end(){doorTarget=0;potFill.position.set(2.0,0,5.85);go('e2_soup');}},
+    {cam:close(TG.stoveFront,{dist:1.0,h:.45}),dur:3.4,say:'달궈진 안쪽 구석에 냄비를 그대로 밀어 넣어 익힌다.',fn(){potFill.visible=true;},up(k){potFill.position.set(-2.2+(1-k)*.25,.2,5.85+(1-k)*.9);if(k>.9)potFill.visible=false;},end(){doorTarget=0;potFill.position.set(.4,0,5.85);go('e2_soup');}},
   ],()=>hint('난로 상판에는 냉이국을 끓이자.',3)); },
   e2_soup(){ play([
     {at:[TG.stoveTop,{from:FROM.stove,d:.8},{dist:1.7,h:1.4}],dur:3.8,say:'난로 상판 위에는 냄비에 물과 마른 냉이, 고춧가루와 소금 한 꼬집을 넣어',pose:'reach',fn(){soupPot.visible=true;bigPot.visible=false;}},
@@ -1658,7 +1665,7 @@ const flyPot=makePot(.13,.14,true); flyPot.visible=false; scene.add(flyPot);
 const potWater=new THREE.Mesh(new THREE.CircleGeometry(.125,20),std({color:0x5a6870,roughness:.1,metalness:.3})); potWater.rotation.x=-Math.PI/2; potWater.position.y=.02; smallPot.add(potWater); potWater.visible=false;
 {const w=potWater.clone(); w.position.y=.12; w.visible=true; potOnStove.add(w);}
 const flyPack=shadow(new THREE.Mesh(new RoundedBoxGeometry(.13,.018,.19,2,.006),M.silver)); flyPack.visible=false; scene.add(flyPack);
-const foodPile=new THREE.Group(); foodPile.position.set(2.45,0,6.35); scene.add(foodPile); {const rm=std({color:0x8a6a48,roughness:.8}),gm=std({color:0x5d6a34,roughness:1}); for(let i=0;i<4;i++){const r=shadow(new THREE.Mesh(new THREE.CapsuleGeometry(.022,.18,4,8),rm));r.rotation.set(0,i*.8,Math.PI/2);r.position.set(R(-.1,.1),.03+i*.02,R(-.1,.1));foodPile.add(r);} for(let i=0;i<3;i++){const g=shadow(new THREE.Mesh(new THREE.SphereGeometry(.05,8,6),gm));g.scale.set(1,.5,1);g.position.set(R(-.12,.12),.04,R(-.12,.12));foodPile.add(g);}}
+const foodPile=new THREE.Group(); foodPile.position.set(.55,0,6.3); scene.add(foodPile); {const rm=std({color:0x8a6a48,roughness:.8}),gm=std({color:0x5d6a34,roughness:1}); for(let i=0;i<4;i++){const r=shadow(new THREE.Mesh(new THREE.CapsuleGeometry(.022,.18,4,8),rm));r.rotation.set(0,i*.8,Math.PI/2);r.position.set(R(-.1,.1),.03+i*.02,R(-.1,.1));foodPile.add(r);} for(let i=0;i<3;i++){const g=shadow(new THREE.Mesh(new THREE.SphereGeometry(.05,8,6),gm));g.scale.set(1,.5,1);g.position.set(R(-.12,.12),.04,R(-.12,.12));foodPile.add(g);}}
 const flyItem=new THREE.Group(); scene.add(flyItem); flyItem.visible=false;
 const flyRock=shadow(new THREE.Mesh(rockGeo(1610),M.stone)); flyRock.scale.setScalar(.06); flyRock.visible=false; scene.add(flyRock);
 const flyBox=makeContainer(); flyBox.visible=false; scene.add(flyBox);
@@ -1712,7 +1719,7 @@ Object.assign(S,{
     {cam:close(TG.stoveTop,{dist:1.0,h:.55}),dur:2.6,say:'보글보글, 물이 끓기 시작한다.',up(k){steamK=.6+k*.4;},end(){go('drink');}},
   ]); },
   drink(){ let from; play([
-    {at:[TG.cup,{from:FROM.cup,d:.7},{dist:1.7,h:1.25,ly:1.15}],dur:2.6,say:'벽 나무 지지대에 걸어 둔 굴 껍데기 잔을 꺼낸다.',pose:'reach',fn(){from=cupMesh.position.clone();},up(k){if(k>.4){fly(cupMesh,from,handW(),segK(k,.4,1),.05);cupMesh.rotation.set(0,0,-1*(1-segK(k,.4,1)));}}},
+    {at:[TG.cup,{from:FROM.cup,d:.7},{dist:1.7,h:1.25,ly:1.15}],dur:2.6,say:'벽 나무 지지대에 걸어 둔 굴 껍데기 잔을 꺼낸다.',pose:'reach',fn(){from=cupMesh.position.clone();},up(k){if(k>.4){fly(cupMesh,from,handW(),segK(k,.4,1),.05);cupMesh.rotation.set((Math.PI/2-.45)*(1-segK(k,.4,1)),0,0);}}},
     {at:[TG.stoveTop,{from:FROM.stove,d:.8},{dist:1.4,h:1.15}],dur:3.2,say:'끓인 물을 굴 껍데기에 따른다.',pose:'reach',fn(){cupMesh.position.set(-1.95,.92,5.95);cupMesh.rotation.set(0,0,0);burst(1200,'bandpass',.1,1.2);},up(k){const a=V(-2.05,1.02,5.86),b=V(-1.95,.94,5.95);potOnStove.rotation.z=-Math.sin(segK(k,0,.25)*Math.PI/2)*.6*(k<.85?1:0);potOnStove.position.set(-2.12+Math.sin(segK(k,0,.25)*Math.PI/2)*.08*(k<.85?1:0),.87,5.82);stream.visible=k>.2&&k<.85;streamBetween(a,b);},end(){stream.visible=false;potOnStove.rotation.z=0;potOnStove.position.set(-2.12,.87,5.82);}},
     {cam:()=>faceCam({d:1.6,h:1.5,ly:1.35}),dur:2.6,say:'따뜻한 물을 한 모금 마신다.',pose:'mouth',fn(){cupMesh.visible=false;heldShell.visible=true;}},
     {dur:3.8,say:'목구멍을 타고 내려가는 온기가 밤새 굳어 있던 몸을 부드럽게 깨운다.',pose:'stand',end(){heldShell.visible=false;cupMesh.visible=true;cupMesh.position.copy(cupMesh.userData.home);cupMesh.rotation.copy(cupMesh.userData.rot);go('exit');}},
@@ -1753,7 +1760,7 @@ Object.assign(S,{
   ],()=>hint('이어서 큰 들통에 물을 받아 도토리를 불려 두자.',3.5)); },
   e2_bucket(){ const h0=bucket.userData.home; play([{at:[TG.bucket,{from:FROM.bucket,d:.75},{dist:1.7,h:1.3}],dur:2.4,say:'큰 들통을 챙겨 든다.',pose:'reach',up(k){const w=handW();bucket.position.copy(h0.clone().lerp(V(w.x,w.y-.45,w.z),ease(segK(k,.3,1))));},end(){go('e2_water');}}],()=>hint('냇가로 가서 물을 받자.',3)); },
   e2_water(){ play([{at:[V(WASH.x,WASH.y+.2,WASH.z),{from:[0,-1],d:.7},{dist:2,h:1.4}],dur:3.4,say:'차가운 냇물을 들통 가득 받는다.',pose:'crouch',fn(){splash();bucketWater.visible=true;},up(k){bucketWater.position.y=.04+.32*segK(k,.1,.9);},end(){bucketWater.position.y=.36;go('e2_soak');}}],()=>hint('숙소로 돌아가 들통을 내려놓자.',3)); },
-  e2_potato(){ const T=V(2.0,.1,5.85),pots=potFill.children.slice(3),src=wpos(homeBoxes[2]).add(V(0,.15,0)); play([
+  e2_potato(){ const T=V(.4,.1,5.85),pots=potFill.children.slice(3),src=wpos(homeBoxes[2]).add(V(0,.15,0)); play([
     {at:[T,{from:FROM.boxes,d:.75},{dist:1.35,h:1.2}],dur:4.2,say:'작은 스텐 냄비 바닥에 물을 살짝만 붓고, 돼지감자들을 채워 넣는다.',pose:'reachLoop',fn(){potOnStove.visible=false;potFill.visible=true;pots.forEach(p=>{p.visible=false;p.userData.home=p.position.clone();});flyRock.visible=true;},up(k){const N=pots.length,i=Math.min(N-1,Math.floor(k*N)),f=(k*N)%1;pots.forEach((p,j)=>p.visible=j<i||(j===i&&f>.88));fly(flyRock,src,wpos(pots[i]),f,.15);flyRock.visible=f<.88;},end(){flyRock.visible=false;pots.forEach(p=>p.visible=true);}},
     {cam:close(T,{dist:.8,h:.6}),dur:2,say:'뚜껑을 닫는다.',fn(){clack();},end(){go('e2_roast');}},
   ],()=>hint('난로 철문을 열고 냄비를 안쪽 구석에 밀어 넣자.',3.5)); },
@@ -2006,8 +2013,193 @@ Object.assign(S,{
     {cam:C([6,3,22],[0,1.4,12],[8,4,25],[0,1.4,12]),dur:5,say:'세상이 멸망한 지 50년.',up(k){breathStep(seq.t,true);},end(){breathStep(0,false);}},
   ],()=>{go('end5');showEnd(5);}); },
 });
+/* ================= EP.6 world: 바다·포구·제철소·시청·기념품 가게·방파제·오르골 ================= */
+let birds,millGroup,cityMap,mapMarks=[],giftBox,giftWrap,musselGroup=[],musselPot,musselShells=[],musselBroth,musicBox,mbLid,mbCyl,mbCrank,sprouts,foundry,groundArrow;
+{
+  const _r=rand; rand=mulberry32(6006);
+  const rustM=std({map:T.rust,color:0x8a5a40,roughness:.85,metalness:.3}), darkRust=std({color:0x4a3a30,roughness:.9,metalness:.2});
+  /* 포구: 무너진 선착장, 갯벌에 반쯤 묻힌 어선 */
+  { const pc=std({map:T.concrete,color:0xb8b2a6,roughness:.95});
+    for(let i=0;i<9;i++){ if(i===5) continue; const z=-141-i*3.2; box(3,.35,3.1,pc,HARB.x,.25-(i>5?.6:0),z,{}); const p=shadow(new THREE.Mesh(new THREE.CylinderGeometry(.25,.3,4,8),pc)); p.position.set(HARB.x+(i%2?1.2:-1.2),-1.6,z); scene.add(p); }
+    const broken=box(3,.35,3,pc,HARB.x+.6,-.9,-157,{}); broken.rotation.set(.35,.2,.25);
+    const hullShape=new THREE.Shape([new THREE.Vector2(-1.3,0),new THREE.Vector2(1.3,0),new THREE.Vector2(1.6,1.0),new THREE.Vector2(-1.6,1.0)]);
+    [[HARB.x-9,-149.5,.5,.35],[HARB.x+8,-151,-.8,-.28],[HARB.x-3,-154,2.2,.42]].forEach(([x,z,ry,rz],i)=>{
+      const g=new THREE.Group(); g.position.set(x,terrainH(x,z)-.45,z); g.rotation.set(0,ry,rz); scene.add(g);
+      const hull=shadow(new THREE.Mesh(new THREE.ExtrudeGeometry(hullShape,{depth:6.5,bevelEnabled:false}),rustM)); hull.position.z=-3.25; g.add(hull);
+      const bow=shadow(new THREE.Mesh(new THREE.ConeGeometry(1.5,2.2,4),rustM)); bow.rotation.set(Math.PI/2,0,Math.PI/4); bow.scale.set(1,1,.6); bow.position.set(0,.55,4.3); g.add(bow);
+      box(1.6,1.2,1.8,i===1?darkRust:std({color:0x9aa6a8,roughness:.8}),0,1.0,-1.2,{parent:g});
+      const mast=shadow(new THREE.Mesh(new THREE.CylinderGeometry(.05,.06,3,6),darkRust)); mast.position.set(0,2.6,.6); mast.rotation.z=.15; g.add(mast); });
+    const sg=new THREE.Mesh(new THREE.PlaneGeometry(3.2,.8),std({map:signTex('어촌계 포구','선착장',' #6a7a82'.trim(),'#f0ece0',34),roughness:.9})); sg.position.set(HARB.x-3.5,1.6,-139.6); sg.rotation.set(0,Math.PI,.08); scene.add(sg);
+    box(.1,1.6,.1,M.iron,HARB.x-4.8,0,-139.6,{}); box(.1,1.6,.1,M.iron,HARB.x-2.2,0,-139.6,{}); }
+  /* 철새 떼 */
+  { birds=new THREE.Group(); scene.add(birds); const bm=new THREE.MeshBasicMaterial({color:0x2a2a2e,side:THREE.DoubleSide});
+    for(let i=0;i<26;i++){const g=new THREE.Group();for(const s of [-1,1]){const w=new THREE.Mesh(new THREE.PlaneGeometry(.55,.12),bm);w.position.x=s*.26;w.rotation.z=s*.35;g.add(w);}g.userData={o:V(R(-14,14),R(-2,4),R(-6,6)),ph:rand()*6};birds.add(g);} birds.visible=false; }
+  /* 바다 건너 제철소 */
+  { millGroup=new THREE.Group(); const x0=MILL.x,z0=MILL.z,y0=terrainH(x0,z0); millGroup.position.set(x0,y0-1,z0); scene.add(millGroup);
+    for(let i=0;i<3;i++){const t=new THREE.Mesh(new THREE.CylinderGeometry(4,5,34,14),darkRust);t.position.set(-22+i*16,17,0);millGroup.add(t);const c=new THREE.Mesh(new THREE.ConeGeometry(4.2,8,14),darkRust);c.position.set(-22+i*16,38,0);millGroup.add(c);const pipe=new THREE.Mesh(new THREE.CylinderGeometry(.9,.9,26,8),darkRust);pipe.position.set(-18+i*16,26,4);pipe.rotation.z=.6;millGroup.add(pipe);}
+    for(let i=0;i<7;i++){const h=R(45,68);const c=new THREE.Mesh(new THREE.CylinderGeometry(1.1,1.6,h,10),darkRust);c.position.set(-40+i*13+R(-2,2),h/2,R(-14,-8));millGroup.add(c);}
+    for(let i=0;i<5;i++){const w=R(18,36),hh=R(10,20);const b=new THREE.Mesh(new THREE.BoxGeometry(w,hh,R(14,26)),darkRust);b.position.set(-50+i*24,hh/2,R(10,22));millGroup.add(b);}
+    const gantry=new THREE.Mesh(new THREE.BoxGeometry(70,2,2),darkRust); gantry.position.set(0,28,-4); millGroup.add(gantry); }
+  /* 쇳물 상상 장면 */
+  { const FX=1500,FZ=800; foundry=V(FX,0,FZ);
+    const fl=new THREE.Mesh(new THREE.PlaneGeometry(14,14),std({color:0x1a1410,roughness:1})); fl.rotation.x=-Math.PI/2; fl.position.set(FX,0,FZ); scene.add(fl);
+    const pool=new THREE.Mesh(new THREE.CircleGeometry(1.6,28),new THREE.MeshBasicMaterial({color:0xff7a1a})); pool.rotation.x=-Math.PI/2; pool.position.set(FX,.05,FZ); scene.add(pool);
+    const crucible=shadow(new THREE.Mesh(lathe([[0,0],[1.7,0],[1.9,.6],[1.8,.7],[1.65,.25],[0,.2]],28),darkRust)); crucible.position.set(FX,0,FZ); scene.add(crucible);
+    const stream2=new THREE.Mesh(new THREE.CylinderGeometry(.18,.25,4,10),new THREE.MeshBasicMaterial({color:0xffa040})); stream2.position.set(FX+.4,2.2,FZ); stream2.rotation.z=.15; scene.add(stream2);
+    const ladle=shadow(new THREE.Mesh(lathe([[0,0],[1,0],[1.2,.9],[1.1,1]],20),darkRust)); ladle.position.set(FX+.9,4,FZ); ladle.rotation.z=1.0; scene.add(ladle);
+    const fl2=new THREE.PointLight(0xff7a2a,30,18,1.4); fl2.position.set(FX,2,FZ); scene.add(fl2);
+    const ingot=std({color:0x6a6a70,roughness:.4,metalness:.9}); for(let i=0;i<5;i++) box(.8,.25,.35,ingot,FX+3+i*.3,0+(i>2?.25:0),FZ+2.4-(i%3)*.4,{}); }
+  /* 시청: 어두운 로비의 거대한 금속 안내 지도 */
+  ruin(CITY.x,CITY.z,16,11,9.6,'s',{door:3.2,ext:M.concrete});
+  { const sg=new THREE.Mesh(new THREE.PlaneGeometry(4,1),std({map:signTex('시 청','CITY HALL','#5a5e62','#efe9dc',30),roughness:.9})); sg.position.set(CITY.x,4.2,CITY.z+5.72); scene.add(sg);
+    const fl=new THREE.Mesh(new THREE.PlaneGeometry(15.4,10.4),std({map:T.tile,color:0x8a867e,roughness:.85})); fl.rotation.x=-Math.PI/2; fl.position.set(CITY.x,.015,CITY.z); fl.receiveShadow=true; scene.add(fl);
+    for(let i=0;i<30;i++){const r=shadow(new THREE.Mesh(rockGeo(1700+i),M.concrete));const sc=R(.08,.3);r.scale.setScalar(sc);r.position.set(CITY.x+R(-7,7),sc*.3,CITY.z+R(-4.5,4.5));scene.add(r);}
+    const mapTex=canvasTex(512,320,(g,w,h)=>{const gr=g.createLinearGradient(0,0,w,h);gr.addColorStop(0,'#8c9298');gr.addColorStop(1,'#6a7076');g.fillStyle=gr;g.fillRect(0,0,w,h);
+      g.fillStyle='#4a6a82';g.fillRect(0,0,w,70);g.beginPath();g.moveTo(330,70);g.bezierCurveTo(320,150,345,230,330,320);g.lineTo(370,320);g.bezierCurveTo(385,230,360,150,372,70);g.fill();
+      g.strokeStyle='#d8d4c8';g.lineWidth=5;g.beginPath();g.moveTo(20,215);g.lineTo(500,215);g.stroke();g.beginPath();g.moveTo(400,215);g.lineTo(400,80);g.lineTo(500,80);g.stroke();g.beginPath();g.moveTo(80,215);g.lineTo(80,120);g.stroke();
+      g.fillStyle='#2a2e32';g.font='800 22px "Malgun Gothic",sans-serif';g.fillText('시내 안내도',14,300);
+      const pin=(x,y,t)=>{g.fillStyle='#b8261c';g.beginPath();g.arc(x,y,8,0,6.28);g.fill();g.fillStyle='#1e2226';g.font='700 14px "Malgun Gothic",sans-serif';g.fillText(t,x+11,y+5);};
+      pin(100,240,'섬진강 휴게소');pin(350,200,'섬진강교');pin(430,95,'포구');pin(470,30,'제철소');pin(440,180,'시청');pin(200,150,'저수지');pin(250,265,'변전소');pin(150,60,'곡물 창고');
+      blotch(g,w,h,30,'60,58,52',8,30,.35);blotch(g,w,h,16,'200,196,186',6,20,.2);});
+    cityMap=new THREE.Mesh(new THREE.PlaneGeometry(5.2,3.25),std({map:mapTex,metalness:.75,roughness:.35,envMap:envTex,envMapIntensity:.6})); cityMap.position.set(CITY.x,2.3,CITY.z-5.2); scene.add(cityMap);
+    box(5.5,3.5,.12,M.alu,CITY.x,.55,CITY.z-5.3,{});
+    const lt=new THREE.PointLight(0xc8d0d8,6,12,1.4); lt.position.set(CITY.x,4,CITY.z-1); scene.add(lt);
+    for(const [mx,my] of [[-1.85,.25],[.25,.1],[-.82,-.55],[.38,-.14],[-1.3,.36]]){const m=new THREE.Mesh(new THREE.CircleGeometry(.07,14),new THREE.MeshBasicMaterial({color:0xff5030,transparent:true,opacity:0}));m.position.set(CITY.x+mx+.65,2.3+my,CITY.z-5.18);scene.add(m);mapMarks.push(m);} }
+  /* 기념품 가게 (상가 거리의 낡은 건물) */
+  { const sg=new THREE.Mesh(new THREE.PlaneGeometry(3.2,.8),std({map:signTex('기념품','섬진강 특산품 · 선물',' #c7b98e'.trim(),'#5a2a1a',34),roughness:.9,side:THREE.DoubleSide})); sg.position.set(GIFT_SHOP.x-.8,2.6,GIFT_SHOP.z+5.15); sg.rotation.set(0,0,.55); scene.add(sg);
+    const disp=new THREE.Group(); disp.position.set(GIFT.x,0,GIFT.z); disp.rotation.set(0,.3,.35); scene.add(disp); box(2.2,.9,.6,M.wood,0,0,0,{parent:disp});
+    for(let i=0;i<14;i++){const s=shadow(new THREE.Mesh(new THREE.BoxGeometry(R(.08,.2),R(.08,.2),R(.08,.2)),std({color:[0x8a6a48,0x5a7a8a,0xc8b890,0x7a4a3a][i%4],roughness:.8})));s.position.set(GIFT.x+R(-1.5,1.5),.05,GIFT.z+R(-1,1.2));s.rotation.set(rand(),rand()*3,rand());scene.add(s);}
+    giftBox=new THREE.Group(); giftBox.position.set(GIFT.x+.3,.06,GIFT.z+.7); scene.add(giftBox);
+    box(.16,.1,.11,std({map:T.wood,color:0xb08a5a,roughness:.6}),0,0,0,{parent:giftBox});
+    giftWrap=new THREE.Mesh(new THREE.BoxGeometry(.19,.13,.14),std({color:0xe8eef2,roughness:.05,transparent:true,opacity:.35})); giftWrap.position.y=.05; giftBox.add(giftWrap); }
+  /* 하구 방파제와 홍합 */
+  { const bc=std({map:T.concrete,color:0xa8a49a,roughness:1});
+    for(let i=0;i<9;i++){const x=BREAK.x-5+i*1.3,z=-147.5+Math.sin(i)*.4;const b=shadow(new THREE.Mesh(rockGeo(1800+i,1),bc));b.scale.set(.9,.75,.9);b.position.set(x,terrainH(x,z)+.2,z);scene.add(b);
+      const g=new THREE.Group();g.position.set(x,terrainH(x,z)+.05,z+.55);scene.add(g);const mm=std({color:0x1c2030,roughness:.35,metalness:.2});for(let k=0;k<10;k++){const m=new THREE.Mesh(new THREE.SphereGeometry(.05,8,6),mm);m.scale.set(.6,1,1.6);m.position.set(R(-.5,.5),R(0,.35),R(-.15,.1));m.rotation.set(rand(),rand()*3,0);g.add(m);}musselGroup.push(g);} }
+  /* 보리 새싹 (EP.6부터) */
+  { const sm=std({color:0x7a9a3a,roughness:1,side:THREE.DoubleSide}); const parts=[];
+    for(const x of [FCX-1,FCX,FCX+1]) for(let z=FLD.z0+.6;z<FLD.z1-.4;z+=.12){const p=new THREE.PlaneGeometry(.012,.07);p.translate(0,.035,0);p.rotateZ(R(-.3,.3));p.rotateY(rand()*3);p.translate(x+R(-.02,.02),.326,z);parts.push(p);}
+    sprouts=new THREE.Mesh(mergeGeometries(parts),sm); scene.add(sprouts); sprouts.visible=false; }
+  /* 홍합탕 냄비 */
+  { musselPot=makePot(.2,.2,false); musselPot.position.set(-2.22,.87,5.82); scene.add(musselPot);
+    musselBroth=new THREE.Mesh(new THREE.CircleGeometry(.19,22),std({color:0x7a8a90,roughness:.2})); musselBroth.rotation.x=-Math.PI/2; musselBroth.position.y=.12; musselPot.add(musselBroth);
+    const sh=std({color:0x1c2030,roughness:.3,metalness:.2,side:THREE.DoubleSide}),meat=std({color:0xe08a3a,roughness:.6});
+    for(let i=0;i<10;i++){const g=new THREE.Group();const a=i/10*6.28,r=R(.04,.13);g.position.set(Math.cos(a)*r,.135,Math.sin(a)*r);g.rotation.y=rand()*6;
+      for(const s of [-1,1]){const h=new THREE.Mesh(new THREE.SphereGeometry(.03,8,6,0,Math.PI*2,0,Math.PI/2),sh);h.scale.set(.6,.35,1.5);h.rotation.z=s*Math.PI/2;h.userData.s=s;g.add(h);}
+      const m=new THREE.Mesh(new THREE.SphereGeometry(.018,6,4),meat);m.scale.set(1,.6,1.8);g.add(m);musselPot.add(g);musselShells.push(g);} }
+  /* 나무 오르골 */
+  { musicBox=new THREE.Group(); musicBox.position.set(-1.45,.02,7.05); scene.add(musicBox);
+    const wm=std({map:T.wood,color:0xb08a5a,roughness:.55});
+    box(.18,.08,.12,wm,0,0,0,{parent:musicBox});
+    mbLid=new THREE.Group(); mbLid.position.set(0,.08,-.06); musicBox.add(mbLid); const ld=shadow(new THREE.Mesh(new THREE.BoxGeometry(.18,.015,.12),wm)); ld.position.set(0,.007,.06); mbLid.add(ld);
+    mbCyl=new THREE.Mesh(new THREE.CylinderGeometry(.018,.018,.11,14),std({color:0xc9a85a,roughness:.3,metalness:.9})); mbCyl.rotation.z=Math.PI/2; mbCyl.position.set(0,.065,.01); musicBox.add(mbCyl);
+    const comb=new THREE.Mesh(new THREE.BoxGeometry(.1,.004,.03),M.steel); comb.position.set(0,.075,-.025); musicBox.add(comb);
+    mbCrank=new THREE.Group(); mbCrank.position.set(.095,.04,0); musicBox.add(mbCrank); const ck=new THREE.Mesh(new THREE.BoxGeometry(.004,.04,.008),M.steel); ck.position.y=.02; mbCrank.add(ck); const kn=new THREE.Mesh(new THREE.CylinderGeometry(.006,.006,.012,8),M.wood); kn.rotation.z=Math.PI/2; kn.position.set(.008,.04,0); mbCrank.add(kn); }
+  /* 바닥 길잡이 화살표 */
+  { const s=new THREE.Shape(); s.moveTo(0,.62); s.lineTo(.34,.16); s.lineTo(.12,.16); s.lineTo(.12,-.42); s.lineTo(-.12,-.42); s.lineTo(-.12,.16); s.lineTo(-.34,.16); s.closePath();
+    const gGeo=new THREE.ShapeGeometry(s); gGeo.rotateX(Math.PI/2);
+    groundArrow=new THREE.Group(); scene.add(groundArrow);
+    const fill=new THREE.Mesh(gGeo,new THREE.MeshBasicMaterial({color:0xffb050,transparent:true,opacity:.9,side:THREE.DoubleSide,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-8,polygonOffsetUnits:-8})); groundArrow.add(fill);
+    const edge=new THREE.Mesh(gGeo,new THREE.MeshBasicMaterial({color:0x1a1208,transparent:true,opacity:.55,side:THREE.DoubleSide,depthWrite:false})); edge.scale.setScalar(1.18); edge.position.y=-.005; groundArrow.add(edge);
+    groundArrow.renderOrder=5; groundArrow.visible=false; }
+  rand=_r;
+}
+function stepBirds(t){if(!birds.visible)return;birds.position.set(HARB.x-40+((t*6)%90),14+Math.sin(t*.3)*2,-160+Math.sin(t*.2)*6);birds.children.forEach((b,i)=>{const o=b.userData.o;b.position.set(o.x+Math.sin(t*.7+i)*.6,o.y+Math.sin(t*1.3+i)*.4,o.z);const f=Math.sin(t*9+b.userData.ph)*.5;b.children[0].rotation.z=-.35-f;b.children[1].rotation.z=.35+f;b.rotation.y=Math.PI/2;});}
+/* 오르골 멜로디 (직접 만든 짧은 선율, Web Audio로 합성) */
+let mbTimer=null;
+function musicBoxPlay(on){ if(mbTimer){clearTimeout(mbTimer);mbTimer=null;} if(!on||!AC) return;
+  const N={C5:523.25,D5:587.33,E5:659.25,G5:783.99,A5:880,B5:987.77,C6:1046.5,D6:1174.66,E6:1318.5,G4:392,A4:440};
+  const tune=[['E5',1],['G5',1],['C6',2],['B5',1],['G5',1],['A5',2],['G5',1],['E5',1],['D5',2],['E5',1],['G5',1],['A5',1],['C6',1],['D6',2],['C6',1],['A5',1],['G5',2],['E5',1],['D5',1],['C5',3],['G4',1]];
+  let t=AC.currentTime+.05; const beat=.36;
+  for(const [n,d] of tune){ const f=N[n]; for(const [mul,vol] of [[1,.09],[2.01,.025],[3.0,.01]]){const o=AC.createOscillator(),g=AC.createGain();o.type='sine';o.frequency.value=f*mul;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(vol,t+.006);g.gain.exponentialRampToValueAtTime(.0001,t+1.6);o.connect(g).connect(master);o.start(t);o.stop(t+1.7);} t+=d*beat; }
+  mbTimer=setTimeout(()=>musicBoxPlay(true),(t-AC.currentTime+.8)*1000); }
+function ep6Visuals(){
+  const s=SI(stage),e6=s>=SI('e6_intro');
+  sprouts.visible = e6 && ridge.visible;
+  birds.visible = e6 && s<=SI('e6_mill');
+  mapMarks.forEach(m=>m.material.opacity=0);
+  giftBox.visible = !(e6 && s>SI('e6_gift')); giftWrap.visible=true;
+  musselGroup.forEach(g=>{g.visible=!(e6&&s>SI('e6_mussel'));g.scale.setScalar(1);});
+  musselPot.visible = e6 && s>=SI('e6_cook') && s<=SI('e6_eat'); musselShells.forEach(g=>g.children.forEach(c=>{if(c.userData.s)c.rotation.z=c.userData.s*Math.PI/2;}));
+  musselBroth.material.color.setHex(s>SI('e6_cook')?0xe6e2d6:0x7a8a90);
+  musicBox.visible = e6 && s>=SI('e6_box'); mbLid.rotation.x=s>SI('e6_box')?-1.7:0;
+  if(e6){ if(musselPot.visible){ potOnStove.visible=false; } }
+  if(!(s>=SI('e6_box'))) musicBoxPlay(false);
+}
+const _applyVisuals2=applyVisuals; applyVisuals=function(){_applyVisuals2();ep6Visuals();};
+/* ---------- EP.6 「과거의 오르골」 ---------- */
+function introEP6(){
+  bigText('EP.6<small>「과거의 오르골」</small>');
+  if(cart.attached) detachCart(); cart.x=-1.7;cart.z=15.6;cart.yaw=0;cart.y=0;cart.pitch=0;placeCart();
+  player.pos.set(-.5,0,15); player.y=0; player.theta=Math.PI; tod.t=TOD.e6_intro;
+  const at=(x,z,th)=>{player.pos.set(x,0,z);player.y=groundH(x,z,0);player.pos.y=player.y;player.theta=th;};
+  play([
+    {cam:C([9,3.5,27],[0,1.5,9],[7,3.2,24],[0,1.4,9]),cut:true,dur:3.6,say:'세상이 멸망한 지 50년.'},
+    {cam:C([5,2.2,22],[-1,1.4,15],[3.5,2,20],[-1,1.4,15]),dur:3.8,say:'겨울바람 속에서 바쁜 일상이 빠르게 흘러간다.',pose:'stand'},
+    {cam:C([150,6.6,-48.6],[152,4,-50.5],[153,6.4,-48.6],[155,4,-50.5]),cut:true,dur:4,say:'강가에 걸어 둔 낚시 채비를 확인하고,',pose:'reach',fn(){at(151.5,-48.7,Math.PI);}},
+    {cam:C([FCX-2.5,1.4,FCZ+3],[FCX,.3,FCZ],[FCX-2,1.2,FCZ+2.2],[FCX,.3,FCZ]),cut:true,dur:4,say:'정성껏 일궈 낸 보리밭의 흙 상태를 살피며,',pose:'crouch',fn(){at(FLD.x0-.2,FCZ,Math.PI/2);}},
+    {cam:C([SNAGS[1].x+5,SNAGS[1].y+3,SNAGS[1].z+6],[SNAGS[1].x,SNAGS[1].y+1,SNAGS[1].z]),cut:true,dur:4,say:'뒷산에 올라 겨울을 버텨 낼 땔감을 부지런히 나른다.',pose:'reachLoop',fn(){at(SNAGS[1].x+1.5,SNAGS[1].z+1.5,Math.PI);}},
+    {cam:C([226,4,-50],[238,1.5,-44],[229,3.5,-49],[240,1.5,-44]),cut:true,dur:6.5,say:'정비를 마쳐 한결 부드러워진 리어카를 끌고 시내로 내려가, 유리로 밀봉된 소금과 굳은 설탕, 쓸 만한 칼과 도구들을 챙겨 오고,',pose:'stand',fn(){at(236,-44,-Math.PI/2);}},
+    {cam:C([WASH.x+2,WASH.y+1.6,WASH.z-2.5],[WASH.x,WASH.y,WASH.z]),cut:true,dur:5,say:'개울물을 길어다 깨끗이 여과한 다음, 끓여서 대형 들통에 채워 넣기까지—',pose:'crouch',fn(){at(WASH.x,WASH.z-.7,0);}},
+    {cam:C([-8.5,2.6,15.5],[-3.3,1.4,9]),cut:true,dur:4.2,say:'다가올 혹한을 대비한 월동 준비는 차근차근 진행되고 있다.',pose:'stand',fn(){at(-4.6,11,Math.PI);}},
+    {cam:()=>faceCam({d:2,h:1.5}),cut:true,dur:4.8,say:'한숨 돌릴 여유가 생긴 오늘은, 가벼운 마음으로 주변 지형을 둘러보기로 한다.',fn(){at(-.5,15.5,Math.PI*.8);}},
+  ],()=>hint('섬진강교를 건너 해안도로로 나가 보자. (바닥의 화살표 방향)',4));
+}
+Object.assign(S,{
+  e6_coast(){ play([
+    {cam:C([COAST.x-6,3,COAST.z+10],[COAST.x+8,.5,COAST.z-8],[COAST.x-4,2.6,COAST.z+8],[COAST.x+10,.5,COAST.z-10]),dur:5,say:'섬진강 휴게소를 나서, 강물이 바다와 만나는 해안도로를 따라 천천히 발걸음을 옮긴다.'},
+    {cam:C([HARB.x+9,4,-133],[HARB.x,0,-150],[HARB.x+7,3.5,-134],[HARB.x,0,-152]),cut:true,dur:4.6,say:'얼마 지나지 않아, 세월에 무너져 내린 포구의 낡은 선착장이 시야에 들어온다.'},
+    {cam:C([HARB.x-14,2,-142],[HARB.x-6,-.6,-151],[HARB.x-13,1.8,-143.5],[HARB.x-4,-.6,-152]),cut:true,dur:4.6,say:'주인 잃은 어선들은 갯벌에 반쯤 파묻힌 채 붉은 녹을 토해 내고,'},
+    {cam:C([HARB.x+.5,2.4,-142],[HARB.x-4,13,-166],[HARB.x+.5,2.6,-143],[HARB.x+8,14,-166]),cut:true,dur:5.2,say:'차갑게 불어오는 하구의 바람을 타고, 철새 떼가 잿빛 하늘을 가로질러 날아오른다.',fn(){birds.visible=true;}},
+    {cam:C([HARB.x+4,7,-128],[HARB.x+10,0,-175]),dur:4.8,say:'인류의 시간은 멈춰 버렸지만, 거대한 자연은 여전히 완벽하게 숨 쉬고 있다.',end(){go('e6_mill');}},
+  ],()=>hint('해안도로를 따라 동쪽으로 더 걸어가 보자.',3.5)); },
+  e6_mill(){ play([
+    {cam:()=>faceCam({d:2.2,h:1.6}),dur:4,say:'입맛을 다시며 해안도로를 따라 한참을 더 걸어 나가자,'},
+    {cam:C([MILLVIEW.x-3,2.2,MILLVIEW.z+4],[MILL.x,30,MILL.z],[MILLVIEW.x-2.5,2,MILLVIEW.z+3],[MILL.x,26,MILL.z]),dur:5,say:'탁 트인 바다 건너편으로, 거대한 제철소의 녹슨 실루엣이 거인처럼 웅크리고 있다.'},
+    {cam:C([MILLVIEW.x+1,1.8,MILLVIEW.z+1],[MILL.x-20,45,MILL.z],[MILLVIEW.x+1.5,1.7,MILLVIEW.z+.5],[MILL.x+20,40,MILL.z]),dur:4,say:'수없이 솟아오른 굴뚝과 거대한 고로들을 바라보자,'},
+    {cam:C([foundry.x+4,3,foundry.z+5],[foundry.x,1.2,foundry.z],[foundry.x+3,2.4,foundry.z+3.6],[foundry.x,1.2,foundry.z]),cut:true,filter:'dream',focus:foundry,dur:5.4,say:'문득 뜨거운 쇳물을 녹여 내고, 단단한 철을 직접 만들어 내는 상상이 머릿속을 스친다.',end(){setFilter('');go('e6_city');}},
+  ],()=>hint('해안가를 벗어나 시내 안쪽의 시청으로 가 보자.',3.5)); },
+  e6_city(){ play([
+    {cam:C([CITY.x-10,3,CITY.z+28],[CITY.x,3,CITY.z+12],[CITY.x-8,2.6,CITY.z+24],[CITY.x,3,CITY.z+10]),dur:4.4,say:'해안가를 벗어나, 고요한 시내 안쪽으로 천천히 걸어 들어간다.'},
+    {cam:C([CITY.x+9,2.2,CITY.z+17],[CITY.x,5,CITY.z],[CITY.x+7,2,CITY.z+15],[CITY.x,5.5,CITY.z]),dur:5,say:'부서진 건물들 사이를 거닐던 중, 도심 한가운데 우뚝 선 낡은 시청 건물이 눈에 들어온다.'},
+    {cam:()=>faceCam({d:2,h:1.6}),dur:5,say:'며칠 전 시내에서 물건을 수집하다 우연히 저 안에서 발견했던 것이 떠올라, 다시 발걸음을 옮긴다.',end(){go('e6_map');}},
+  ],()=>hint('어두운 로비 안쪽의 안내 지도로 가 보자.',3)); },
+  e6_map(){ const T=V(CITY.x,1.6,CITY.z-5.15); play([
+    {cam:C([CITY.x+4,1.6,CITY.z+4.5],[CITY.x-1,1.2,CITY.z-2]),dur:3.6,say:'바닥의 잔해를 밟으며 어두운 로비 안으로 들어서자,',fn(){mark(T,{pos:[CITY.x+.3,CITY.z+1.5]});for(let i=0;i<3;i++)setTimeout(()=>burst(900,'bandpass',.12,.1),i*500);}},
+    {cam:C([CITY.x+2.6,1.8,CITY.z],[CITY.x,2.2,CITY.z-5.2],[CITY.x+2,1.9,CITY.z-.6],[CITY.x,2.3,CITY.z-5.2]),dur:5,say:'벽면 한가운데 박혀 있는 거대한 금속 안내 지도가, 차가운 빛을 반사하며 모습을 드러낸다.'},
+    {at:[T,{pos:[CITY.x+.5,CITY.z-4.3]},{dist:1.6,h:1.7,ly:1.7}],dur:5,say:'손끝으로 먼지를 쓸어 내며, 지도 위에 표시된 특정 장소들을 하나하나 짚어 내려간다.',pose:'reachLoop',up(k){mapMarks.forEach((m,i)=>{const f=segK(k,i*.16,i*.16+.3);m.material.opacity=f>0?.6+.4*Math.sin(seq.t*6+i):0;});}},
+    {cam:C([CITY.x+1.2,2.1,CITY.z-2.6],[CITY.x,2.3,CITY.z-5.2]),dur:4.6,say:'앞으로의 생존과 재건을 위해 들러야 할 핵심 거점들을, 머릿속에 다시 한번 각인시킨다.',up(k){mapMarks.forEach((m,i)=>m.material.opacity=.7+.3*Math.sin(seq.t*4+i));},end(){go('e6_shop');}},
+  ],()=>hint('시청을 나와 상가 거리를 걸어 보자.',3)); },
+  e6_shop(){ play([
+    {cam:C([GIFT_SHOP.x+7,2.2,GIFT_SHOP.z+13],[GIFT_SHOP.x-.5,2.4,GIFT_SHOP.z+5],[GIFT_SHOP.x+5.5,2,GIFT_SHOP.z+11.5],[GIFT_SHOP.x-.8,2.4,GIFT_SHOP.z+5]),dur:5.4,say:'시청을 빠져나와 부서진 상가 거리를 걷던 중, 간판이 반쯤 떨어진 오래된 기념품 가게가 눈에 들어온다.',end(){go('e6_gift');}},
+  ],()=>hint('무너진 진열대 사이를 뒤져 보자.',3)); },
+  e6_gift(){ const T=V(giftBox.position.x,.1,giftBox.position.z); let b0; play([
+    {at:[T,{d:.8},{dist:1.6,h:1.2}],dur:5,bar:'진열대 사이 뒤지는 중…',say:'무너진 진열대 사이를 조심스레 뒤지다가, 먼지 더미 속에서 플라스틱으로 밀봉된 작은 나무 상자를 발견한다.',pose:'reachLoop',fn(){rustle();setTimeout(rustle,900);b0=giftBox.position.clone();}},
+    {cam:()=>handCam({fc:.55,r:.45,h:1.35,ly:1.0}),dur:4,say:'포장 너머로 보이는 건, 손바닥만 한 나무 오르골이다.',pose:'hold',up(k){giftBox.position.copy(handW()).add(V(0,-.02,0));}},
+    {cam:()=>faceCam({d:1.9}),dur:3.6,say:'망설임 없이 배낭에 챙겨 넣고 발걸음을 돌린다.',pose:'reach',up(k){if(k<.5)giftBox.position.copy(handW());else giftBox.visible=false;},end(){giftBox.position.copy(b0);toast('+ 나무 오르골');go('e6_mussel');}},
+  ],()=>hint('돌아가는 길, 하구의 방파제 쪽으로 가 보자.',3.5)); },
+  e6_mussel(){ const T=V(BREAK.x,0,-147.2); T.y=terrainH(T.x,T.z)+.3; let src; play([
+    {cam:C([BREAK.x-6,1.8,-140],[BREAK.x,-.2,-147.5],[BREAK.x-5,1.6,-141],[BREAK.x+1,-.2,-147.5]),dur:5.6,say:'집으로 돌아오는 길, 썰물에 드러난 하구 방파제 아래로, 차가운 바닷물을 머금고 자란 홍합들이 보인다.',fn(){mark(T,{pos:[BREAK.x,-145.4]});}},
+    {at:[T,{pos:[BREAK.x,-145.4]},{dist:2.2,h:1.3}],dur:5,bar:'홍합 따는 중…',say:'손도끼로 단단히 붙은 홍합들을 넉넉히 채집해, 거처로 돌아온다.',pose:'swing',fn(){hatchetHeld.visible=true;src=musselGroup.slice(3,6);const t=setInterval(clack,520);setTimeout(()=>clearInterval(t),4800);},up(k){src.forEach((g,i)=>{const f=segK(k,i*.3,i*.3+.3);g.scale.setScalar(Math.max(.01,1-f));});},end(){hatchetHeld.visible=false;toast('+ 홍합 한 망');go('e6_home');}},
+  ],()=>hint('집으로 돌아가자.',3)); },
+  e6_cook(){ play([
+    {at:[TG.stoveFront,{from:FROM.stove,d:.75},{dist:1.6,h:1.1}],dur:4.6,say:'화목 난로에 불을 지피고, 깨끗이 손질한 홍합에 맑은 물만 부어 난로 위에 올린다.',pose:'crouch',fn(){doorTarget=1;fireTarget=.7;musselPot.visible=true;potOnStove.visible=false;musselBroth.material.color.setHex(0x7a8a90);},end(){doorTarget=0;fireTarget=1;}},
+    {cam:close(TG.stoveTop,{dist:.85,h:.6}),dur:5,say:'잠시 후, 입을 벌린 홍합 사이로 뽀얗고 시원한 국물이 보글보글 끓어오른다.',up(k){steamK=.4+k*.6;musselBroth.material.color.lerpColors(_c1.setHex(0x7a8a90),_c2.setHex(0xe6e2d6),k);musselShells.forEach((g,i)=>g.children.forEach(c=>{if(c.userData.s)c.rotation.z=c.userData.s*(Math.PI/2+segK(k,.2+i*.04,.5+i*.04)*.9);}));musselBroth.position.y=.12+Math.sin(seq.t*9)*.003;},end(){go('e6_eat');}},
+  ],()=>hint('난롯가에 앉아 먹자.',3)); },
+  e6_eat(){ play([
+    {cam:C([-2.15,1.0,6.8],[-1.55,.62,7.45]),dur:6,say:'숟가락으로 뜨거운 국물을 먼저 한 입 들이켜자, 바다의 짭조름한 간과 천연의 감칠맛이 얼어붙었던 속을 뜨겁게 달래 준다.',pose:'sitEat',fn(){mark(V(-2.2,0,5.82),{pos:[P.seat.x,P.seat.z]});spoonHeld.visible=true;}},
+    {cam:C([-2.0,.75,7.0],[-1.55,.7,7.45],[-2.1,.8,7.15],[-1.55,.7,7.45]),dur:5,say:'통통하게 살이 오른 홍합 살까지 남김없이 비워 내며, 든든하게 배를 채운다.',pose:'sitEat',end(){spoonHeld.visible=false;go('e6_box');}},
+  ],()=>hint('주워 온 오르골을 꺼내 보자.',3)); },
+  e6_box(){ ended=true; const B=V(-1.45,.06,7.05); play([
+    {cam:C([-1.0,.75,7.6],[-1.45,.1,7.05]),dur:5,say:'식사를 마친 뒤, 주워 온 오르골의 밀봉을 뜯어 내부를 살펴본다.',pose:'sitHold',fn(){mark(V(-2.2,0,5.82),{pos:[P.seat.x,P.seat.z]});musicBox.visible=true;mbLid.rotation.x=0;giftWrap.visible=false;},up(k){mbLid.rotation.x=-1.7*ease(segK(k,.45,.9));if(k<.3)burst(3000,'highpass',.03,.05);}},
+    {cam:C([-1.3,.35,7.32],[-1.45,.08,7.05]),dur:5,say:'빛은 바랬지만, 다행히 태엽과 금속 실린더에는 눈에 띄는 부식이 없다.',pose:'sitHold'},
+    {cam:C([-1.15,.55,7.45],[-1.45,.08,7.05],[-1.2,.5,7.4],[-1.45,.08,7.05]),dur:6.4,say:'조심스럽게 태엽을 몇 바퀴 감아 올리자, 잠들어 있던 멜로디가 고요한 방 안에 잔잔하게 울려 퍼진다.',pose:'sitHold',up(k){if(k<.45){mbCrank.rotation.x=-k*30;if(Math.random()<.2)burst(5000,'highpass',.02,.03);}else{if(!mbTimer)musicBoxPlay(true);mbCyl.rotation.x+=.03;}}},
+    {cam:C([.5,2.3,11.8],[-1.5,.5,7.2],[.2,2.2,11.2],[-1.5,.5,7.2]),dur:5,say:'세상이 멸망한 지 50년.',pose:'sit',up(){mbCyl.rotation.x+=.03;}},
+    {cam:C([9,3.5,24],[0,1.4,9],[11,4.5,27],[0,1.4,9]),dur:6,say:'언젠가 펼쳐질 새로운 여정을 상상하며, 깊어 가는 겨울밤을 조용히 마주한다.',pose:'sit',fn(){tod.target=1.2;},up(){mbCyl.rotation.x+=.03;}},
+  ],()=>{go('end6');showEnd(6);setTimeout(()=>musicBoxPlay(false),9000);}); },
+});
 let ratT=0;
-function ratStep(dt){ratT+=dt;const path=[[V(.8,0,12.3),V(1.6,0,9.2),V(2.6,0,5.5)],[V(1.1,0,11.8),V(2.1,0,8.6),V(2.62,0,5.45)]];
+function ratStep(dt){ratT+=dt;const path=[[V(.8,0,12.3),V(1.7,0,10.3),V(2.6,0,8.0)],[V(1.1,0,11.8),V(2.1,0,10.0),V(2.62,0,7.95)]];
   rats.forEach((r,i)=>{const k=clamp((ratT-.3-i*.25)/1.1,0,1);const p=path[i];const a=k<.5?p[0].clone().lerp(p[1],k*2):p[1].clone().lerp(p[2],(k-.5)*2);const nx=k<.5?p[1]:p[2];r.position.set(a.x,.01,a.z);r.rotation.y=Math.atan2(nx.x-a.x,nx.z-a.z);if(k>=1)r.visible=false;});}
 
 /* ================= interactions ================= */
@@ -2094,6 +2286,13 @@ A({p:()=>PAIL,r:1.8,when:at('e5_strain'),label:'들통 윗물 따라 버리기',
 A({p:()=>P.stove,r:1.4,when:at('e5_cook'),label:'난로 위에서 묵 쑤기',run:S.e5_cook});
 A({p:()=>P.stove,r:1.8,when:at('e5_eat'),label:'난롯가에 앉아 묵 먹기',run:S.e5_eat});
 A({p:()=>P.door,r:1.6,when:at('e5_door'),label:'문 열고 밖으로 나가기',run:S.e5_door});
+A({p:()=>P.bag,r:1.8,when:at('end5'),label:'EP.6 「과거의 오르골」 시작하기',run(){go('e6_intro');introEP6();}});
+A({p:()=>V(CITY.x,0,CITY.z-4),r:2.4,when:at('e6_map'),label:'금속 안내 지도 살펴보기',run:S.e6_map});
+A({p:()=>GIFT,r:2.2,when:at('e6_gift'),label:'무너진 진열대 뒤지기',run:S.e6_gift});
+A({p:()=>V(BREAK.x,0,-145.4),r:3,when:at('e6_mussel'),label:'손도끼로 홍합 채집하기',run:S.e6_mussel});
+A({p:()=>P.stove,r:1.4,when:at('e6_cook'),label:'홍합탕 끓이기',run:S.e6_cook});
+A({p:()=>P.stove,r:1.8,when:at('e6_eat'),label:'난롯가에 앉아 홍합탕 먹기',run:S.e6_eat});
+A({p:()=>P.seat,r:1.6,when:at('e6_box'),label:'오르골 꺼내 보기',run:S.e6_box});
 function nearestAct(){let best=null,bs=1e9;for(const a of acts){if(!a.when())continue;const p=a.p();const d=d2D(p,player.pos);if(d>a.r||Math.abs((p.y||0)-player.y)>2.5)continue;const s=d+(a.bias||0);if(s<bs){bs=s;best=a;}}return best;}
 function interact(){ if(!started||seq) return; const a=nearestAct(); if(!a) return; burst(700,'lowpass',.05,.08); a.run(); }
 function target(){
@@ -2122,6 +2321,9 @@ function target(){
     case 'e4_fire': return P.stove; case 'e4_eat': return WSEAT; case 'end4': return P.bag;
     case 'e5_open': return V(2.25,0,9.6); case 'e5_pound': return MORT4; case 'e5_settle': return BASIN; case 'e5_cart': case 'e5_return': case 'e5_fix': return cartCenter(); case 'e5_test': return cart.attached?V(cart.x,0,cart.z+6):cartHandle();
     case 'e5_garage': return V(GAR.x,0,GAR.z+5); case 'e5_grease': return GREASE; case 'e5_hill': return SNAGS[1]; case 'e5_saw': return nearestOf(SNAGS.filter((p,i)=>!snags[i])); case 'e5_green': return GREEN;
+    case 'end5': return P.bag; case 'e6_intro': return player.pos.x<180?V(165,5,-45):COAST; case 'e6_mill': return MILLVIEW; case 'e6_city': return V(CITY.x,0,CITY.z+8); case 'e6_map': return V(CITY.x,0,CITY.z-4);
+    case 'e6_shop': return V(GIFT_SHOP.x,0,GIFT_SHOP.z+8); case 'e6_gift': return GIFT; case 'e6_mussel': return V(BREAK.x,0,-145.4); case 'e6_home': return player.pos.x>160?V(165,5,-45):V(0,0,14);
+    case 'e6_cook': return P.stove; case 'e6_eat': case 'e6_box': return P.seat;
     case 'e5_haul': return V(-1.5,0,16); case 'e5_stack': return STACKP; case 'e5_strain': return PAIL; case 'e5_cook': return P.stove; case 'e5_eat': return P.seat; case 'e5_door': return P.door;
   }
   return null;
@@ -2131,8 +2333,8 @@ function nearestOf(arr){let b=null,bd=1e9;for(const p of arr){const d=d2D(p,play
 /* ================= end / start screens ================= */
 function showEnd(ep){
   document.exitPointerLock?.();
-  $('endT').textContent = ep===1?'EP.1 「시작」':ep===2?'EP.2 「일상」':ep===3?'EP.3 「낚시왕」':ep===4?'EP.4 「첫 삽」':'EP.5 「월동준비」';
-  $('endS').textContent = ep===1?'불청객들의 침입이 시작되었다.':ep===2?'세상이 멸망한 지 50년.':ep===3?'치킨이 조금도 부럽지 않은 맛.':ep===4?'달빛이 내려앉은 검은 밭.':'하얀 입김이 훅 피어오른다.';
+  $('endT').textContent = ep===1?'EP.1 「시작」':ep===2?'EP.2 「일상」':ep===3?'EP.3 「낚시왕」':ep===4?'EP.4 「첫 삽」':ep===5?'EP.5 「월동준비」':'EP.6 「과거의 오르골」';
+  $('endS').textContent = ep===1?'불청객들의 침입이 시작되었다.':ep===2?'세상이 멸망한 지 50년.':ep===3?'치킨이 조금도 부럽지 않은 맛.':ep===4?'달빛이 내려앉은 검은 밭.':ep===5?'하얀 입김이 훅 피어오른다.':'잠들어 있던 멜로디가 울려 퍼진다.';
   const B=$('endB'); B.innerHTML='';
   const mk=(t,pri,fn)=>{const b=document.createElement('button');b.textContent=t;if(pri)b.className='pri';b.onclick=fn;B.appendChild(b);};
   const roam=()=>{$('end').style.display='none';ended=false;};
@@ -2140,6 +2342,7 @@ function showEnd(ep){
   else if(ep===2){ mk('다음 화 ▶ EP.3 「낚시왕」',true,()=>{roam();go('e3_trap');introEP3();}); mk('계속 둘러보기',false,roam); }
   else if(ep===3){ mk('다음 화 ▶ EP.4 「첫 삽」',true,()=>{roam();go('e4_search');introEP4();}); mk('계속 둘러보기',false,roam); }
   else if(ep===4){ mk('다음 화 ▶ EP.5 「월동준비」',true,()=>{roam();go('e5_open');introEP5();}); mk('계속 둘러보기',false,roam); }
+  else if(ep===5){ mk('다음 화 ▶ EP.6 「과거의 오르골」',true,()=>{roam();go('e6_intro');introEP6();}); mk('계속 둘러보기',false,roam); }
   else { mk('계속 둘러보기',true,roam); mk('처음부터 다시',false,()=>{clearSave();location.reload();}); }
   $('end').style.display='flex';
 }
@@ -2151,10 +2354,11 @@ function begin(mode){
     stage=ORDER.includes(sv.stage)?sv.stage:'wake'; sticks=sv.sticks||sticks; tied=sv.tied||tied; acorns=sv.acorns||acorns; stones=sv.stones||stones; ash=sv.ash||ash; cut=sv.cut||cut; pick=sv.pick||pick; spread=sv.spread||spread; snags=sv.snags||snags;
     if(sv.p) player.pos.set(sv.p[0],sv.p[1],sv.p[2]); player.y=player.pos.y;
     if(sv.c&&SI(stage)>=SI('pull')){cart.x=sv.c[0];cart.z=sv.c[1];cart.yaw=sv.c[2];cart.y=groundH(cart.x,cart.z,player.pos.y);}
-    if(stage==='end1') stage='e2_check'; if(stage==='end2') stage='e3_trap'; if(stage==='end3') stage='e4_search'; if(stage==='end4') stage='e5_open';
+    if(stage==='end1') stage='e2_check'; if(stage==='end2') stage='e3_trap'; if(stage==='end3') stage='e4_search'; if(stage==='end4') stage='e5_open'; if(stage==='end5') stage='e6_intro';
   } else if(mode==='ep2'){ stage='e2_check'; all(); }
   else if(mode==='ep3'){ stage='e3_trap'; all(); }
   else if(mode==='ep4'){ stage='e4_search'; all(); ash=[1,1,1,1]; }
+  else if(mode==='ep6'){ stage='e6_intro'; all(); ash=[1,1,1,1]; cut=[1,1,1,1]; pick=[1,1,1]; spread=[1,1,1]; snags=[1,1,1]; }
   else if(mode==='ep5'){ stage='e5_open'; all(); ash=[1,1,1,1]; cut=[1,1,1,1]; pick=[1,1,1]; spread=[1,1,1]; }
   tod.t=TOD[stage]; applyVisuals(); updateHUD(); placeCart();
   $('fade').style.opacity='0';
@@ -2163,6 +2367,7 @@ function begin(mode){
   else if(mode==='ep3'||(mode==='cont'&&stage==='e3_trap')) introEP3();
   else if(mode==='ep4'||(mode==='cont'&&stage==='e4_search')) introEP4();
   else if(mode==='ep5'||(mode==='cont'&&stage==='e5_open')) introEP5();
+  else if(mode==='ep6'||(mode==='cont'&&stage==='e6_intro')) introEP6();
   else hint('— 이어서 —',2);
   canvas.focus();
 }
@@ -2171,6 +2376,7 @@ $('bEp2').onclick=()=>{clearSave();begin('ep2');};
 $('bEp3').onclick=()=>{clearSave();begin('ep3');};
 $('bEp4').onclick=()=>{clearSave();begin('ep4');};
 $('bEp5').onclick=()=>{clearSave();begin('ep5');};
+$('bEp6').onclick=()=>{clearSave();begin('ep6');};
 $('bCont').onclick=()=>begin('cont');
 
 /* ================= input ================= */
@@ -2276,7 +2482,7 @@ function update(dt){
   if(leafAnim>=0){leafAnim+=dt;leafPile.forEach(l=>{const u=l.userData,t=leafAnim;l.position.set(u.o.x+u.v.x*t*.6,Math.max(.02,u.o.y+u.v.y*t-4*t*t),u.o.z+u.v.z*t*.6);l.rotation.z+=u.rz*dt;});if(leafAnim>1.6){leafAnim=-1;leafPile.forEach(l=>l.visible=false);}}
   // bucket carried
   if(stage==='e2_water'){const h=char.hd[1].getWorldPosition(_va);bucket.position.set(h.x,h.y-.45,h.z);} else if(!(seq&&stage==='e2_soak')) bucket.position.copy(bucket.userData.home);
-  updateEP3(dt);
+  updateEP3(dt); stepBirds(time);
   // sequence
   if(seq){const s=seq.steps[seq.i];seq.t+=dt;const k=clamp(seq.t/s.dur,0,1);if(s.bar)$('barF').style.width=(k*100)+'%';if(s.up)s.up(k,dt);if(seq&&seq.t>=Math.max(s.dur,s._vd||0))nextStep();}
   else if(capTimer>0){capTimer-=dt;if(capTimer<=0)setCap('');}
@@ -2301,6 +2507,11 @@ function update(dt){
     else if(stage==='e5_return'&&d2D(player.pos,cartCenter())<4){go('e5_fix');hint('리어카 바퀴를 분해해 손보자.',3);}
     else if(stage==='e5_test'&&cart.attached){if(!e5Start)e5Start=V(cart.x,0,cart.z);else if(d2D(e5Start,V(cart.x,0,cart.z))>3.5){e5Start=null;S.e5_test();}}
     else if(stage==='e5_hill'&&d2D(player.pos,SNAGS[1])<14) S.e5_hill();
+    else if(stage==='e6_intro'&&d2D(player.pos,COAST)<10) S.e6_coast();
+    else if(stage==='e6_mill'&&d2D(player.pos,MILLVIEW)<9) S.e6_mill();
+    else if(stage==='e6_city'&&d2D(player.pos,V(CITY.x,0,CITY.z+9))<10) S.e6_city();
+    else if(stage==='e6_shop'&&d2D(player.pos,V(GIFT_SHOP.x,0,GIFT_SHOP.z+8))<9) S.e6_shop();
+    else if(stage==='e6_home'&&d2D(player.pos,V(0,0,14))<8){if(cart.attached)detachCart();go('e6_cook');hint('화목 난로에 불을 지피고 홍합탕을 끓이자.',3.5);}
     else if(stage==='e5_haul'&&cart.attached&&d2D(V(cart.x,0,cart.z),V(-1.5,0,16))<7) S.e5_haul();
     if(AC&&cart.attached&&player.speed>.6&&SI(stage)>=SI('e5_open')&&SI(stage)<=SI('e5_fix')&&Math.random()<dt*2.4) squealCart();
   }
@@ -2308,7 +2519,7 @@ function update(dt){
   tod.t+=(tod.target-tod.t)*Math.min(1,dt*.25); applyTOD(tod.t); skyU.time.value=time;
   // camera
   const indoorShed=inShed(player.pos)||stage==='wake';
-  if(stage==='wake') camTarget.set(-1.0,.5,6.0); else camTarget.set(player.pos.x,player.y+1.45,player.pos.z);
+  if(stage==='wake') camTarget.set(1.9,.5,6.2); else camTarget.set(player.pos.x,player.y+1.45,player.pos.z);
   if(camOv&&seq){
     const s=seq.steps[seq.i],k=ease(clamp(seq.t/s.dur,0,1));
     _va.lerpVectors(camOv.p1,camOv.p2,k); _vb.lerpVectors(camOv.l1,camOv.l2,k);
@@ -2335,8 +2546,9 @@ function update(dt){
   waterNormal.offset.set(time*.01,time*.006);
   // marker/compass/prompt
   const tg=started&&!seq&&!ended?target():null;
-  if(tg){marker.visible=true;marker.position.set(tg.x,(tg.y||0)+1.9+Math.sin(time*3)*.1,tg.z);marker.rotation.y=time*2;const a=Math.atan2(tg.x-player.pos.x,tg.z-player.pos.z),rel=a-(yaw+Math.PI);$('arrow').setAttribute('transform',`rotate(${(-rel*180/Math.PI).toFixed(1)} 15 15)`);$('dist').textContent=Math.round(d2D(tg,player.pos))+'m';$('compass').style.opacity='1';}
-  else{marker.visible=false;$('compass').style.opacity='0';}
+  if(tg){marker.visible=true;marker.position.set(tg.x,(tg.y||0)+1.9+Math.sin(time*3)*.1,tg.z);marker.rotation.y=time*2;const a=Math.atan2(tg.x-player.pos.x,tg.z-player.pos.z),rel=a-(yaw+Math.PI);$('arrow').setAttribute('transform',`rotate(${(-rel*180/Math.PI).toFixed(1)} 15 15)`);$('dist').textContent=Math.round(d2D(tg,player.pos))+'m';$('compass').style.opacity='0';
+    {const ad=d2D(tg,player.pos),ax=player.pos.x+Math.sin(a)*1.3,az=player.pos.z+Math.cos(a)*1.3;groundArrow.visible=ad>1.8;groundArrow.position.set(ax,groundH(ax,az,player.y)+.06,az);groundArrow.rotation.y=a;groundArrow.scale.setScalar(1+.08*Math.sin(time*5));}}
+  else{marker.visible=false;$('compass').style.opacity='0';groundArrow.visible=false;}
   const na=started&&!seq&&!($('end').style.display==='flex')?nearestAct():null;
   const pr=$('prompt'); if(na){const lb=typeof na.label==='function'?na.label():na.label;pr.innerHTML=`<b>${isTouch?'E 버튼':'[E]'}</b>${lb}`;pr.classList.add('show');}else pr.classList.remove('show');
   // audio
