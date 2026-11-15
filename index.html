@@ -78,7 +78,7 @@ body.cine #help{opacity:0}
 <div id="prompt" class="hud"></div>
 <div id="bar" class="hud"><div id="barL">…</div><div class="t"><div class="f" id="barF"></div></div></div>
 <div id="caption" class="hud"></div>
-<div id="help" class="hud">WASD 이동 · Shift 달리기 · E 상호작용 · F 리어카 잡기/놓기 · Space 장면 넘기기<br>마우스 클릭 후 움직여 시점 회전(Esc 해제) · 휠 줌</div>
+<div id="help" class="hud">WASD 이동 · Shift 달리기 · E 상호작용 · F 리어카 잡기/놓기 · Space 장면 넘기기 · M 나레이션 끄기/켜기<br>마우스 클릭 후 움직여 시점 회전(Esc 해제) · 휠 줌</div>
 <div id="fade"></div>
 
 <div id="touch"><div id="joy"><i id="joyK"></i></div><div class="tbtn" id="bE">E</div><div class="tbtn" id="bRun">달리기</div></div>
@@ -89,7 +89,7 @@ body.cine #help{opacity:0}
   <div class="fan">(팬 게임) · EP.1 「시작」 · EP.2 「일상」 · EP.3 「낚시왕」 · EP.4 「첫 삽」 · EP.5 「월동준비」</div>
   <div class="btns"><button class="pri" id="bNew">새로 시작</button><button id="bEp2">EP.2 「일상」부터</button><button id="bEp3">EP.3 「낚시왕」부터</button><button id="bEp4">EP.4 「첫 삽」부터</button><button id="bEp5">EP.5 「월동준비」부터</button><button id="bCont" style="display:none">이어하기</button></div>
   <div class="keys" id="keys">WASD 이동 · Shift 달리기 · E 상호작용 · F 리어카 · Space 장면 넘기기<br>화면 클릭 후 마우스로 시점 회전</div>
-  <div class="credit">유튜브 채널 「문명」의 「문명2」 EP.1 「시작」 · EP.2 「일상」 · EP.3 「낚시왕」 · EP.4 「첫 삽」 · EP.5 「월동준비」를 바탕으로 만든 비공식 팬 게임입니다.</div>
+  <div class="credit">유튜브 채널 「문명」의 「문명2」 EP.1 「시작」 · EP.2 「일상」 · EP.3 「낚시왕」 · EP.4 「첫 삽」 · EP.5 「월동준비」를 바탕으로 만든 비공식 팬 게임입니다. · 나레이션 목소리: 타입캐스트(Typecast) AI 성우 「필재」</div>
 </div>
 <div id="end" class="screen">
   <h1 id="endT" style="font-size:clamp(34px,8vw,64px)">EP.1 「시작」</h1>
@@ -1122,17 +1122,24 @@ const place=(T,mo={},co={})=>sideCam(mark(T,mo),T,co);
 function faceCam(o={}){const p=player.pos,a=player.theta+(o.a??.55),d=o.d??1.8;const c=V(p.x+Math.sin(a)*d,player.y+(o.h??1.45),p.z+Math.cos(a)*d);if(inShed(p)){c.x=clamp(c.x,-2.55,2.55);c.z=clamp(c.z,5.45,12.55);c.y=Math.min(c.y,2.7);}return [c,V(p.x,player.y+(o.ly??1.15),p.z),null,null];}
 const close=(T,o={})=>()=>sideCam(player.pos,T,Object.assign({dist:.95,h:.85,lookT:true,k:1,back:0},o));
 
+/* ---- 나레이션 (타입캐스트 AI 성우 '필재', 1.2배속 재생) ---- */
+const VOICE={map:new Map(),cache:new Map(),cur:null,on:true,rate:1.2};
+fetch('voice/lines.json').then(r=>r.ok?r.json():[]).then(L=>L.forEach((t,i)=>VOICE.map.set(t,'voice/'+String(i+1).padStart(3,'0')+'.mp3'))).catch(()=>{});
+function voiceAudio(t){const src=VOICE.map.get(t);if(!src)return null;let a=VOICE.cache.get(t);if(!a){a=new Audio(src);a.preload='auto';a.preservesPitch=true;a.mozPreservesPitch=true;a.webkitPreservesPitch=true;VOICE.cache.set(t,a);}return a;}
+function stopVoice(){if(VOICE.cur){VOICE.cur.pause();VOICE.cur=null;}}
+function narrate(t,step){stopVoice();if(!t||!VOICE.on)return;const a=voiceAudio(t);if(!a)return;a.currentTime=0;a.playbackRate=VOICE.rate;a.volume=.95;VOICE.cur=a;const fit=()=>{if(step&&isFinite(a.duration))step._vd=a.duration/VOICE.rate+.35;};if(a.readyState>=1)fit();else a.addEventListener('loadedmetadata',fit,{once:true});a.play().catch(()=>{});}
+function preloadVoices(steps){steps.forEach(s=>{if(s.say)voiceAudio(s.say);});}
 /* ---- cutscene sequencer ---- */
 let seq=null, camOv=null, camReturn=0, shadowFocus=null;
 const camLook=new THREE.Vector3(), _va=new THREE.Vector3(), _vb=new THREE.Vector3();
 const C=(p,l,p2,l2)=>[V(...p),V(...l),p2?V(...p2):null,l2?V(...l2):null];
-function play(steps,done){ seq={steps,i:-1,t:0,done}; document.body.classList.add('cine'); capTimer=0; nextStep(); }
+function play(steps,done){ preloadVoices(steps); seq={steps,i:-1,t:0,done}; document.body.classList.add('cine'); capTimer=0; nextStep(); }
 function nextStep(){
   const prev=seq.steps[seq.i]; if(prev&&prev.end) prev.end();
   seq.i++; seq.t=0;
   if(seq.i>=seq.steps.length){ const d=seq.done; seq=null; camOv=null; camReturn=.8; shadowFocus=null; document.body.classList.remove('cine'); setCap(''); setFilter(''); $('bar').style.display='none'; player.pose='stand'; if(d) d(); return; }
   const s=seq.steps[seq.i];
-  setCap(s.say||''); if(s.pose) player.pose=s.pose; if(s.fn) s.fn();
+  setCap(s.say||''); s._vd=0; narrate(s.say,s); if(s.pose) player.pose=s.pose; if(s.fn) s.fn();
   let cam=s.at?place(...s.at):s.cam; if(s.at&&s.cam) cam=s.cam; if(typeof cam==='function') cam=cam();
   if(cam){ camOv={p0:camera.position.clone(),l0:camLook.clone(),p1:cam[0],l1:cam[1],p2:cam[2]||cam[0],l2:cam[3]||cam[1],cut:!!s.cut}; }
   else if(camOv){ const p=camera.position.clone(),l=camLook.clone(); camOv={p0:p,l0:l,p1:p,l1:l,p2:p,l2:l,cut:true}; }
@@ -1140,7 +1147,7 @@ function nextStep(){
   shadowFocus = s.focus || (s.filter===undefined ? shadowFocus : null);
   if(s.bar){$('barL').textContent=s.bar;$('bar').style.display='block';} else $('bar').style.display='none';
 }
-function skipStep(){ if(seq){ const s=seq.steps[seq.i]; if(s.up) s.up(1,0); nextStep(); } }
+function skipStep(){ if(seq){ const s=seq.steps[seq.i]; stopVoice(); if(s.up) s.up(1,0); nextStep(); } }
 
 /* ---- world state per stage ---- */
 function applyVisuals(){
@@ -2173,7 +2180,8 @@ addEventListener('keydown',e=>{keys[e.code]=true;
   if(e.code==='KeyE') interact();
   if(e.code==='Space'){e.preventDefault();skipStep();}
   if(e.code==='KeyF'&&started&&!seq){ if(cart.attached) detachCart(); else { const a=acts.find(a=>a.p===cartHandle); if(a&&a.when()&&d2D(cartHandle(),player.pos)<1.8) a.run(); } }
-  if(e.code==='KeyH') $('help').style.display=$('help').style.display==='none'?'':'none';});
+  if(e.code==='KeyH') $('help').style.display=$('help').style.display==='none'?'':'none';
+  if(e.code==='KeyM'){VOICE.on=!VOICE.on;if(!VOICE.on)stopVoice();toast(VOICE.on?'나레이션 켜짐':'나레이션 꺼짐');}});
 addEventListener('keyup',e=>{keys[e.code]=false;});
 canvas.addEventListener('mousedown',()=>{dragging=true;if(started&&!isTouch){try{const r=canvas.requestPointerLock?.();if(r&&r.catch)r.catch(()=>{});}catch(err){}}});
 addEventListener('mouseup',()=>dragging=false);
@@ -2270,7 +2278,7 @@ function update(dt){
   if(stage==='e2_water'){const h=char.hd[1].getWorldPosition(_va);bucket.position.set(h.x,h.y-.45,h.z);} else if(!(seq&&stage==='e2_soak')) bucket.position.copy(bucket.userData.home);
   updateEP3(dt);
   // sequence
-  if(seq){const s=seq.steps[seq.i];seq.t+=dt;const k=clamp(seq.t/s.dur,0,1);if(s.bar)$('barF').style.width=(k*100)+'%';if(s.up)s.up(k,dt);if(seq&&seq.t>=s.dur)nextStep();}
+  if(seq){const s=seq.steps[seq.i];seq.t+=dt;const k=clamp(seq.t/s.dur,0,1);if(s.bar)$('barF').style.width=(k*100)+'%';if(s.up)s.up(k,dt);if(seq&&seq.t>=Math.max(s.dur,s._vd||0))nextStep();}
   else if(capTimer>0){capTimer-=dt;if(capTimer<=0)setCap('');}
   // triggers
   if(started&&!seq&&!ended){
@@ -2340,7 +2348,7 @@ function collide(p,r,y){for(const c of colliders){if(y+1.7<c.y0||y+.3>c.y1)conti
   if(d2<r*r){if(d2>1e-9){const d=Math.sqrt(d2);p.x+=dx/d*(r-d);p.z+=dz/d*(r-d);}else{const l=p.x-c.x0,rr=c.x1-p.x,t=p.z-c.z0,b=c.z1-p.z,m=Math.min(l,rr,t,b);if(m===l)p.x=c.x0-r;else if(m===rr)p.x=c.x1+r;else if(m===t)p.z=c.z0-r;else p.z=c.z1+r;}}}}
 applyVisuals(); updateHUD(); placeCart(); applyTOD(0); camera.position.set(9,3.5,27); camLook.set(0,1.5,9);
 renderer.setAnimationLoop(()=>{const dt=Math.min(.05,clock.getDelta());update(dt);renderer.render(scene,camera);});
-window.__game={player,cart,go,S,get stage(){return stage;},get seq(){return seq;},tp:(x,z)=>{player.pos.x=x;player.pos.z=z;player.y=groundH(x,z);player.pos.y=player.y;},acts,sticks,tied,acorns,stones,ash,char,
+window.__game={voice:VOICE,player,cart,go,S,get stage(){return stage;},get seq(){return seq;},tp:(x,z)=>{player.pos.x=x;player.pos.z=z;player.y=groundH(x,z);player.pos.y=player.y;},acts,sticks,tied,acorns,stones,ash,char,
   setYaw:(y,p)=>{yaw=y;if(p!==undefined)pitch=p;},step:(n=1,dt=1/30)=>{for(let i=0;i<n;i++)update(dt);renderer.render(scene,camera);},skip:()=>{let g=0;while(seq&&g++<50)skipStep();},interact};
 </script>
 </body>
