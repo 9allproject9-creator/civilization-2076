@@ -820,7 +820,7 @@ const _m4=new THREE.Matrix4(),_q=new THREE.Quaternion(),_s=new THREE.Vector3(),_
   for(let i=0;i<6;i++){const l=new THREE.Mesh(new THREE.CapsuleGeometry(.018,.05,4,8),std({color:0xf0e6c8,roughness:.5}));l.rotation.set(R(0,3),R(0,3),Math.PI/2);l.position.set(R(-.25,.25),0,R(-.15,.15));larvaeObj.add(l);} larvaeObj.visible=false;
 }
 { const mm=std({color:0x56606b,roughness:1,flatShading:true});
-  for(let i=0;i<20;i++){const a=i/20*Math.PI*2+R(-.1,.1),r=R(380,470);const g=new THREE.ConeGeometry(R(150,240),R(55,105),14,6);const p=g.attributes.position;
+  for(let i=0;i<20;i++){const a=i/20*Math.PI*2+R(-.1,.1),r=R(380,470)+70;const g=new THREE.ConeGeometry(Math.min(R(150,240),r-350),R(55,105),14,6); /* 산 밑동이 놀이 구역(반경 350) 안으로 파고들지 않게 */ const p=g.attributes.position;
     for(let k=0;k<p.count;k++){const top=p.getY(k)>g.parameters.height/2-.1;p.setX(k,p.getX(k)*R(.8,1.2)+(top?R(-30,30):0));p.setZ(k,p.getZ(k)*R(.8,1.2)+(top?R(-30,30):0));p.setY(k,p.getY(k)+(top?R(-15,0):R(-8,8)));}
     g.computeVertexNormals();const m=new THREE.Mesh(g,mm);m.position.set(Math.cos(a)*r,g.parameters.height/2-12,Math.sin(a)*r);scene.add(m);} }
 { const rg=rockGeo(5,1),L=[]; for(let i=0;i<900;i++){const x=R(-200,152),z=streamZ(x)+R(-10,10),h=terrainH(x,z);if(h<-.3)L.push([x,h,z,R(.12,.55)]);} for(let i=0;i<120;i++){const z=R(-200,200),x=RIVER_X+(rand()<.5?-1:1)*R(12,22);L.push([x,terrainH(x,z),z,R(.2,.7)]);}
@@ -2104,6 +2104,9 @@ let birds,millGroup,cityMap,mapMarks=[],giftBox,giftWrap,musselGroup=[],musselPo
     groundArrow.renderOrder=5; groundArrow.visible=false; }
   rand=_r;
 }
+let warping=false;
+// 화면을 잠깐 어둡게 한 뒤 다른 곳으로 옮겨 주기
+function warpTo(x,z,th,cb){warping=true;if(cart.attached)detachCart();const f=document.getElementById('fade');f.style.transition='opacity .5s';f.style.opacity='1';setTimeout(()=>{player.pos.set(x,0,z);player.y=groundH(x,z,0);player.pos.y=player.y;player.theta=th;f.style.opacity='0';warping=false;if(cb)cb();},600);}
 function stepBirds(t){if(!birds.visible)return;birds.position.set(HARB.x-40+((t*6)%90),14+Math.sin(t*.3)*2,-160+Math.sin(t*.2)*6);birds.children.forEach((b,i)=>{const o=b.userData.o;b.position.set(o.x+Math.sin(t*.7+i)*.6,o.y+Math.sin(t*1.3+i)*.4,o.z);const f=Math.sin(t*9+b.userData.ph)*.5;b.children[0].rotation.z=-.35-f;b.children[1].rotation.z=.35+f;b.rotation.y=Math.PI/2;});}
 /* 오르골 멜로디 (직접 만든 짧은 선율, Web Audio로 합성) */
 let mbTimer=null;
@@ -2321,8 +2324,8 @@ function target(){
     case 'e4_fire': return P.stove; case 'e4_eat': return WSEAT; case 'end4': return P.bag;
     case 'e5_open': return V(2.25,0,9.6); case 'e5_pound': return MORT4; case 'e5_settle': return BASIN; case 'e5_cart': case 'e5_return': case 'e5_fix': return cartCenter(); case 'e5_test': return cart.attached?V(cart.x,0,cart.z+6):cartHandle();
     case 'e5_garage': return V(GAR.x,0,GAR.z+5); case 'e5_grease': return GREASE; case 'e5_hill': return SNAGS[1]; case 'e5_saw': return nearestOf(SNAGS.filter((p,i)=>!snags[i])); case 'e5_green': return GREEN;
-    case 'end5': return P.bag; case 'e6_intro': return player.pos.x<180?V(165,5,-45):COAST; case 'e6_mill': return MILLVIEW; case 'e6_city': return V(CITY.x,0,CITY.z+8); case 'e6_map': return V(CITY.x,0,CITY.z-4);
-    case 'e6_shop': return V(GIFT_SHOP.x,0,GIFT_SHOP.z+8); case 'e6_gift': return GIFT; case 'e6_mussel': return V(BREAK.x,0,-145.4); case 'e6_home': return player.pos.x>160?V(165,5,-45):V(0,0,14);
+    case 'end5': return P.bag; case 'e6_intro': return player.pos.x<160?V(166,5,-45):COAST; case 'e6_mill': return MILLVIEW; case 'e6_city': return V(CITY.x,0,CITY.z+8); case 'e6_map': return V(CITY.x,0,CITY.z-4);
+    case 'e6_shop': return V(GIFT_SHOP.x,0,GIFT_SHOP.z+8); case 'e6_gift': return GIFT; case 'e6_mussel': return V(BREAK.x,0,-145.4); case 'e6_home': return player.pos.x>200?V(205,5,-45):player.pos.x>118?V(112,0,-45):V(0,0,14);
     case 'e6_cook': return P.stove; case 'e6_eat': case 'e6_box': return P.seat;
     case 'e5_haul': return V(-1.5,0,16); case 'e5_stack': return STACKP; case 'e5_strain': return PAIL; case 'e5_cook': return P.stove; case 'e5_eat': return P.seat; case 'e5_door': return P.door;
   }
@@ -2507,6 +2510,7 @@ function update(dt){
     else if(stage==='e5_return'&&d2D(player.pos,cartCenter())<4){go('e5_fix');hint('리어카 바퀴를 분해해 손보자.',3);}
     else if(stage==='e5_test'&&cart.attached){if(!e5Start)e5Start=V(cart.x,0,cart.z);else if(d2D(e5Start,V(cart.x,0,cart.z))>3.5){e5Start=null;S.e5_test();}}
     else if(stage==='e5_hill'&&d2D(player.pos,SNAGS[1])<14) S.e5_hill();
+    else if(stage==='e6_intro'&&!warping&&player.pos.x>158&&player.pos.x<174&&player.y>3.8&&Math.abs(player.pos.z+45)<5) warpTo(215,-116,Math.PI,()=>hint('해안도로다. 바다 쪽으로 조금만 더 걸어가 보자.',3.5));
     else if(stage==='e6_intro'&&d2D(player.pos,COAST)<10) S.e6_coast();
     else if(stage==='e6_mill'&&d2D(player.pos,MILLVIEW)<9) S.e6_mill();
     else if(stage==='e6_city'&&d2D(player.pos,V(CITY.x,0,CITY.z+9))<10) S.e6_city();
