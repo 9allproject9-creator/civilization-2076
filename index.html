@@ -54,7 +54,12 @@ body.cine #help{opacity:0}
 .screen button.pri{background:var(--accent);border-color:var(--accent);color:#1b140c}
 .screen button:hover{filter:brightness(1.1)}
 .screen .keys{margin-top:26px;font-size:13px;color:var(--dim);line-height:1.8}
-.screen .credit{position:absolute;bottom:8px;left:16px;right:16px;font-size:10px;line-height:1.4;color:#8a8478}
+.screen .credit{margin-top:22px;max-width:760px;font-size:10px;line-height:1.4;color:#8a8478}
+.screen{overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;justify-content:flex-start}
+.screen>:first-child{margin-top:auto}.screen>:last-child{margin-bottom:auto}
+@media (max-width:640px),(max-height:520px){.screen{padding:16px 12px}.screen h1{font-size:44px}.screen .btns{margin-top:16px;gap:7px}.screen button{font-size:14px;padding:9px 15px}.screen .links{margin-top:10px}.screen .links a,.screen .links button{font-size:13px;padding:8px 14px}.screen .notice{margin-top:12px;font-size:12px;padding:8px 12px}.screen .keys{margin-top:12px;font-size:12px;line-height:1.6}.screen .fan{font-size:12px}}
+@media (max-height:520px){#quest{max-width:46vw}#caption{bottom:10%;font-size:16px;padding:6px 14px;max-width:62vw}#prompt{bottom:calc(10% + 52px);font-size:13px}#joy{left:18px;bottom:18px;width:104px;height:104px}#bE{right:18px;bottom:84px;width:60px;height:60px}#bRun{right:88px;bottom:22px;width:52px;height:52px}#bVoice{top:auto;bottom:150px}}
+#bVoice{right:22px;top:58px;width:46px;height:46px;font-size:12px}#bVoice.off{opacity:.45}
 #end{display:none}
 .screen .notice{margin-top:18px;max-width:min(560px,calc(100vw - 32px));padding:10px 16px;border-radius:10px;border:1px solid rgba(234,165,92,.45);background:rgba(0,0,0,.35);font-size:13px;line-height:1.65;color:#e9e0cf}
 .screen .notice b{color:var(--accent)}
@@ -94,7 +99,7 @@ body.cine #help{opacity:0}
 <div id="help" class="hud">WASD 이동 · Shift 달리기 · E 상호작용 · F 리어카 잡기/놓기 · Space 장면 넘기기 · M 나레이션 끄기/켜기<br>마우스 클릭 후 움직여 시점 회전(Esc 해제) · 휠 줌</div>
 <div id="fade"></div>
 
-<div id="touch"><div id="joy"><i id="joyK"></i></div><div class="tbtn" id="bE">E</div><div class="tbtn" id="bRun">달리기</div></div>
+<div id="touch"><div id="joy"><i id="joyK"></i></div><div class="tbtn" id="bE">E</div><div class="tbtn" id="bRun">달리기</div><div class="tbtn" id="bVoice">음성</div></div>
 
 <div id="start" class="screen">
   <h1>문명</h1>
@@ -102,7 +107,7 @@ body.cine #help{opacity:0}
   <div class="fan">(팬 게임) · EP.1 「시작」 · EP.2 「일상」 · EP.3 「낚시왕」 · EP.4 「첫 삽」 · EP.5 「월동준비」 · EP.6 「과거의 오르골」 · EP.7 「사라진 밤」</div>
   <div class="btns"><button class="pri" id="bNew">새로 시작</button><button id="bEp2">EP.2 「일상」부터</button><button id="bEp3">EP.3 「낚시왕」부터</button><button id="bEp4">EP.4 「첫 삽」부터</button><button id="bEp5">EP.5 「월동준비」부터</button><button id="bEp6">EP.6 「과거의 오르골」부터</button><button id="bEp7">EP.7 「사라진 밤」부터</button><button id="bCont" style="display:none">이어하기</button></div>
   <div class="links"><button id="bCredits" type="button">크레딧 영상 보기</button><a class="yt" href="https://www.youtube.com/@civilization_bk" target="_blank" rel="noopener noreferrer">▶ 원작 「문명」 채널 가기</a></div>
-  <div class="notice"><b>비공식 팬 게임</b>입니다. 유튜브 채널 「문명」과는 관계없이 팬이 만든 것이며,<br>상업적인 목적이 없는 <b>순수한 팬 창작물</b>입니다. (무료 · 광고 없음 · 수익 없음)</div>
+  <div class="notice">유튜브 채널 「문명」 님의 이야기로, 원작자의 허락을 받아 만든 <b>비공식 팬 게임</b>입니다.<br>상업적인 목적이 없는 <b>순수한 팬 창작물</b>입니다. (무료 · 광고 없음 · 수익 없음)</div>
   <div class="keys" id="keys">WASD 이동 · Shift 달리기 · E 상호작용 · F 리어카 · Space 장면 넘기기<br>화면 클릭 후 마우스로 시점 회전</div>
   <div class="credit">유튜브 채널 「문명」의 「문명2」 EP.1 「시작」 · EP.2 「일상」 · EP.3 「낚시왕」 · EP.4 「첫 삽」 · EP.5 「월동준비」 · EP.6 「과거의 오르골」 · EP.7 「사라진 밤」을 바탕으로 만든 비공식 팬 게임입니다. · 나레이션 목소리: 타입캐스트(Typecast) AI 성우 「필재」</div>
 </div>
@@ -114,13 +119,13 @@ body.cine #help{opacity:0}
   <h3>나레이션 목소리</h3><p>타입캐스트(Typecast) AI 성우 「필재」</p>
   <h3>사용한 기술</h3><p>three.js · Web Audio</p><p>모든 그래픽과 효과음, 오르골 멜로디는 코드로 직접 만들었습니다.</p>
   <h3>감사한 분</h3><p>재미있는 이야기를 만들어 주신 「문명」 님</p><p>그리고 플레이해 주신 여러분</p>
-  <p class="note">이 게임은 「문명」 채널의 영상을 바탕으로 한 비공식 팬 게임이며,<br>이야기와 설정의 모든 권리는 원작자께 있습니다.<br>상업적인 목적이 없는 순수한 팬 창작물로, 광고나 수익 없이 만들었고, 원작자께서 원하시면 언제든 내리겠습니다.</p>
+  <p class="note">이 게임은 「문명」 님의 이야기를 바탕으로, 원작자의 허락을 받아 만든 비공식 팬 게임이며,<br>이야기와 설정의 모든 권리는 원작자께 있습니다.<br>상업적인 목적이 없는 순수한 팬 창작물로, 광고나 수익 없이 만들었고, 원작자께서 원하시면 언제든 내리겠습니다.</p>
 </div></div>
 <div id="end" class="screen">
   <h1 id="endT" style="font-size:clamp(34px,8vw,64px)">EP.1 「시작」</h1>
   <div class="sub" id="endS"></div>
   <div class="fan">— 다음 이야기에 계속 —</div>
-  <div class="fan" style="margin-top:10px">비공식 팬 게임 · 상업적인 목적이 없는 순수한 팬 창작물입니다.</div>
+  <div class="fan" style="margin-top:10px">원작 「문명」 님의 허락을 받아 만든 비공식 팬 게임 · 상업적인 목적이 없는 순수한 팬 창작물입니다.</div>
   <div class="btns" id="endB"></div>
 </div>
 
@@ -1161,9 +1166,11 @@ const close=(T,o={})=>()=>sideCam(player.pos,T,Object.assign({dist:.95,h:.85,loo
 /* ---- 나레이션 (타입캐스트 AI 성우 '필재', 1.2배속 재생) ---- */
 const VOICE={map:new Map(),cache:new Map(),cur:null,on:true,rate:1.2};
 fetch('voice/lines.json').then(r=>r.ok?r.json():[]).then(L=>L.forEach((t,i)=>VOICE.map.set(t,'voice/'+String(i+1).padStart(3,'0')+'.mp3'))).catch(()=>{});
-function voiceAudio(t){const src=VOICE.map.get(t);if(!src)return null;let a=VOICE.cache.get(t);if(!a){a=new Audio(src);a.preload='auto';a.preservesPitch=true;a.mozPreservesPitch=true;a.webkitPreservesPitch=true;VOICE.cache.set(t,a);}return a;}
+function voiceEl(){if(!VOICE.el){const a=new Audio();a.preload='auto';a.preservesPitch=true;a.mozPreservesPitch=true;a.webkitPreservesPitch=true;VOICE.el=a;}return VOICE.el;}
+function voiceAudio(t){const src=VOICE.map.get(t);if(!src)return null;if(!VOICE.cache.has(t)){VOICE.cache.set(t,1);fetch(src).catch(()=>{});}return src;}
+function unlockVoice(){const a=voiceEl();if(a.dataset.ok)return;a.dataset.ok='1';a.muted=true;a.src='voice/001.mp3';const p=a.play();if(p&&p.then)p.then(()=>{if(a.muted){a.pause();a.muted=false;}}).catch(()=>{a.muted=false;});}
 function stopVoice(){if(VOICE.cur){VOICE.cur.pause();VOICE.cur=null;}}
-function narrate(t,step){stopVoice();if(!t||!VOICE.on)return;const a=voiceAudio(t);if(!a)return;a.currentTime=0;a.playbackRate=VOICE.rate;a.volume=.95;VOICE.cur=a;const fit=()=>{if(step&&isFinite(a.duration))step._vd=a.duration/VOICE.rate+.35;};if(a.readyState>=1)fit();else a.addEventListener('loadedmetadata',fit,{once:true});a.play().catch(()=>{});}
+function narrate(t,step){stopVoice();if(!t||!VOICE.on)return;const src=voiceAudio(t);if(!src)return;const a=voiceEl();a.muted=false;a.onloadedmetadata=()=>{a.playbackRate=VOICE.rate;if(VOICE.cur===a&&step&&isFinite(a.duration))step._vd=a.duration/VOICE.rate+.35;};a.src=src;a.defaultPlaybackRate=VOICE.rate;a.playbackRate=VOICE.rate;a.volume=.95;VOICE.cur=a;const p=a.play();if(p&&p.catch)p.catch(()=>{});}
 function preloadVoices(steps){steps.forEach(s=>{if(s.say)voiceAudio(s.say);});}
 /* ---- cutscene sequencer ---- */
 let seq=null, camOv=null, camReturn=0, shadowFocus=null;
@@ -2917,7 +2924,7 @@ function showEnd(ep){
 }
 const sv=loadSave(); if(sv&&sv.stage&&sv.stage!=='wake') $('bCont').style.display='';
 function begin(mode){
-  initAudio(); $('start').style.display='none'; started=true; ended=false;
+  initAudio(); unlockVoice(); $('start').style.display='none'; started=true; ended=false;
   const all=()=>{sticks=[1,1,1,1,1];tied=[1,1,1,1,1,1,1,1];acorns=[1,1,1,1,1,1];stones=[1,1,1,1];};
   if(mode==='cont'&&sv){
     stage=ORDER.includes(sv.stage)?sv.stage:'wake'; sticks=sv.sticks||sticks; tied=sv.tied||tied; acorns=sv.acorns||acorns; stones=sv.stones||stones; ash=sv.ash||ash; cut=sv.cut||cut; pick=sv.pick||pick; spread=sv.spread||spread; snags=sv.snags||snags;
@@ -2970,7 +2977,7 @@ addEventListener('mouseup',()=>dragging=false);
 addEventListener('mousemove',e=>{if(isTouch)return;if(document.pointerLockElement===canvas||dragging){yaw-=e.movementX*.0026;pitch=clamp(pitch+e.movementY*.0022,-.4,1.25);}});
 canvas.addEventListener('wheel',e=>{camDist=clamp(camDist+e.deltaY*.003,1.2,8);},{passive:true});
 if(isTouch){
-  $('touch').style.display='block'; $('help').style.display='none'; $('keys').textContent='왼쪽 조이스틱 이동 · 오른쪽 화면 드래그로 시점 · E 버튼 상호작용 · 화면 탭으로 장면 넘기기';
+  $('touch').style.display='block'; $('help').style.display='none'; $('keys').textContent='왼쪽 조이스틱 이동 · 오른쪽 화면 드래그로 시점 · E 버튼 상호작용(리어카 잡기/놓기 포함) · 화면 탭으로 장면 넘기기 · 음성 버튼으로 나레이션 끄기/켜기';
   const jEl=$('joy'),jk=$('joyK');
   jEl.addEventListener('pointerdown',e=>{joy.id=e.pointerId;const r=jEl.getBoundingClientRect();joy.ox=r.left+r.width/2;joy.oy=r.top+r.height/2;jEl.setPointerCapture(e.pointerId);});
   jEl.addEventListener('pointermove',e=>{if(e.pointerId!==joy.id)return;let dx=e.clientX-joy.ox,dy=e.clientY-joy.oy;const l=Math.hypot(dx,dy),m=50;if(l>m){dx*=m/l;dy*=m/l;}joy.x=dx/m;joy.y=dy/m;jk.style.transform=`translate(${dx}px,${dy}px)`;});
@@ -2981,6 +2988,7 @@ if(isTouch){
   const lEnd=e=>{if(e.pointerId===look.id){look.id=null;if(seq&&performance.now()-tapT<220)skipStep();}}; canvas.addEventListener('pointerup',lEnd); canvas.addEventListener('pointercancel',lEnd);
   $('bE').addEventListener('pointerdown',e=>{e.preventDefault();interact();});
   $('bRun').addEventListener('pointerdown',e=>{e.preventDefault();runToggle=!runToggle;$('bRun').classList.toggle('on',runToggle);});
+  $('bVoice').addEventListener('pointerdown',e=>{e.preventDefault();VOICE.on=!VOICE.on;if(!VOICE.on)stopVoice();$('bVoice').classList.toggle('off',!VOICE.on);toast(VOICE.on?'나레이션 켜짐':'나레이션 꺼짐');});
 }
 addEventListener('resize',()=>{renderer.setSize(innerWidth,innerHeight,false);camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();});
 
