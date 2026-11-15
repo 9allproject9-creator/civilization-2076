@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <title>문명: 2076</title>
-<meta name="description" content="문명: 멸망 후 50년 뒤 2076년 (팬 게임) — 3D 생존 어드벤처 EP.1 「시작」 · EP.2 「일상」 · EP.3 「낚시왕」 · EP.4 「첫 삽」">
+<meta name="description" content="문명: 멸망 후 50년 뒤 2076년 (팬 게임) — 3D 생존 어드벤처 EP.1 「시작」 · EP.2 「일상」 · EP.3 「낚시왕」 · EP.4 「첫 삽」 · EP.5 「월동준비」 · EP.6 「과거의 오르골」 · EP.7 「사라진 밤」">
 <style>
 :root{--fg:#f3efe6;--dim:#bdb6a8;--panel:rgba(12,12,14,.55);--accent:#eaa55c;--line:rgba(255,255,255,.12)}
 *{box-sizing:border-box}
@@ -97,15 +97,15 @@ body.cine #help{opacity:0}
 <div id="start" class="screen">
   <h1>문명</h1>
   <div class="sub">멸망 후 50년 뒤 · 2076년</div>
-  <div class="fan">(팬 게임) · EP.1 「시작」 · EP.2 「일상」 · EP.3 「낚시왕」 · EP.4 「첫 삽」 · EP.5 「월동준비」 · EP.6 「과거의 오르골」</div>
-  <div class="btns"><button class="pri" id="bNew">새로 시작</button><button id="bEp2">EP.2 「일상」부터</button><button id="bEp3">EP.3 「낚시왕」부터</button><button id="bEp4">EP.4 「첫 삽」부터</button><button id="bEp5">EP.5 「월동준비」부터</button><button id="bEp6">EP.6 「과거의 오르골」부터</button><button id="bCont" style="display:none">이어하기</button></div>
+  <div class="fan">(팬 게임) · EP.1 「시작」 · EP.2 「일상」 · EP.3 「낚시왕」 · EP.4 「첫 삽」 · EP.5 「월동준비」 · EP.6 「과거의 오르골」 · EP.7 「사라진 밤」</div>
+  <div class="btns"><button class="pri" id="bNew">새로 시작</button><button id="bEp2">EP.2 「일상」부터</button><button id="bEp3">EP.3 「낚시왕」부터</button><button id="bEp4">EP.4 「첫 삽」부터</button><button id="bEp5">EP.5 「월동준비」부터</button><button id="bEp6">EP.6 「과거의 오르골」부터</button><button id="bEp7">EP.7 「사라진 밤」부터</button><button id="bCont" style="display:none">이어하기</button></div>
   <div class="links"><button id="bCredits" type="button">크레딧 영상 보기</button><a class="yt" href="https://www.youtube.com/@civilization_bk" target="_blank" rel="noopener noreferrer">▶ 원작 「문명」 채널 가기</a></div>
   <div class="keys" id="keys">WASD 이동 · Shift 달리기 · E 상호작용 · F 리어카 · Space 장면 넘기기<br>화면 클릭 후 마우스로 시점 회전</div>
-  <div class="credit">유튜브 채널 「문명」의 「문명2」 EP.1 「시작」 · EP.2 「일상」 · EP.3 「낚시왕」 · EP.4 「첫 삽」 · EP.5 「월동준비」 · EP.6 「과거의 오르골」을 바탕으로 만든 비공식 팬 게임입니다. · 나레이션 목소리: 타입캐스트(Typecast) AI 성우 「필재」</div>
+  <div class="credit">유튜브 채널 「문명」의 「문명2」 EP.1 「시작」 · EP.2 「일상」 · EP.3 「낚시왕」 · EP.4 「첫 삽」 · EP.5 「월동준비」 · EP.6 「과거의 오르골」 · EP.7 「사라진 밤」을 바탕으로 만든 비공식 팬 게임입니다. · 나레이션 목소리: 타입캐스트(Typecast) AI 성우 「필재」</div>
 </div>
 <div id="credits" role="dialog" aria-label="크레딧"><div class="x">닫기 ✕ (화면 클릭 · Esc)</div><div class="roll" id="roll">
   <h2>문명</h2><p>멸망 후 50년 뒤 · 2076년</p><p style="color:#a49c8e">(비공식 팬 게임)</p>
-  <h3>원작</h3><p>유튜브 채널 「문명」</p><p>「문명2」 EP.1 「시작」 · EP.2 「일상」 · EP.3 「낚시왕」</p><p>EP.4 「첫 삽」 · EP.5 「월동준비」 · EP.6 「과거의 오르골」</p>
+  <h3>원작</h3><p>유튜브 채널 「문명」</p><p>「문명2」 EP.1 「시작」 · EP.2 「일상」 · EP.3 「낚시왕」</p><p>EP.4 「첫 삽」 · EP.5 「월동준비」 · EP.6 「과거의 오르골」</p><p>EP.7 「사라진 밤」</p>
   <h3>기획 · 장면 구성</h3><p>9allproject9</p>
   <h3>제작 도움</h3><p>AI Claude (Anthropic) — 코드 · 3D 모델 · 연출</p>
   <h3>나레이션 목소리</h3><p>타입캐스트(Typecast) AI 성우 「필재」</p>
@@ -353,7 +353,7 @@ let fireLight,fireGlass,stoveDoor,smallPot,potOnStove,bigPot,homeBoxes=[],cupMes
   box(1.0,.05,.08,fr,1.6,1.2,12.9,{}); box(.05,.8,.08,fr,1.6,1.2,12.9,{});
   const glass=std({color:0x9fb0b8,roughness:.05,metalness:.2,transparent:true,opacity:.25,side:THREE.DoubleSide});
   const sh=new THREE.Mesh(new THREE.ShapeGeometry(new THREE.Shape([new THREE.Vector2(0,0),new THREE.Vector2(1.3,0),new THREE.Vector2(.4,.5)])),glass); sh.position.set(2.88,1.03,7.65); sh.rotation.y=Math.PI/2; scene.add(sh);
-  const dg=new THREE.Group(); dg.position.set(-1.1,0,12.98); dg.rotation.y=-2.95; scene.add(dg); box(1.18,2.05,.05,M.rust,.6,.02,0,{parent:dg});
+  const dg=new THREE.Group(); dg.name='shedDoor'; dg.position.set(-1.1,0,12.98); dg.rotation.y=-2.95; scene.add(dg); box(1.18,2.05,.05,M.rust,.6,.02,0,{parent:dg});
   const pipe=shadow(new THREE.Mesh(new THREE.CylinderGeometry(.075,.075,3.1,14),M.iron)); pipe.position.set(-2.3,2.45,5.62); scene.add(pipe);
   const cap=shadow(new THREE.Mesh(new THREE.ConeGeometry(.16,.14,14),M.iron)); cap.position.set(-2.3,4.12,5.62); scene.add(cap);
   // stove — far-left corner seen from the door
@@ -854,7 +854,7 @@ const _m4=new THREE.Matrix4(),_q=new THREE.Quaternion(),_s=new THREE.Vector3(),_
   while(n<N&&tries<N*4){tries++;const near=rand()<.55;const x=near?R(-70,70):R(-170,160),z=near?R(-30,35):R(-130,90);const h=terrainH(x,z);if(h<-1.55)continue;if(nearRoad(x,z,.2))continue;if(Math.hypot(x-FC.x,z-FC.z)<14)continue;
     let bad=false;for(const b of blocks)if(x>b.x0&&x<b.x1&&z>b.z0&&z<b.z1){bad=true;break;}if(bad)continue;
     const bank=h<-.2&&h>-1.5,s=bank?R(1.2,2.4):R(.6,1.4);_q.setFromEuler(_e.set(0,rand()*6,0));_s.set(s,s*R(.8,1.3),s);_p.set(x,h,z);_m4.compose(_p,_q,_s);im.setMatrixAt(n,_m4);im.setColorAt(n,cols[(rand()*cols.length)|0]);n++;}
-  im.count=n; im.receiveShadow=true; scene.add(im); }
+  im.count=n; im.receiveShadow=true; im.name='grass'; scene.add(im); }
 { const lg=new THREE.PlaneGeometry(.09,.06); lg.rotateX(-Math.PI/2); const N=900,im=new THREE.InstancedMesh(lg,M.leaf,N),lc=[0x6b3f1f,0x8a5a2b,0x5a3a22,0x9b6b35,0x4a3020].map(h=>new THREE.Color(h));
   for(let i=0;i<N;i++){let x,z;if(i<260){x=R(-2.7,2.7);z=R(5.3,12.7);}else{x=R(-12,12);z=R(2,22);}const y=i<260?.02:terrainH(x,z)+.02;_q.setFromEuler(_e.set(R(-.2,.2),rand()*6,R(-.2,.2)));_s.setScalar(R(.8,1.6));_p.set(x,y,z);_m4.compose(_p,_q,_s);im.setMatrixAt(i,_m4);im.setColorAt(i,lc[(rand()*lc.length)|0]);}
   im.receiveShadow=true; scene.add(im); }
@@ -1101,20 +1101,23 @@ const ORDER=['wake','wood','stove','pot','boil','drink','exit','tarp','kitchen',
   'e3_trap','e3_cart','e3_bridge','e3_check','e3_rebait','e3_town','e3_hw1','e3_hw2','e3_mortar','e3_home','e3_window','e3_gaps','e3_ashscoop','e3_ash','e3_bridge2','e3_catch','e3_fire','e3_clean','e3_grill','e3_eat','end3',
   'e4_search','e4_read','e4_center','e4_tools','e4_home','e4_sharpen','e4_cut','e4_pick','e4_rake','e4_mortar','e4_spread','e4_turn','e4_ridge','e4_seed','e4_sow','e4_fire','e4_eat','end4',
   'e5_open','e5_pound','e5_settle','e5_cart','e5_garage','e5_grease','e5_return','e5_fix','e5_test','e5_hill','e5_saw','e5_green','e5_haul','e5_stack','e5_strain','e5_cook','e5_eat','e5_door','end5',
-  'e6_intro','e6_mill','e6_city','e6_map','e6_shop','e6_gift','e6_mussel','e6_home','e6_cook','e6_eat','e6_box','end6'];
+  'e6_intro','e6_mill','e6_city','e6_map','e6_shop','e6_gift','e6_mussel','e6_home','e6_cook','e6_eat','e6_box','end6',
+  'e7_fish','e7_roots','e7_wood','e7_stackin','e7_door','e7_stove','e7_push','e7_shovel','e7_field','e7_tracks','e7_pit','e7_bridge','e7_lines','e7_return','e7_bed','e7_spark','e7_out','e7_trap','e7_drag','e7_store','e7_grill','e7_eat','e7_stew','end7'];
 const SI=n=>ORDER.indexOf(n);
 const OBJ={wake:'침낭에서 일어나기',wood:'리어카에서 마른 장작 꺼내기',stove:'난로 철문을 열고 불씨 위에 장작 얹기',pot:'작은 스텐 냄비에 물 담기',boil:'달궈진 난로 위에서 물 끓이기',drink:'벽 나무 지지대의 굴 껍데기 잔으로 따뜻한 물 마시기',exit:'채비를 마치고 밖으로 나서기',tarp:'리어카 방수포 들춰 보기',kitchen:'섬진강 휴게소 본관 — 식당 주방 다시 수색하기',seeds:'숙소로 돌아가 종자와 설명서를 스텐 용기에 옮겨 담기',food:'남은 식량(부들 뿌리·마른 냉이·말린 미역) 따로 저장하기',pull:'빈 리어카를 끌고 밖으로 나서기',village:'창고 아래 길을 따라 낡은 마을로 가기',shop:'빛바랜 간판의 낚시가게 뒤지기',roots:'돌아가는 길에 숙소 근처 수풀과 둑 살피기',branches:'숙소 근처 마른 나무에서 긴 나뭇가지 자르기',sticks:'뿌리식물 자리마다 나뭇가지 꽂기',larvae:'쓰러진 고목에서 하늘소 유충 얻기',bridge:'섬진강 휴게소를 지나 섬진강교로 가기',lines:'다리 난간에 낚싯줄 내려 묶기',home:'집으로 돌아가기',end1:'EP.1 완료',
   e2_check:'구석의 스텐 밀폐 용기들 열어 확인하기',e2_forest:'숙소 인근 참나무숲으로 가기',e2_leaves:'수북한 마른 낙엽 들춰 보기',e2_acorns:'도토리 주워 담기',e2_stones:'구멍을 막을 돌멩이 줍기',e2_mud:'끈적한 진흙 퍼 담기',e2_return:'숙소로 돌아가기',e2_plug:'벽 틈새에 돌 쑤셔 넣고 진흙 바르기',e2_bucket:'큰 들통 챙기기',e2_water:'냇가에서 들통에 물 받기',e2_soak:'들통 내려놓고 도토리 쏟아 불리기',e2_potato:'작은 스텐 냄비에 돼지감자 채우기',e2_roast:'난로 철문 열고 냄비를 안쪽 구석에 밀어 넣기',e2_soup:'난로 상판에서 냉이국 끓이기',e2_eat:'난롯가에 앉아 식사하기',e2_dishes:'설거지 거리와 페트병 통발 챙기기',e2_wash:'냇가에서 그릇 씻기',e2_trap:'물가에 페트병 통발 설치하기',e2_home:'집으로 돌아가기',end2:'EP.2 완료',
   e3_trap:'냇가의 페트병 통발 건져 올리기',e3_cart:'새우를 챙겨 리어카 끌고 나서기',e3_bridge:'리어카를 끌고 섬진강교로 가기',e3_check:'여덟 개의 낚싯줄 차례로 당겨 확인하기',e3_rebait:'새우 미끼 꿰고 돌멩이 무게추 달아 던지기',e3_town:'리어카를 끌고 다리 건너 시내로 내려가기',e3_hw1:'처음 발견했던 철물점 구석의 철망 살피기',e3_hw2:'더 걸어가 다른 철물점의 안쪽 창고 뒤지기',e3_mortar:'돌아오는 길, 옛 농가의 돌절구 리어카에 싣기',e3_home:'숙소로 돌아가기',e3_window:'창문을 스테인리스 철망으로 보강하기',e3_gaps:'외벽 틈새를 철수세미로 막기',e3_ashscoop:'삽으로 화목 난로의 하얀 재 퍼내기',e3_ash:'집 둘레를 따라 재 뿌리기',e3_bridge2:'해가 지기 전 다시 섬진강교로 가기',e3_catch:'낚싯줄 다시 당겨 올리기',e3_fire:'집 앞마당에 모닥불 피우기',e3_clean:'농어 손질하고 한 마리는 포 떠서 훈제하기',e3_grill:'나머지 한 마리 소금구이 하기',e3_eat:'모닥불 앞에 앉아 농어 소금구이 먹기',end3:'EP.3 완료',
   e4_search:'무너진 서가에서 농사 책 찾기',e4_read:'빛이 드는 책상에서 돋보기로 책 읽기',e4_center:'집으로 가는 길, 마을 어귀의 영농자재센터에 들르기',e4_tools:'철제 선반에서 쓸 만한 농기구 챙기기',e4_home:'집으로 돌아가기',e4_sharpen:'숫돌에 낫 갈기',e4_cut:'억새와 가시덤불 밑동부터 베어 내기',e4_pick:'곡괭이로 굳은 땅 부수기',e4_rake:'쇠스랑으로 풀뿌리와 돌멩이 긁어내기',e4_mortar:'돌절구에 재첩 껍데기 빻아 석회 가루 만들기',e4_spread:'석회 가루와 나뭇재를 밭에 골고루 뿌리기',e4_turn:'삽으로 흙을 뒤집어 골고루 섞기',e4_ridge:'양옆에 물길 파고 가운데 두둑 만들기',e4_seed:'집 안 원통형 밀폐 용기에서 보리 종자 꺼내기',e4_sow:'두둑에 골을 파고 보리 씨앗 심기',e4_fire:'집으로 돌아가 화목 난로에 불 지피기',e4_eat:'창가에 걸터앉아 쉬기',end4:'EP.4 완료',
   e5_open:'구석의 대형 스텐 들통 뚜껑 열어 보기',e5_pound:'깐 도토리를 마당의 돌절구에 빻기',e5_settle:'으깬 도토리를 물에 풀고 전분물 따라 내기',e5_cart:'마당 한편의 리어카 살펴보기',e5_garage:'휴게소 한편의 낡은 차량 관리 창고로 가기',e5_grease:'무너진 선반에서 쓸 만한 것 찾기',e5_return:'집으로 돌아가 리어카 고치기',e5_fix:'리어카 바퀴 분해하고 구리스 바르기',e5_test:'리어카 손잡이를 잡고 끌어 보기',e5_hill:'리어카를 끌고 뒷산 비탈면으로 가기',e5_saw:'고사목을 톱으로 켜고 손도끼로 쪼개 싣기',e5_green:'생나무 기둥 한 그루 베어 싣기',e5_haul:'땔감을 실은 리어카 끌고 집으로 돌아가기',e5_stack:'장작을 창고 외벽 처마 밑에 쌓기',e5_strain:'아침에 걸러 둔 들통 확인하기',e5_cook:'난로 위에서 도토리묵 쑤기',e5_eat:'난롯가에 앉아 도토리묵 먹기',e5_door:'문을 열고 밤공기 마주하기',end5:'EP.5 완료',
-  e6_intro:'섬진강교를 건너 해안도로로 나가기',e6_mill:'해안도로를 따라 동쪽으로 더 걸어가기',e6_city:'해안가를 벗어나 시내의 시청으로 가기',e6_map:'어두운 로비의 금속 안내 지도 살펴보기',e6_shop:'상가 거리 걸어 보기',e6_gift:'기념품 가게의 무너진 진열대 뒤지기',e6_mussel:'하구 방파제 아래의 홍합 채집하기',e6_home:'집으로 돌아가기',e6_cook:'화목 난로에 홍합탕 끓이기',e6_eat:'난롯가에 앉아 홍합탕 먹기',e6_box:'주워 온 오르골 꺼내 보기',end6:'EP.6 완료 — 자유롭게 둘러보기'};
+  e6_intro:'섬진강교를 건너 해안도로로 나가기',e6_mill:'해안도로를 따라 동쪽으로 더 걸어가기',e6_city:'해안가를 벗어나 시내의 시청으로 가기',e6_map:'어두운 로비의 금속 안내 지도 살펴보기',e6_shop:'상가 거리 걸어 보기',e6_gift:'기념품 가게의 무너진 진열대 뒤지기',e6_mussel:'하구 방파제 아래의 홍합 채집하기',e6_home:'집으로 돌아가기',e6_cook:'화목 난로에 홍합탕 끓이기',e6_eat:'난롯가에 앉아 홍합탕 먹기',e6_box:'주워 온 오르골 꺼내 보기',end6:'EP.6 완료',
+  e7_fish:'잡아 둔 물고기에 소금 문질러 훈제하기',e7_roots:'집 안에서 뿌리 채소와 냉이 갈무리하기',e7_wood:'처마 밑 장작더미에서 쓸 만큼 골라 들기',e7_stackin:'난로에서 조금 떨어진 자리에 장작 쌓기',e7_door:'철문이 잘 여닫히는지 확인하기',e7_stove:'화목 난로에 장작 든든히 채워 넣기',e7_push:'철문을 밀어 밖으로 나가기',e7_shovel:'삽으로 집 앞 눈 치워 길 내기',e7_field:'눈 덮인 보리밭 살펴보기',e7_tracks:'집 주변 마저 정리하기',e7_pit:'발자국이 이어지는 길목에 구덩이 파기',e7_bridge:'작은 냄비만 들고 섬진강교로 걸어가기',e7_lines:'얼어붙은 낚싯줄 당겨 확인하기',e7_return:'빈 냄비를 들고 집으로 돌아가기',e7_bed:'난로에 장작 밀어 넣고 눕기',e7_spark:'파이어스틸로 부싯깃에 불 붙이기',e7_out:'철문을 열고 밖으로 나가기',e7_trap:'구덩이 덫 확인하기',e7_drag:'멧돼지를 썰매에 받쳐 냇가까지 끌고 가기',e7_store:'마당에서 남은 고기 갈무리하기',e7_grill:'달궈진 프라이팬에 고기 굽기',e7_eat:'난롯가에 앉아 구운 고기 먹기',e7_stew:'남은 고기로 국 끓이기',end7:'EP.7 완료 — 자유롭게 둘러보기'};
 const TOD={wake:0,wood:.02,stove:.03,pot:.04,boil:.05,drink:.06,exit:.08,tarp:.1,kitchen:.18,seeds:.28,food:.3,pull:.33,village:.4,shop:.45,roots:.52,branches:.55,sticks:.58,larvae:.66,bridge:.76,lines:.8,home:.92,end1:1,
   e2_check:1,e2_forest:1.02,e2_leaves:1.03,e2_acorns:1.03,e2_stones:1.04,e2_mud:1.04,e2_return:1.06,e2_plug:1.08,e2_bucket:1.1,e2_water:1.11,e2_soak:1.12,e2_potato:1.14,e2_roast:1.14,e2_soup:1.15,e2_eat:1.16,e2_dishes:1.18,e2_wash:1.19,e2_trap:1.2,e2_home:1.2,end2:1.2,
   e3_trap:0,e3_cart:.03,e3_bridge:.06,e3_check:.09,e3_rebait:.11,e3_town:.28,e3_hw1:.36,e3_hw2:.44,e3_mortar:.52,e3_home:.6,e3_window:.62,e3_gaps:.66,e3_ashscoop:.7,e3_ash:.72,e3_bridge2:.86,e3_catch:.9,e3_fire:1.0,e3_clean:1.03,e3_grill:1.05,e3_eat:1.07,end3:1.1,
   e4_search:.12,e4_read:.14,e4_center:.3,e4_tools:.33,e4_home:.4,e4_sharpen:.42,e4_cut:.46,e4_pick:.53,e4_rake:.6,e4_mortar:.62,e4_spread:.65,e4_turn:.68,e4_ridge:.72,e4_seed:.78,e4_sow:.8,e4_fire:1.14,e4_eat:1.18,end4:1.2,
   e5_open:.06,e5_pound:.1,e5_settle:.14,e5_cart:.18,e5_garage:.28,e5_grease:.32,e5_return:.38,e5_fix:.42,e5_test:.46,e5_hill:.52,e5_saw:.6,e5_green:.74,e5_haul:.9,e5_stack:.97,e5_strain:1.06,e5_cook:1.1,e5_eat:1.15,e5_door:1.2,end5:1.2,
-  e6_intro:.14,e6_mill:.3,e6_city:.42,e6_map:.48,e6_shop:.56,e6_gift:.6,e6_mussel:.78,e6_home:.9,e6_cook:1.08,e6_eat:1.12,e6_box:1.16,end6:1.2};
+  e6_intro:.14,e6_mill:.3,e6_city:.42,e6_map:.48,e6_shop:.56,e6_gift:.6,e6_mussel:.78,e6_home:.9,e6_cook:1.08,e6_eat:1.12,e6_box:1.16,end6:1.2,
+  e7_fish:.3,e7_roots:.42,e7_wood:.5,e7_stackin:.55,e7_door:.62,e7_stove:.2,e7_push:.24,e7_shovel:.26,e7_field:.3,e7_tracks:.33,e7_pit:.38,e7_bridge:.5,e7_lines:.58,e7_return:.68,e7_bed:.74,e7_spark:1.04,e7_out:1.06,e7_trap:1.08,e7_drag:1.1,e7_store:1.16,e7_grill:1.2,e7_eat:1.2,e7_stew:1.2,end7:1.2};
 let stage='wake',sticks=[0,0,0,0,0],tied=[0,0,0,0,0,0,0,0],acorns=[0,0,0,0,0,0],stones=[0,0,0,0],ash=[0,0,0,0],cut=[0,0,0,0],pick=[0,0,0],spread=[0,0,0],snags=[0,0,0];
 let fireLevel=.22,fireTarget=.22,tarpOpen=0,tarpTarget=0,doorTarget=0,shellK=0,printK=0,steamK=0,started=false,ended=false,leafAnim=-1;
 const sum=a=>a.reduce((p,c)=>p+c,0);
@@ -2355,11 +2358,547 @@ function target(){
 }
 function nearestOf(arr){let b=null,bd=1e9;for(const p of arr){const d=d2D(p,player.pos);if(d<bd){bd=d;b=p;}}return b;}
 
+/* ================= EP.7 「사라진 밤」 — 눈 · 날씨 · 구덩이 덫 ================= */
+const PIT=V(-11,0,3), PILE7=V(-2.47,0,9.35), TIND7=V(-2.4,0,8.3), STORE7=V(-3.9,0,14.7), TRACK7=V(-7.6,0,12.4), ROOT7=V(1.25,0,5.62), SALT7=V(BF.x+1.0,0,BF.z-.75);
+const SNOW={value:0}, WX={gray:0,fall:0,blue:0,tg:0,tf:0,tb:0};
+let snowT=0, sink7=0, pitDrop=0, cold7=0, clear7=[0,0,0], drag7=false;
+const noSnow=m=>{m.userData.noSnow=true;return m;};
+// 위를 향한 면에만 눈이 쌓이도록 모든 재질에 덧입히는 셰이더 (SNOW.value 0→1)
+function snowPatch(m){ if(!m||!m.isMeshStandardMaterial||m.userData.noSnow||m.userData.snowOK) return; m.userData.snowOK=true;
+  m.onBeforeCompile=sh=>{ sh.uniforms.uSnow=SNOW;
+    sh.vertexShader='varying vec3 vSnowW;\n'+sh.vertexShader.replace('#include <project_vertex>',`#include <project_vertex>
+    { vec4 snW=vec4(transformed,1.);
+    #ifdef USE_INSTANCING
+      snW=instanceMatrix*snW;
+    #endif
+      vSnowW=(modelMatrix*snW).xyz; }`);
+    sh.fragmentShader='uniform float uSnow;varying vec3 vSnowW;\n'+sh.fragmentShader.replace('#include <color_fragment>',`#include <color_fragment>
+    if(uSnow>.002&&vSnowW.x<900.&&vSnowW.y>-1.56){ vec3 snN=normalize(cross(dFdx(vSnowW),dFdy(vSnowW)));
+      float snH=fract(sin(dot(floor(vSnowW.xz*2.5),vec2(12.9898,78.233)))*43758.5453);
+      float snK=smoothstep(.3,.62,snN.y+(snH-.5)*.14)*uSnow;
+      if(vSnowW.x>-2.88&&vSnowW.x<2.88&&vSnowW.z>5.1&&vSnowW.z<12.88&&vSnowW.y<2.9) snK=0.;
+      float snS=.95+.05*fract(sin(dot(floor(vSnowW.xz*11.),vec2(41.3,289.1)))*9871.3);
+      diffuseColor.rgb=mix(diffuseColor.rgb,vec3(.78,.83,.92)*snS,snK); }`);
+  }; m.customProgramCacheKey=()=>'snow7'; m.needsUpdate=true; }
+function snowInit(){ const skip=new Set([water]),cm=new Map();
+  char.root.traverse(o=>{skip.add(o);o.renderOrder=-2.5;if(o.isMesh&&!Array.isArray(o.material)&&o.material.isMeshStandardMaterial){if(!cm.has(o.material))cm.set(o.material,noSnow(o.material.clone()));o.material=cm.get(o.material);}});
+  scene.traverse(o=>{if(o.isMesh&&!skip.has(o))(Array.isArray(o.material)?o.material:[o.material]).forEach(snowPatch);}); }
+const snowM=noSnow(std({color:0xe4eaf5,roughness:1})), iceM=noSnow(std({color:0xdcecff,roughness:.08,metalness:.1,transparent:true,opacity:.72,envMap:envTex,envMapIntensity:.8}));
+const printM=noSnow(std({color:0x93a2bc,roughness:1,transparent:true,opacity:.8,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-6,polygonOffsetUnits:-6}));
+/* 눈발 */
+let flakes; const flakeN=isTouch?1400:3200, flakeP=new Float32Array(flakeN*3), flakeV=new Float32Array(flakeN);
+{ for(let i=0;i<flakeN;i++){flakeP[i*3]=(Math.random()-.5)*44;flakeP[i*3+1]=Math.random()*16;flakeP[i*3+2]=(Math.random()-.5)*44;flakeV[i]=.7+Math.random()*.8;}
+  const g=new THREE.BufferGeometry(); g.setAttribute('position',new THREE.BufferAttribute(new Float32Array(flakeN*3),3));
+  const tex=canvasTex(32,32,(c,w,h)=>{const gr=c.createRadialGradient(16,16,0,16,16,16);gr.addColorStop(0,'rgba(255,255,255,1)');gr.addColorStop(.5,'rgba(255,255,255,.7)');gr.addColorStop(1,'rgba(255,255,255,0)');c.clearRect(0,0,w,h);c.fillStyle=gr;c.fillRect(0,0,w,h);});
+  flakes=new THREE.Points(g,new THREE.PointsMaterial({map:tex,size:.12,transparent:true,opacity:0,depthWrite:false,color:0xffffff,sizeAttenuation:true})); flakes.frustumCulled=false; flakes.visible=false; scene.add(flakes); }
+function stepFlakes(dt){ const on=WX.fall>.02; flakes.visible=on; if(!on) return; flakes.material.opacity=Math.min(1,WX.fall*1.4)*.9;
+  const a=flakes.geometry.attributes.position.array,cx=camera.position.x,cy=camera.position.y,cz=camera.position.z,wind=1.5+WX.fall*8,fv=1.1+WX.fall*2.4,n=flakeN*(.3+.7*WX.fall)|0;
+  for(let i=0;i<flakeN;i++){const j=i*3; if(i>=n){a[j+1]=-99;continue;}
+    flakeP[j]+=(wind*flakeV[i]+Math.sin(time*2+i)*.6)*dt; flakeP[j+1]-=fv*flakeV[i]*dt; flakeP[j+2]+=Math.cos(time*1.3+i*.7)*.5*dt;
+    if(flakeP[j+1]<0)flakeP[j+1]+=16; if(flakeP[j]>22)flakeP[j]-=44; if(flakeP[j+2]>22)flakeP[j+2]-=44; else if(flakeP[j+2]<-22)flakeP[j+2]+=44;
+    const x=cx+flakeP[j],y=cy-5+flakeP[j+1],z=cz+flakeP[j+2];
+    if(x>-2.85&&x<2.85&&z>5.15&&z<12.85&&y<3.1){a[j+1]=-99;continue;}
+    a[j]=x;a[j+1]=y;a[j+2]=z;}
+  flakes.geometry.attributes.position.needsUpdate=true; }
+/* 하늘·안개에 날씨 덧입히기 */
+const _applyTOD=applyTOD; applyTOD=function(t){ _applyTOD(t); const ni=skyU.night.value,day=1-ni;
+  if(WX.blue>.001){skyU.top.value.lerp(_c1.setHex(0x3a78c2),WX.blue*.7*day);skyU.hor.value.lerp(_c1.setHex(0xbfd8f0),WX.blue*.6*day);}
+  if(WX.gray>.001){const d=1-ni*.7;skyU.top.value.lerp(_c1.setHex(0x7f858c).multiplyScalar(d),WX.gray*.92);skyU.hor.value.lerp(_c1.setHex(0x9da2a7).multiplyScalar(d),WX.gray*.92);sun.intensity*=1-WX.gray*.7;hemi.intensity*=1+WX.gray*.15;skyU.sunCol.value.multiplyScalar(1-WX.gray*.85);}
+  scene.fog.color.copy(skyU.hor.value).multiplyScalar(.92); hemi.color.copy(skyU.top.value).lerp(_c1.setHex(0xffffff),.35);
+  scene.fog.near=60-WX.fall*56; scene.fog.far=520-WX.gray*140-WX.fall*340;
+  const sv=SNOW.value; hemi.groundColor.setHex(0x5a4a38).lerp(_c1.setHex(0xaab8cc),sv*.8); renderer.toneMappingExposure*=1-sv*.22*day; };
+/* 철문 (EP.7에서는 여닫힘) */
+const shedDoor=scene.getObjectByName('shedDoor'), grassIM=scene.getObjectByName('grass'), door7={a:-2.95,t:-2.95}, doorCol={x0:-1.1,x1:.1,z0:12.78,z1:13.0,y0:0,y1:-99}; colliders.push(doorCol);
+/* 눈 위 발자국 */
+const fp7={im:null,n:0,i:0,side:1,last:V(0,0,0)};
+{ const g=new THREE.CircleGeometry(.1,8); g.rotateX(-Math.PI/2); g.scale(1,1,1.5);
+  fp7.im=new THREE.InstancedMesh(g,printM,220); fp7.im.count=0; fp7.im.frustumCulled=false; scene.add(fp7.im); }
+const PATH7=[{x:-.45,z:13.05,len:2.5,ry:0,w:1.25,r:[-1.1,.2,13.0,15.6]},{x:-.45,z:15.5,len:3.3,ry:0,w:1.25,r:[-1.1,.2,15.5,18.9]},{x:-1.0,z:14.3,len:4.1,ry:-Math.PI/2,w:1.2,r:[-5.2,-1.0,13.65,14.95]}];
+function onPath7(x,z){ const s=SI(stage); if(s<SI('e7_shovel')||s>SI('e7_bed')) return false; return PATH7.some((p,i)=>(s>SI('e7_shovel')||clear7[i])&&x>p.r[0]&&x<p.r[1]&&z>p.r[2]&&z<p.r[3]); }
+function stepPrints(){ if(SNOW.value<.6||inShed(player.pos)||onPath7(player.pos.x,player.pos.z)||pitDrop>0){fp7.last.copy(player.pos);return;}
+  const d=d2D(fp7.last,player.pos); if(d<.42) return; if(d>3){fp7.last.copy(player.pos);return;}
+  fp7.last.copy(player.pos); fp7.side*=-1; const th=player.theta,x=player.pos.x+Math.cos(th)*.1*fp7.side,z=player.pos.z-Math.sin(th)*.1*fp7.side;
+  _q.setFromEuler(_e.set(0,th,0)); _s.setScalar(1); _p.set(x,groundH(x,z,player.y)+.035,z); _m4.compose(_p,_q,_s); fp7.im.setMatrixAt(fp7.i,_m4); fp7.i=(fp7.i+1)%220; fp7.n=Math.min(220,fp7.n+1); fp7.im.count=fp7.n; fp7.im.instanceMatrix.needsUpdate=true; }
+/* ---- EP.7 소품 ---- */
+let pathObjs=[],drift7,snowDeco7,fieldSnow7,tracks7,boar7,sled7,meatPile7,meatHeld7,bags7=[],tub7,tubLid7,storeMound7,storeLogs7=[],pan7,slices7=[],saltDish7,stewTop7,stewPot7,stewBits7=[],saltFish7=[],saltBoard7,saltGrains7,smoke7=[],rootBox7,roots7=[],soil7,greens7=[],dryLine7,pile7,green7,twigs7,tinder7,ember7,steel7,steelHeld7,shovelIn7,blanket7,ash7,sparks7=[],sparkLight7,pitLight7,snowClods7=[],pitSticks7=[],pitLeaves7=[],dirtClods7=[];
+const pit7={g:null,inner:null,mask:null,rim:null,mound:null,cover:null,cave:null,caveSticks:[]};
+function makeBoar(){ const g=new THREE.Group(), fur=noSnow(std({color:0x5a4636,roughness:1})), furD=noSnow(std({color:0x3d2f25,roughness:1})), tusk=noSnow(std({color:0xe8e0cc,roughness:.5}));
+  const body=shadow(new THREE.Mesh(new THREE.SphereGeometry(.34,18,14),fur)); body.scale.set(1.75,1,.95); body.position.y=.52; g.add(body);
+  const hump=shadow(new THREE.Mesh(new THREE.SphereGeometry(.26,14,10),furD)); hump.scale.set(1.3,1,.9); hump.position.set(.26,.68,0); g.add(hump);
+  const head=shadow(new THREE.Mesh(lathe([[0,0],[.1,0],[.13,.1],[.2,.3],[.21,.46],[.12,.6],[0,.62]],14),fur)); head.rotation.z=Math.PI/2+.25; head.position.set(1.02,.38,0); g.add(head);
+  const nose=shadow(new THREE.Mesh(new THREE.CylinderGeometry(.075,.085,.05,12),noSnow(std({color:0x5a4640,roughness:.7})))); nose.rotation.z=Math.PI/2+.25; nose.position.set(1.04,.37,0); g.add(nose);
+  for(const s of [-1,1]){ const ear=shadow(new THREE.Mesh(new THREE.ConeGeometry(.07,.16,6),furD)); ear.position.set(.52,.82,s*.14); ear.rotation.set(s*.35,0,-.4); g.add(ear);
+    const tk=shadow(new THREE.Mesh(new THREE.ConeGeometry(.018,.1,6),tusk)); tk.position.set(.9,.36,s*.09); tk.rotation.set(s*.5,0,-.5); g.add(tk);
+    const ey=new THREE.Mesh(new THREE.SphereGeometry(.018,8,6),M.dark); ey.position.set(.72,.6,s*.15); g.add(ey);
+    for(const x of [-.36,.36]){ const leg=shadow(new THREE.Mesh(new THREE.CylinderGeometry(.065,.045,.4,8),furD)); leg.position.set(x,.2,s*.17); g.add(leg); } }
+  for(let i=0;i<9;i++){ const b=shadow(new THREE.Mesh(new THREE.ConeGeometry(.035,.12,5),furD)); b.position.set(.5-i*.11,.86-Math.abs(i-2)*.012,0); b.rotation.z=.35; g.add(b); }
+  const tail=shadow(new THREE.Mesh(new THREE.CylinderGeometry(.012,.02,.22,5),furD)); tail.position.set(-.62,.5,0); tail.rotation.z=-.7; g.add(tail);
+  const fr=noSnow(std({color:0xdfe7f2,roughness:1})); g.userData.frost=[];
+  for(let i=0;i<16;i++){ const f=new THREE.Mesh(new THREE.SphereGeometry(R(.05,.1),7,5),fr); const a=rand()*6.28; f.scale.set(1.3,.35,1); f.position.set(R(-.5,.6),.56+Math.sin(a)*.3,Math.cos(a)*.3); f.lookAt(f.position.x,.52,0); f.rotateX(Math.PI/2); g.add(f); g.userData.frost.push(f); }
+  g.traverse(o=>o.renderOrder=-2.5); return g; }
+{
+  const _r=rand; rand=mulberry32(7007);
+  const soilB=noSnow(std({map:T.dirt,color:0x6a5846,roughness:1,side:THREE.BackSide})), soilF=noSnow(std({map:T.dirt,color:0x5c4b3a,roughness:1})), packed=noSnow(std({map:T.dirt,color:0xb9b6b0,roughness:1,polygonOffset:true,polygonOffsetFactor:-4,polygonOffsetUnits:-4}));
+  /* 치운 길 3구간 + 양옆 눈 둔덕 */
+  PATH7.forEach(p=>{ const g=new THREE.Group(); g.position.set(p.x,0,p.z); g.rotation.y=p.ry; scene.add(g);
+    const fl=new THREE.Mesh(new THREE.PlaneGeometry(p.w,p.len),packed); fl.rotation.x=-Math.PI/2; fl.position.set(0,.03,p.len/2); fl.receiveShadow=true; g.add(fl);
+    for(const s of [-1,1]) for(let i=0;i<6;i++){ const b=shadow(new THREE.Mesh(new THREE.SphereGeometry(.32,10,7),snowM)); b.scale.set(R(.75,1.05),R(.55,.8),p.len/6/.32*.62); b.position.set(s*(p.w/2+.22),.04,(i+.5)*p.len/6); g.add(b); }
+    g.visible=false; pathObjs.push(g); });
+  /* 문 앞을 막은 눈 더미, 지붕 눈, 고드름, 벽 밑 눈 */
+  drift7=shadow(new THREE.Mesh(new THREE.SphereGeometry(1,18,12),snowM)); drift7.scale.set(1.15,.6,.75); drift7.position.set(-.5,0,13.7); drift7.visible=false; scene.add(drift7);
+  snowDeco7=new THREE.Group(); scene.add(snowDeco7); snowDeco7.visible=false;
+  { const cap=shadow(new THREE.Mesh(new RoundedBoxGeometry(6.75,.34,8.75,3,.15),snowM)); cap.position.set(0,3.4,9); snowDeco7.add(cap);
+    for(let i=0;i<22;i++){ const L=R(.14,.5), c=new THREE.Mesh(new THREE.ConeGeometry(R(.018,.035),L,6),iceM); c.rotation.x=Math.PI; const e=i<13; c.position.set(e?-3.1+i*.5+R(-.1,.1):3.3,3.0-L/2,e?13.3:5.2+(i-13)*.9+R(-.1,.1)); snowDeco7.add(c); }
+    for(const [x,z,sx,sz] of [[3.5,7,.5,1.6],[3.5,11.4,.45,1.3],[0,4.55,2.6,.5],[-2.6,13.5,.9,.45],[1.9,13.45,1.2,.45],[-4.2,5.1,.9,.6]]){ const m=shadow(new THREE.Mesh(new THREE.SphereGeometry(1,12,8),snowM)); m.scale.set(sx,R(.3,.45),sz); m.position.set(x,0,z); snowDeco7.add(m); } }
+  /* 눈 이불을 덮은 보리밭 */
+  { const g=new THREE.PlaneGeometry(FLD.x1-FLD.x0+.6,FLD.z1-FLD.z0+.6,36,8); g.rotateX(-Math.PI/2); const p=g.attributes.position, hw=(FLD.x1-FLD.x0+.6)/2, hd=(FLD.z1-FLD.z0+.6)/2;
+    for(let i=0;i<p.count;i++){ const x=p.getX(i),z=p.getZ(i),ed=Math.min(1,(hw-Math.abs(x))/.7,(hd-Math.abs(z))/.7); p.setY(i,.06+ed*(.34+.05*Math.cos(x*Math.PI*2))); }
+    g.computeVertexNormals(); fieldSnow7=new THREE.Mesh(g,snowM); fieldSnow7.position.set(FCX,0,FCZ); fieldSnow7.receiveShadow=true; fieldSnow7.visible=false; scene.add(fieldSnow7); }
+  /* 짐승 발자국: 숲 → 길목(구덩이 자리) → 냇가 */
+  { const a=new THREE.CircleGeometry(.032,7), b=a.clone(); a.rotateX(-Math.PI/2); a.scale(1,1,1.7); a.translate(-.03,0,0); b.rotateX(-Math.PI/2); b.scale(1,1,1.7); b.translate(.03,0,0);
+    const pts=[V(-22,0,-11),V(-16,0,-3.5),PIT,V(-8.6,0,9),V(-7.2,0,15),V(-4,0,22)], L=[];
+    for(let s=0;s<pts.length-1;s++){ const A=pts[s],B=pts[s+1],d=d2D(A,B),n=Math.floor(d/.36),th=Math.atan2(B.x-A.x,B.z-A.z); for(let i=0;i<n;i++){ const k=i/n,sd=(i%2?1:-1)*.08; L.push([A.x+(B.x-A.x)*k+Math.cos(th)*sd+R(-.03,.03),A.z+(B.z-A.z)*k-Math.sin(th)*sd+R(-.03,.03),th]); } }
+    tracks7=new THREE.InstancedMesh(mergeGeometries([a,b]),printM,L.length); L.forEach(([x,z,th],i)=>{_q.setFromEuler(_e.set(0,th,0));_s.setScalar(1);_p.set(x,terrainH(x,z)+.035,z);_m4.compose(_p,_q,_s);tracks7.setMatrixAt(i,_m4);}); tracks7.frustumCulled=false; tracks7.visible=false; scene.add(tracks7); }
+  /* 구덩이 덫: 땅을 실제로 뚫어 보이게 하는 깊이 가림막 */
+  { const g=new THREE.Group(); g.position.copy(PIT); scene.add(g); pit7.g=g; g.visible=false;
+    const inner=new THREE.Group(); g.add(inner); pit7.inner=inner;
+    soilB.color.setHex(0x8a7460); const wall=new THREE.Mesh(new THREE.CylinderGeometry(.8,.7,1.5,22,1,true),soilB); wall.position.y=-.75; wall.renderOrder=-3; inner.add(wall);
+    const fl=new THREE.Mesh(new THREE.CircleGeometry(.7,22),noSnow(std({map:T.dirt,color:0x4a3d30,roughness:1}))); fl.rotation.x=-Math.PI/2; fl.position.y=-1.5; fl.renderOrder=-3; inner.add(fl);
+    const mask=new THREE.Mesh(new THREE.CircleGeometry(.8,22),new THREE.MeshBasicMaterial({colorWrite:false,polygonOffset:true,polygonOffsetFactor:-10,polygonOffsetUnits:-10})); mask.rotation.x=-Math.PI/2; mask.position.y=.02; mask.renderOrder=-2; g.add(mask); pit7.mask=mask;
+    const rim=new THREE.Mesh(new THREE.RingGeometry(.78,1.2,26),noSnow(std({map:T.dirt,color:0x6e5c48,roughness:1,polygonOffset:true,polygonOffsetFactor:-5,polygonOffsetUnits:-5}))); rim.rotation.x=-Math.PI/2; rim.position.y=.03; g.add(rim); pit7.rim=rim;
+    pit7.soil=soilF; const mound=shadow(new THREE.Mesh(rockGeo(7100,1),soilF)); mound.scale.set(.55,.4,.47); mound.position.set(1.5,.05,-.5); g.add(mound); pit7.mound=mound;
+    for(let i=0;i<13;i++){ const s=shadow(new THREE.Mesh(new THREE.CylinderGeometry(.012,.018,R(1.8,2.1),5),M.bark)); s.rotation.order='YXZ'; const cr=i%3===0; s.rotation.set(Math.PI/2,(cr?0:Math.PI/2)+R(-.35,.35),0); s.userData.to=cr?V(PIT.x+(i-6)*.12,.085+i*.004,PIT.z+R(-.1,.1)):V(PIT.x+R(-.1,.1),.07+i*.004,PIT.z+(i-6)*.12); s.visible=false; scene.add(s); pitSticks7.push(s); }
+    const lm=[0x7a4a20,0x8e5a26,0x6a4020].map(c=>noSnow(std({color:c,roughness:1,side:THREE.DoubleSide})));
+    for(let i=0;i<16;i++){ const l=new THREE.Mesh(new THREE.PlaneGeometry(.2,.13),lm[i%3]); const a=rand()*6.28,r=R(0,.75); l.rotation.set(-Math.PI/2+R(-.2,.2),0,rand()*6); l.userData.to=V(PIT.x+Math.cos(a)*r,.14,PIT.z+Math.sin(a)*r); l.visible=false; scene.add(l); pitLeaves7.push(l); }
+    const cover=shadow(new THREE.Mesh(new THREE.SphereGeometry(1,20,10),snowM)); cover.scale.set(1.25,.09,1.25); cover.position.set(0,.12,0); g.add(cover); pit7.cover=cover;
+    const cave=new THREE.Mesh(lathe([[0,.03],[.3,.035],[.6,.1],[.85,.2],[1.05,.22],[1.3,.12],[1.55,.02]],26),noSnow(std({color:0xe4eaf5,roughness:1,side:THREE.DoubleSide}))); cave.receiveShadow=true; g.add(cave); pit7.cave=cave;
+    for(let i=0;i<6;i++){ const s=shadow(new THREE.Mesh(new THREE.CylinderGeometry(.012,.018,R(.7,1.1),5),M.bark)); const a=i/6*6.28+R(-.3,.3); s.position.set(Math.cos(a)*.55,.1,Math.sin(a)*.55); s.rotation.set(R(.9,1.3),a,R(-.4,.4)); g.add(s); pit7.caveSticks.push(s); }
+    for(let i=0;i<5;i++){ const c=shadow(new THREE.Mesh(rockGeo(7200+i),soilF)); c.scale.setScalar(R(.07,.12)); c.visible=false; scene.add(c); dirtClods7.push(c); } }
+  for(let i=0;i<5;i++){ const c=shadow(new THREE.Mesh(new THREE.SphereGeometry(R(.09,.15),8,6),snowM)); c.visible=false; scene.add(c); snowClods7.push(c); }
+  /* 멧돼지와 나뭇가지 썰매, 손질한 고기 */
+  boar7=makeBoar(); boar7.visible=false; scene.add(boar7);
+  sled7=new THREE.Group(); sled7.visible=false; scene.add(sled7);
+  for(const s of [-1,1]){ const pole=shadow(new THREE.Mesh(new THREE.CylinderGeometry(.022,.032,2.9,6),M.bark)); pole.rotation.x=Math.PI/2-.3; pole.position.set(s*.3,.42,.45); sled7.add(pole); }
+  for(let i=0;i<4;i++){ const c=shadow(new THREE.Mesh(new THREE.CylinderGeometry(.016,.02,.85,5),M.bark)); c.rotation.z=Math.PI/2; c.position.set(0,.1+i*.075,-.7+i*.27); sled7.add(c); }
+  const meatM=noSnow(std({color:0x9c3836,roughness:.55})), fatM=noSnow(std({color:0xeadfd2,roughness:.6})), vinylM=std({color:0x111214,roughness:.25,metalness:.1,envMap:envTex,envMapIntensity:.5});
+  const chunk=(w=.2,h=.1,d=.14)=>{ const g=new THREE.Group(); const m=shadow(new THREE.Mesh(new RoundedBoxGeometry(w,h,d,2,.025),meatM)); g.add(m); const f=shadow(new THREE.Mesh(new RoundedBoxGeometry(w*1.01,h*.3,d*1.01,2,.012),fatM)); f.position.y=h*.38; g.add(f); return g; };
+  meatPile7=new THREE.Group(); for(let i=0;i<7;i++){ const c=chunk(R(.18,.26),R(.09,.13),R(.13,.18)); c.position.set(R(-.22,.22),.2+(i>3?.11:0),R(-.4,.3)); c.rotation.y=rand()*3; meatPile7.add(c); } meatPile7.visible=false; sled7.add(meatPile7);
+  meatHeld7=new THREE.Group(); for(let i=0;i<3;i++){ const c=chunk(.2,.1,.15); c.position.set(0,-.14+i*.1,.16); c.rotation.y=i*.5; meatHeld7.add(c); } char.hd[1].add(meatHeld7); meatHeld7.visible=false;
+  for(let i=0;i<4;i++){ const b=shadow(new THREE.Mesh(new THREE.SphereGeometry(.13,10,8),noSnow(std({color:0x9c3836,roughness:.5,metalness:.05,envMap:envTex,envMapIntensity:.3})))); b.scale.set(1.2,.75,.95); b.visible=false; scene.add(b); bags7.push(b); }
+  tub7=new THREE.Group(); tub7.add(shadow(new THREE.Mesh(lathe([[0,0],[.25,0],[.27,.02],[.27,.5],[.285,.505]],26),noSnow(M.steel.clone())))); tub7.visible=false; scene.add(tub7);
+  tubLid7=shadow(new THREE.Mesh(lathe([[0,.04],[.05,.035],[.26,.01],[.29,0]],26),noSnow(M.steel.clone()))); tubLid7.position.y=.5; tub7.add(tubLid7);
+  storeMound7=shadow(new THREE.Mesh(new THREE.SphereGeometry(1,16,10),snowM)); storeMound7.scale.set(.75,.3,.75); storeMound7.visible=false; scene.add(storeMound7);
+  for(let i=0;i<11;i++){ const l=shadow(new THREE.Mesh(new THREE.CylinderGeometry(.075,.075,.5,7),noSnow(std({color:0x7a5e44,roughness:.95})))); l.rotation.z=Math.PI/2; l.visible=false; scene.add(l); storeLogs7.push(l); }
+  /* 프라이팬과 고기, 소금, 고깃국 */
+  pan7=new THREE.Group(); pan7.add(shadow(new THREE.Mesh(lathe([[0,0],[.17,0],[.2,.035],[.205,.04]],26),M.steel))); { const h=shadow(new THREE.Mesh(new THREE.BoxGeometry(.03,.012,.26),M.steel)); h.position.set(0,.04,.32); pan7.add(h); } pan7.position.set(-2.2,.89,5.84); pan7.visible=false; scene.add(pan7);
+  for(let i=0;i<5;i++){ const g=new THREE.Group(); const m=shadow(new THREE.Mesh(new RoundedBoxGeometry(.085,.022,.06,2,.008),std({color:0xb04a48,roughness:.5}))); g.add(m); const f=shadow(new THREE.Mesh(new RoundedBoxGeometry(.087,.023,.018,2,.006),std({color:0xf0e8dc,roughness:.5}))); f.position.z=.03; g.add(f); g.userData={m:m.material,f:f.material,to:V(-2.2+Math.cos(i*1.26)*.1,.905,5.84+Math.sin(i*1.26)*.1)}; g.rotation.y=i*.9; g.visible=false; scene.add(g); slices7.push(g); }
+  saltDish7=new THREE.Group(); saltDish7.add(makeBowl(.06)); { const s=new THREE.Mesh(new THREE.CircleGeometry(.045,14),std({color:0xf4f4f0,roughness:.9})); s.rotation.x=-Math.PI/2; s.position.y=.022; saltDish7.add(s); } saltDish7.position.set(-1.72,.01,7.12); saltDish7.visible=false; scene.add(saltDish7);
+  stewPot7=makePot(.15,.15,false); stewPot7.position.set(-2.2,.87,5.84); stewPot7.visible=false; scene.add(stewPot7); stewTop7=new THREE.Mesh(new THREE.CircleGeometry(.145,20),std({color:0x5a6870,roughness:.2})); stewTop7.rotation.x=-Math.PI/2; stewTop7.position.y=.125; stewPot7.add(stewTop7);
+  for(let i=0;i<8;i++){ const k=i%3, b=k===0?chunk(.05,.035,.04):shadow(new THREE.Mesh(k===1?rockGeo(7300+i):new THREE.SphereGeometry(1,7,5),std({color:k===1?0xa3784c:0x4f5f2c,roughness:.9}))); if(k===1)b.scale.setScalar(.024); if(k===2)b.scale.set(.03,.008,.022); b.userData.to=V(-2.2+Math.cos(i*.8)*.08,.998,5.84+Math.sin(i*.8)*.08); b.visible=false; scene.add(b); stewBits7.push(b); }
+  /* 물고기 소금 절임과 훈제 */
+  saltBoard7=box(.7,.04,.42,M.wood,SALT7.x,.02,SALT7.z,{}); saltBoard7.visible=false;
+  for(let i=0;i<4;i++){ const f=makeFish(); f.scale.setScalar(.62); f.userData.lay=V(SALT7.x-.2+(i%2)*.4,.09,SALT7.z-.1+Math.floor(i/2)*.2); f.userData.hang=V(BF.x-.95,.9,BF.z-.33+i*.22); f.visible=false; scene.add(f); saltFish7.push(f); }
+  saltGrains7=new THREE.Group(); { const sm=new THREE.MeshBasicMaterial({color:0xffffff}); for(let i=0;i<60;i++){ const s=new THREE.Mesh(new THREE.SphereGeometry(.006,4,3),sm); s.position.set(SALT7.x+R(-.3,.3),.125+R(0,.01),SALT7.z+R(-.16,.16)); saltGrains7.add(s); } } saltGrains7.visible=false; scene.add(saltGrains7);
+  for(let i=0;i<9;i++){ const s=new THREE.Mesh(new THREE.SphereGeometry(.16,8,6),new THREE.MeshBasicMaterial({color:0xc9c5bd,transparent:true,opacity:0,depthWrite:false})); scene.add(s); smoke7.push(s); }
+  /* 뿌리 채소 용기, 데친 냉이 */
+  rootBox7=makeContainer(); rootBox7.scale.setScalar(1.15); rootBox7.position.copy(ROOT7); rootBox7.visible=false; scene.add(rootBox7);
+  { const rm=std({color:0x8a6a48,roughness:.8}), pm=std({color:0xa3784c,roughness:.9});
+    for(let i=0;i<7;i++){ const r=i<4?shadow(new THREE.Mesh(new THREE.CapsuleGeometry(.022,.2,4,8),rm)):shadow(new THREE.Mesh(rockGeo(7400+i),pm)); if(i<4)r.rotation.z=Math.PI/2; else r.scale.setScalar(.05); r.userData.to=V(ROOT7.x-.14+(i%4)*.09,.06+(i>3?.05:0),ROOT7.z-.06+(i%2)*.1); r.visible=false; scene.add(r); roots7.push(r); }
+    soil7=new THREE.Mesh(new THREE.BoxGeometry(.44,.02,.3),std({map:T.dirt,color:0x4e3f30,roughness:1})); soil7.position.set(ROOT7.x,.05,ROOT7.z); soil7.visible=false; scene.add(soil7); }
+  dryLine7=new THREE.Group(); dryLine7.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints([V(-1.3,1.95,5.3),V(-.2,1.86,5.3),V(.95,1.95,5.3)]),new THREE.LineBasicMaterial({color:0xb8a27a}))); scene.add(dryLine7); dryLine7.visible=false;
+  for(let i=0;i<6;i++){ const g=new THREE.Group(), gm=std({color:0x56682e,roughness:1,side:THREE.DoubleSide}); for(let k=0;k<5;k++){ const l=new THREE.Mesh(new THREE.PlaneGeometry(.03,.16),gm); l.position.y=-.08; l.rotation.set(R(-.25,.25),k*1.25,R(-.3,.3)); g.add(l); } g.userData.to=V(-1.1+i*.36,1.9-Math.abs(i-2.5)*.012,5.3); g.userData.m=gm; g.visible=false; scene.add(g); greens7.push(g); }
+  /* 방 안 장작, 잔가지, 부싯깃, 파이어스틸, 삽, 모포, 재 */
+  { const geo=new THREE.CylinderGeometry(.07,.07,.46,7); geo.rotateZ(Math.PI/2); pile7=new THREE.InstancedMesh(geo,std({color:0x7a5e44,roughness:.95}),15);
+    for(let i=0;i<15;i++){ const row=Math.floor(i/5),c=i%5; _q.setFromEuler(_e.set(R(-.06,.06),R(-.05,.05),0)); _s.setScalar(R(.92,1.06)); _p.set(PILE7.x,.07+row*.135,PILE7.z-.3+c*.15+(row%2)*.07); _m4.compose(_p,_q,_s); pile7.setMatrixAt(i,_m4); } pile7.count=0; pile7.castShadow=true; pile7.frustumCulled=false; scene.add(pile7); }
+  green7=shadow(new THREE.Mesh(new THREE.CylinderGeometry(.1,.115,.6,10),std({color:0x5e5240,roughness:1}))); green7.rotation.z=Math.PI/2; green7.position.set(PILE7.x+.02,.11,PILE7.z+.62); green7.visible=false; scene.add(green7);
+  twigs7=new THREE.Group(); for(let i=0;i<12;i++){ const t=shadow(new THREE.Mesh(new THREE.CylinderGeometry(.006,.009,R(.3,.42),5),M.bark)); t.rotation.set(Math.PI/2+R(-.08,.08),R(-.12,.12),0); t.position.set(R(-.04,.04),.012+(i%4)*.014,R(-.02,.02)); twigs7.add(t); } twigs7.position.set(TIND7.x-.1,0,TIND7.z+.35); twigs7.rotation.y=.3; twigs7.visible=false; scene.add(twigs7);
+  tinder7=new THREE.Group(); { const tm=std({color:0xb8975a,roughness:1,side:THREE.DoubleSide}); for(let i=0;i<26;i++){ const f=new THREE.Mesh(new THREE.PlaneGeometry(.11,.006),tm); f.rotation.set(rand()*3,rand()*3,rand()*3); f.position.set(R(-.03,.03),.03+R(-.015,.02),R(-.03,.03)); tinder7.add(f); } }
+  ember7=new THREE.Mesh(new THREE.SphereGeometry(.022,10,8),new THREE.MeshBasicMaterial({color:0xff7a1a})); ember7.position.y=.035; ember7.scale.setScalar(.001); tinder7.add(ember7);
+  tinder7.position.set(TIND7.x,0,TIND7.z); tinder7.visible=false; scene.add(tinder7);
+  const mkSteel=()=>{ const g=new THREE.Group(); const rod=shadow(new THREE.Mesh(new THREE.CylinderGeometry(.006,.006,.09,8),std({color:0x3a3a3e,roughness:.4,metalness:.8}))); rod.rotation.z=Math.PI/2; g.add(rod); const hd=shadow(new THREE.Mesh(new THREE.BoxGeometry(.035,.016,.02),std({color:0xb8431f,roughness:.6}))); hd.position.x=-.06; g.add(hd); const st=shadow(new THREE.Mesh(new THREE.BoxGeometry(.06,.003,.018),M.steel)); st.position.set(.01,0,.035); g.add(st); return g; };
+  steel7=mkSteel(); steel7.position.set(TIND7.x+.22,.012,TIND7.z-.05); steel7.rotation.y=.6; steel7.visible=false; scene.add(steel7);
+  steelHeld7=hold(mkSteel(),0,{y:-.1,z:.05});
+  shovelIn7=new THREE.Group(); box(.03,.95,.03,M.wood,0,.24,0,{parent:shovelIn7}); box(.2,.26,.02,M.steel,0,0,0,{parent:shovelIn7}); shovelIn7.position.set(.62,.02,12.6); shovelIn7.rotation.x=.14; shovelIn7.visible=false; scene.add(shovelIn7);
+  blanket7=shadow(new THREE.Mesh(new THREE.SphereGeometry(.5,16,10),std({color:0x6b5a48,roughness:1}))); blanket7.scale.set(.75,.3,1.75); blanket7.position.set(2.27,.2,6.75); blanket7.visible=false; scene.add(blanket7);
+  ash7=new THREE.Mesh(new THREE.SphereGeometry(.16,12,8),std({color:0xbdbab3,roughness:1})); ash7.scale.set(1.2,.3,1); ash7.position.set(-2.22,.2,5.98); ash7.visible=false; scene.add(ash7);
+  { const sm=new THREE.MeshBasicMaterial({color:0xffe9a0}); for(let i=0;i<10;i++){ const s=new THREE.Mesh(new THREE.SphereGeometry(.007,5,4),sm); s.visible=false; scene.add(s); sparks7.push(s); } sparkLight7=new THREE.PointLight(0xffc060,0,3,1.5); sparkLight7.position.set(TIND7.x,.25,TIND7.z); scene.add(sparkLight7); pitLight7=new THREE.PointLight(0xb4c8ff,0,4.5,1.4); pitLight7.position.set(PIT.x+.2,-.25,PIT.z+.2); scene.add(pitLight7); }
+  rand=_r;
+}
+function smokeStep(C,on,h=2.2,sp=.3,sc=1){ smoke7.forEach((s,i)=>{ if(!on){s.material.opacity=0;return;} const p=((time*sp)+i/smoke7.length)%1; s.position.set(C.x+(Math.sin(p*5+i)*.18+p*.5)*sc,C.y+p*h,C.z+Math.cos(p*4+i)*.15*sc); s.scale.setScalar((.5+p*2)*sc); s.material.opacity=(1-p)*.3*Math.min(1,p*5); }); }
+function sparkBurst(C,t){ const ph=(t*2.6)%1, hit=ph<.35; sparkLight7.intensity=hit?(1-ph/.35)*5:0; sparks7.forEach((s,i)=>{ s.visible=hit; if(!hit)return; const a=i*1.9+Math.floor(t*2.6)*2.1,p=ph/.35; s.position.set(C.x+Math.cos(a)*p*.16,C.y+.06+p*.1-p*p*.16+((i%3)*.01),C.z+Math.sin(a)*p*.16); }); }
+function clodArc(list,from,to,t,rate=1.1,arc=.7){ list.forEach((c,i)=>{ const p=(t*rate+i/list.length)%1; c.visible=true; c.position.lerpVectors(from,to,p); c.position.x+=Math.sin(i*2.3)*.25*p; c.position.z+=Math.cos(i*1.7)*.25*p; c.position.y+=Math.sin(p*Math.PI)*arc; }); }
+function setPit(k,cover=0){ const g=pit7.g; g.visible=k>0; pit7.inner.visible=pit7.mask.visible=!pit7.closed; if(k<=0) return; const r=.35+.65*Math.min(1,k*1.6); pit7.inner.scale.set(r,Math.max(.08,k),r); pit7.mask.scale.set(r,r,1); pit7.rim.scale.set(r,r,1); pit7.mound.scale.set(.5*k+.05,.36*k+.03,.42*k+.05); pit7.cover.visible=cover>0; pit7.cover.scale.set(1.25*cover,.09,1.25*cover); }
+/* ================= 맵 보강: 전봇대 · 차선 · 갈대 · 덤불 · 바위 · 잔해 · 가로등 · 가드레일 · 먼 폐건물 ================= */
+{
+  const _r=rand; rand=mulberry32(8008);
+  const clearOf=(x,z,m)=>freeAt(x,z,m)&&!colliders.some(c=>c.y1>0&&x>c.x0-m&&x<c.x1+m&&z>c.z0-m&&z<c.z1+m);
+  const homeZone=(x,z)=>(x>-28&&x<24&&z>-10&&z<40)||Math.hypot(x-FC.x,z-FC.z)<19||Math.hypot(x-HILL.x,z-HILL.z)<24||Math.hypot(x-PIT.x,z-PIT.z)<5;
+  const inst=(geo,mat,L,cast=true)=>{ if(!L.length) return null; const im=new THREE.InstancedMesh(geo,mat,L.length);
+    L.forEach((o,i)=>{_q.setFromEuler(_e.set(o.rx||0,o.ry||0,o.rz||0));_s.set(o.sx??o.s??1,o.sy??o.s??1,o.sz??o.s??1);_p.set(o.x,o.y,o.z);_m4.compose(_p,_q,_s);im.setMatrixAt(i,_m4);if(o.c)im.setColorAt(i,o.c);});
+    im.castShadow=cast; im.receiveShadow=true; scene.add(im); return im; };
+  const rustD=std({map:T.rust,color:0x7a5a48,roughness:.9,metalness:.3}), conc=std({map:T.concrete,color:0xb4aea2,roughness:1});
+  /* 전봇대와 늘어진 전선 */
+  { const poleM=std({color:0x4a4038,roughness:1}), insM=std({color:0xb9b4a8,roughness:.5}), wireM=new THREE.LineBasicMaterial({color:0x1b1b1b});
+    const poleLine=pts=>{ const tops=[]; pts.forEach(([x,z,ry])=>{ if(!clearOf(x,z,.7)){tops.push(null);return;} const lean=R(-.07,.07)+(rand()<.15?R(.12,.22):0);
+        const g=new THREE.Group(); g.position.set(x,terrainH(x,z)-.2,z); g.rotation.set(lean,ry,R(-.05,.05)); scene.add(g);
+        const p=shadow(new THREE.Mesh(new THREE.CylinderGeometry(.09,.13,8.4,7),poleM)); p.position.y=4.2; g.add(p);
+        const arm=shadow(new THREE.Mesh(new THREE.BoxGeometry(1.8,.1,.1),poleM)); arm.position.y=7.6; g.add(arm);
+        const tf=shadow(new THREE.Mesh(new THREE.CylinderGeometry(.2,.2,.55,10),rustD)); tf.position.set(.3,6.6,0); if(rand()<.4) g.add(tf);
+        for(const s of [-.75,0,.75]){const n=new THREE.Mesh(new THREE.CylinderGeometry(.04,.05,.16,6),insM);n.position.set(s,7.74,0);g.add(n);}
+        g.updateMatrixWorld(true); tops.push([-.75,0,.75].map(s=>V(s,7.82,0).applyMatrix4(g.matrixWorld)));
+        colliders.push({x0:x-.16,x1:x+.16,z0:z-.16,z1:z+.16,y0:-1,y1:8}); });
+      for(let i=0;i<tops.length-1;i++){ if(!tops[i]||!tops[i+1]) continue; for(let k=0;k<3;k++){ if(rand()<.2) continue; const a=tops[i][k],b=tops[i+1][k],pts2=[],sag=R(.5,1.2),cut=rand()<.14;
+        for(let j=0;j<=10;j++){const t=j/10; if(cut&&t>.45){pts2.push(V(a.x+(b.x-a.x)*.47+R(-.2,.2),Math.max(.15,a.y-7.5),a.z+(b.z-a.z)*.47+R(-.2,.2)));break;} pts2.push(V(a.x+(b.x-a.x)*t,a.y+(b.y-a.y)*t-Math.sin(t*Math.PI)*sag,a.z+(b.z-a.z)*t));}
+        scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts2),wireM)); } } };
+    const run=(x0,x1,step,z,ry)=>{const L=[];for(let x=x0;x<=x1;x+=step)L.push([x+R(-.6,.6),z,ry]);return L;};
+    poleLine(run(46,114,22.5,-39.4,Math.PI/2)); poleLine(run(219,327,21.5,-39.7,Math.PI/2)); poleLine(run(188,308,24,-133.4,Math.PI/2)); poleLine(run(-148,-38,22,-17.3,Math.PI/2));
+    poleLine([[36.8,-36,0],[36.8,-14,0],[36.8,8,0]]); }
+  /* 아스팔트 차선 (닳아서 군데군데 끊김) */
+  { const dash=new THREE.PlaneGeometry(2.4,.16); dash.rotateX(-Math.PI/2); const edge=new THREE.PlaneGeometry(5.2,.12); edge.rotateX(-Math.PI/2);
+    const mk=c=>std({color:c,roughness:1,polygonOffset:true,polygonOffsetFactor:-7,polygonOffsetUnits:-7}), D=[],E=[];
+    for(const [a,b] of [[41,117],[214,329]]){ for(let x=a;x<b;x+=5.6) if(rand()>.22) D.push({x:x+1.2,y:.05,z:-45+R(-.04,.04)}); for(let x=a;x<b;x+=5.8) for(const z of [-40.95,-49.05]) if(rand()>.3) E.push({x:x+2.6,y:.05,z}); }
+    inst(dash,mk(0xb49c48),D,false); inst(edge,mk(0xb7b3a8),E,false);
+    const stall=new THREE.PlaneGeometry(.12,4.2); stall.rotateX(-Math.PI/2); const S7=[]; for(let x=81.5;x<109;x+=2.75) if(rand()>.15) S7.push({x,y:.06,z:-58.4}); inst(stall,mk(0xb7b3a8),S7,false); }
+  /* 냇가와 강가의 갈대·부들 */
+  { const parts=[]; for(let i=0;i<6;i++){ const hgt=R(1.2,1.9), g=new THREE.PlaneGeometry(.045,hgt,1,4); g.translate(0,hgt/2,0); const p=g.attributes.position, lx=R(-.35,.35), lz=R(-.35,.35);
+      for(let k=0;k<p.count;k++){const t=p.getY(k)/hgt;p.setX(k,p.getX(k)*(1-t*.8)+lx*t*t);p.setZ(k,lz*t*t);} g.rotateY(rand()*Math.PI); g.translate(R(-.16,.16),0,R(-.16,.16)); parts.push(g); }
+    const reed=mergeGeometries(parts), headG=new THREE.CylinderGeometry(.022,.022,.2,6), L=[],H=[], cols=[0xa8935e,0x8f8250,0xb39c66,0x7d7448].map(h=>new THREE.Color(h));
+    const add=(x,z)=>{ const h=terrainH(x,z); if(h>-.12||h<-1.45||nearRoad(x,z,1.6)) return; const s=R(.8,1.4); L.push({x,y:h-.05,z,ry:rand()*6,s,c:cols[(rand()*4)|0]}); if(rand()<.55) H.push({x:x+R(-.1,.1),y:h+1.25*s,z:z+R(-.1,.1),rx:R(-.15,.15),rz:R(-.15,.15)}); };
+    for(let i=0;i<2600;i++){ const x=R(-196,156); if(x>-32&&x<36) continue; add(x,streamZ(x)+(rand()<.5?-1:1)*R(4.2,9.5)); }
+    for(let i=0;i<900;i++){ const z=R(-128,150); if(z>-56&&z<-34) continue; add(RIVER_X+(rand()<.5?-1:1)*R(13.5,21),z); }
+    inst(reed,std({color:0xffffff,roughness:1,side:THREE.DoubleSide}),L,false); inst(headG,std({color:0x5a3d24,roughness:1}),H,false); }
+  /* 마른 덤불과 바위 */
+  { const parts=[]; for(let i=0;i<13;i++){ const len=R(.5,1.05), g=new THREE.CylinderGeometry(.006,.02,len,4,1,true); g.translate(0,len/2,0); g.rotateZ(R(.15,.95)); g.rotateY(rand()*6.28); parts.push(g); }
+    const bush=mergeGeometries(parts), B=[], bc=[0x5c4a36,0x6e5a40,0x4a3c2c].map(h=>new THREE.Color(h));
+    for(let i=0;i<1500&&B.length<520;i++){ const x=R(-195,335), z=R(-132,125); if(homeZone(x,z)||terrainH(x,z)<-.05||!clearOf(x,z,.9)) continue; B.push({x,y:terrainH(x,z),z,ry:rand()*6,s:R(.7,1.6),c:bc[(rand()*3)|0]}); }
+    inst(bush,std({color:0xffffff,roughness:1,side:THREE.DoubleSide}),B);
+    const rg=rockGeo(8100,1), RK=[];
+    for(let i=0;i<900&&RK.length<170;i++){ const x=R(-195,335), z=R(-132,125); if(homeZone(x,z)||terrainH(x,z)<-.05||!clearOf(x,z,1.6)) continue; const s=R(.22,.85); RK.push({x,y:terrainH(x,z)+s*.2,z,rx:R(-.3,.3),ry:rand()*6,sx:s*R(.8,1.4),sy:s,sz:s*R(.8,1.3)}); if(s>.55) colliders.push({x0:x-s*.8,x1:x+s*.8,z0:z-s*.8,z1:z+s*.8,y0:-1,y1:s*.9}); }
+    inst(rg,M.rock,RK); }
+  /* 시내: 잔해 더미, 가로등, 버려진 차 */
+  { const chunk=new THREE.BoxGeometry(1,1,1), C7=[], cc=[0xa9a398,0x8f8a80,0xbab4a8,0x7a6a5c].map(h=>new THREE.Color(h));
+    for(let p=0;p<46;p++){ const x=R(216,330), z=rand()<.6?(rand()<.5?R(-39.5,-33):R(-57,-50.5)):R(-118,-22); if(!clearOf(x,z,1.5)) continue;
+      for(let i=0;i<9;i++){ const a=rand()*6.28,r=R(0,1.5)*Math.sqrt(rand()), sx=R(.18,.75), sy=R(.08,.3), sz=R(.15,.6); C7.push({x:x+Math.cos(a)*r,y:sy*.35+R(0,.12)*(1-r/1.5),z:z+Math.sin(a)*r,rx:R(-.4,.4),ry:rand()*6,rz:R(-.4,.4),sx,sy,sz,c:cc[(rand()*4)|0]}); } }
+    inst(chunk,std({map:T.concrete,color:0xffffff,roughness:1}),C7);
+    const lampM=std({color:0x5a5e60,roughness:.7,metalness:.5});
+    const lamp=(x,z,dir,fallen)=>{ if(!clearOf(x,z,.5)) return; const g=new THREE.Group(); g.position.set(x,fallen?.12:0,z); g.rotation.set(fallen?Math.PI/2-.06:R(-.04,.04),fallen?R(0,6):0,R(-.04,.04)); scene.add(g);
+      const p=shadow(new THREE.Mesh(new THREE.CylinderGeometry(.06,.1,6.4,8),lampM)); p.position.y=3.2; g.add(p);
+      const arm=shadow(new THREE.Mesh(new THREE.CylinderGeometry(.04,.05,1.5,6),lampM)); arm.rotation.x=dir*1.25; arm.position.set(0,6.55,dir*.68); g.add(arm);
+      const hd=shadow(new THREE.Mesh(new THREE.BoxGeometry(.3,.1,.62),lampM)); hd.position.set(0,6.78,dir*1.5); g.add(hd);
+      const gl=new THREE.Mesh(new THREE.BoxGeometry(.22,.03,.46),std({color:0xd8d6c8,roughness:.3})); gl.position.set(0,6.72,dir*1.5); g.add(gl);
+      if(!fallen) colliders.push({x0:x-.14,x1:x+.14,z0:z-.14,z1:z+.14,y0:-1,y1:6}); };
+    for(let i=0,x=226;x<328;x+=17.5,i++) lamp(x+R(-1,1),i%2?-50.15:-39.85,i%2?1:-1,i===3);
+    for(const [x,z,col] of [[251,-41.9,0x6a4a3a],[288,-48.2,0x7a7f86],[317,-41.8,0x8a2f24],[64,-48.2,0x3f5a7a],[100.5,-41.8,0x8d8672],[230,-134.2,0x5c5a4a]]) if(!colliders.some(c=>c.y1>0&&x>c.x0-2.6&&x<c.x1+2.6&&z>c.z0-1.4&&z<c.z1+1.4)) car(x,z,Math.PI/2+R(-.12,.12),col); }
+  /* 휴게소 진입로의 높은 간판 */
+  if(clearOf(71,-51.4,1)){ const g=new THREE.Group(); g.position.set(71,0,-51.4); g.rotation.z=.03; scene.add(g);
+    for(const s of [-1.3,1.3]){const p=shadow(new THREE.Mesh(new THREE.CylinderGeometry(.11,.13,8.6,8),rustD));p.position.set(s,4.3,0);g.add(p);}
+    const sg=shadow(new THREE.Mesh(new THREE.BoxGeometry(4.4,1.5,.16),[rustD,rustD,rustD,rustD,std({map:signTex('섬진강 휴게소','REST AREA · 500m','#2f5a45','#efe9dc',32),roughness:.9}),rustD])); sg.position.y=7.7; g.add(sg);
+    colliders.push({x0:69.5,x1:72.5,z0:-51.7,z1:-51.1,y0:0,y1:8}); }
+  /* 다리 가로등 (북쪽 난간) */
+  { const lm=std({color:0x4e5254,roughness:.7,metalness:.5}); for(let x=127;x<206;x+=13){ const y=deckH(x), g=new THREE.Group(); g.position.set(x,y,-40.25); g.rotation.z=R(-.04,.04); scene.add(g);
+      const p=shadow(new THREE.Mesh(new THREE.CylinderGeometry(.05,.07,4.6,7),lm)); p.position.y=2.3; g.add(p);
+      const arm=shadow(new THREE.Mesh(new THREE.CylinderGeometry(.035,.04,1.2,6),lm)); arm.rotation.x=-1.3; arm.position.set(0,4.65,-.55); g.add(arm);
+      const hd=shadow(new THREE.Mesh(new THREE.BoxGeometry(.26,.09,.5),lm)); hd.position.set(0,4.82,-1.2); g.add(hd); } }
+  /* 해안도로 가드레일, 떠밀려 온 나무, 부표 */
+  { const post=new THREE.BoxGeometry(.09,.75,.09), rail=new THREE.BoxGeometry(3.9,.22,.05), Pp=[],Rr=[];
+    for(let x=201;x<311;x+=2){ if((x>243&&x<258)||rand()<.12) continue; Pp.push({x,y:terrainH(x,-138.2)+.3,z:-138.2,rz:R(-.08,.08),rx:R(-.1,.1)}); }
+    for(let x=203;x<309;x+=4){ if((x>241&&x<260)||rand()<.28) continue; const fall=rand()<.18; Rr.push({x,y:terrainH(x,-138.2)+(fall?.12:.55),z:-138.2+(fall?R(-.4,-.1):.06),rx:fall?1.3:R(-.05,.05),rz:R(-.03,.03)}); }
+    inst(post,rustD,Pp); inst(rail,std({color:0xa9aeb2,roughness:.5,metalness:.7,envMap:envTex,envMapIntensity:.5}),Rr);
+    const logG=new THREE.CylinderGeometry(.13,.17,1,7), LG=[]; for(let i=0;i<70&&LG.length<16;i++){ const x=R(198,312), z=R(-146.5,-140.5); if(Math.abs(x-HARB.x)<13||Math.abs(x-BREAK.x)<9) continue; const h=terrainH(x,z); if(h<-1.5) continue; LG.push({x,y:h+.12,z,rz:Math.PI/2+R(-.1,.1),ry:rand()*3,sx:R(.7,1.2),sy:R(1.6,3.6),sz:R(.7,1.2)}); }
+    inst(logG,std({color:0x8a8478,roughness:1}),LG);
+    const buoyM=std({color:0xc8562a,roughness:.7}); for(let i=0;i<7;i++){ const x=R(206,306), z=R(-150,-142), h=terrainH(x,z); if(Math.abs(x-HARB.x)<6) continue; const b=shadow(new THREE.Mesh(new THREE.SphereGeometry(R(.2,.32),12,9),buoyM)); b.position.set(x,Math.max(h,WATER_Y)+.12,z); scene.add(b); } }
+  /* 마을 길가의 낡은 나무 울타리 */
+  { const pg=new THREE.BoxGeometry(.09,1.0,.09), rg2=new THREE.BoxGeometry(2.0,.08,.04), Pp=[],Rr=[];
+    for(let x=-150;x<-36;x+=2){ for(const z of [-22.6,-17.0]){ if(rand()<.45||!clearOf(x,z,.5)) continue; Pp.push({x,y:.45,z,rx:R(-.12,.12),rz:R(-.12,.12)}); if(rand()<.6&&clearOf(x+1,z,.4)) for(const y of [.4,.75]) if(rand()<.75) Rr.push({x:x+1,y:y+R(-.03,.03),z,rz:R(-.06,.06),ry:R(-.03,.03)}); } }
+    const wm=std({map:T.wood,color:0x8a7a66,roughness:1}); inst(pg,wm,Pp); inst(rg2,wm,Rr); }
+  /* 동쪽 끝의 먼 폐건물 실루엣 */
+  { const winTex=canvasTex(128,256,(g,w,h)=>{speckle(g,w,h,'#9a968c',26);blotch(g,w,h,24,'70,64,56',10,40,.35);for(let y=12;y<h;y+=32)for(let x=9;x<w;x+=30){g.fillStyle=rand()<.25?'rgba(40,40,44,.3)':'rgba(24,24,28,.82)';g.fillRect(x,y,13,16);}for(let i=0;i<8;i++){const x=rand()*w;const gr=g.createLinearGradient(0,0,0,h*R(.3,.9));gr.addColorStop(0,'rgba(50,40,30,.4)');gr.addColorStop(1,'rgba(50,40,30,0)');g.fillStyle=gr;g.fillRect(x,0,R(3,9),h);}},[1,1]);
+    for(let i=0;i<13;i++){ const x=R(338,356), z=-128+i*20+R(-5,5), w=R(8,15), d=R(8,13), hh=R(9,27); if(!clearOf(x,z,Math.max(w,d)/2+1)) continue;
+      const t=winTex.clone(); t.needsUpdate=true; t.repeat.set(Math.max(1,Math.round(w/5)),Math.max(1,Math.round(hh/7)));
+      const m=shadow(new THREE.Mesh(new THREE.BoxGeometry(w,hh,d),std({map:t,color:0xe2ddd2,roughness:1}))); m.position.set(x,terrainH(x,z)+hh/2-.6,z); m.rotation.set(R(-.02,.02),R(-.2,.2),R(-.03,.03)); scene.add(m);
+      const top=shadow(new THREE.Mesh(new THREE.BoxGeometry(w*R(.3,.6),R(1,2.6),d*R(.3,.6)),conc)); top.position.set(x+R(-2,2),terrainH(x,z)+hh-.2,z+R(-2,2)); scene.add(top);
+      colliders.push({x0:x-w/2-.3,x1:x+w/2+.3,z0:z-d/2-.3,z1:z+d/2+.3,y0:-2,y1:hh}); } }
+  rand=_r;
+}
+/* ---- EP.7 단계별 소품 표시 ---- */
+const BUTCH7=V(WASH.x+1.5,0,WASH.z-3.2); BUTCH7.y=terrainH(BUTCH7.x,BUTCH7.z);
+const TUB7=V(STORE7.x-.5,0,STORE7.z-.2), storeLogPos=i=>{const row=i<6?0:1,c=row?i-6:i;return V(TUB7.x,.36+row*.14,TUB7.z-.42+c*.165+row*.08);};
+let noSink=false, aStorm=null;
+function ep7Visuals(){
+  const s=SI(stage), st=SI, e7=s>=st('e7_fish');
+  if(e7) $('epl').textContent='EP.7 「사라진 밤」 · 2076년 12월';
+  snowT = e7 && s>=st('e7_stove') ? 1 : 0;
+  WX.tg=WX.tf=WX.tb=0;
+  if(e7){ if(s<=st('e7_door')) WX.tg=.8; else if(stage==='e7_stove'){WX.tg=1;WX.tf=1;} else if(s<=st('e7_lines')) WX.tb=1; else if(s<=st('e7_bed')){WX.tg=.5;WX.tb=.2;} else WX.tb=.6; }
+  cold7 = stage==='e7_spark' ? 1 : 0; if(stage==='e7_spark') fireTarget=0;
+  door7.t = !e7 ? -2.95 : ['e7_stove','e7_push','e7_bed','e7_spark','e7_out'].includes(stage) ? 0 : -1.75;
+  // 겨울 채비
+  if(e7){ fireGroup.visible = s<=st('e7_roots'); bfTarget=fireGroup.visible?1:0; rack.visible = s<=st('e7_door'); }
+  saltBoard7.visible = stage==='e7_fish'; saltGrains7.visible=false; smokeStep(BF,false);
+  saltFish7.forEach(f=>{ const done=s>st('e7_fish'); f.visible=e7&&s<=st('e7_door'); f.position.copy(done?f.userData.hang:f.userData.lay); f.rotation.set(done?0:Math.PI/2,done?Math.PI/2:0,done?Math.PI/2:0); });
+  rootBox7.visible = e7; rootBox7.userData.lid.rotation.x = stage==='e7_fish'||stage==='e7_roots' ? -1.6 : 0;
+  roots7.forEach((r,i)=>{ r.visible=stage==='e7_roots'; r.position.set(ROOT7.x-.85+(i%4)*.07,.035+(i>3?.04:0),ROOT7.z+.55+(i%2)*.09); });
+  soil7.visible = e7 && s>st('e7_roots'); soil7.scale.set(1.05,7,1.05); soil7.position.y=.1;
+  dryLine7.visible = e7 && s>st('e7_roots');
+  greens7.forEach((g,i)=>{ g.visible = e7 && s>st('e7_roots') && !(s>st('e7_stew')&&i>=4); g.position.copy(g.userData.to); g.userData.m.color.setHex(s>st('e7_door')?0x6e6a3c:0x56682e); });
+  if(e7 && s>st('e7_wood')) woodStack.count=stackN-15;
+  pile7.count = !e7||s<=st('e7_stackin') ? 0 : s<=st('e7_stove') ? 15 : s<=st('e7_bed') ? 12 : 6;
+  green7.visible = e7 && s>st('e7_stackin') && s<=st('e7_stove'); green7.position.set(PILE7.x+.02,.11,PILE7.z+.62); green7.rotation.set(0,0,Math.PI/2);
+  twigs7.visible = steel7.visible = e7 && s>st('e7_stackin'); tinder7.visible = e7 && s>st('e7_stackin') && s<=st('e7_spark');
+  twigs7.position.set(TIND7.x-.1,0,TIND7.z+.35); tinder7.position.set(TIND7.x,0,TIND7.z); steel7.position.set(TIND7.x+.22,.012,TIND7.z-.05); ember7.scale.setScalar(.001);
+  sparks7.forEach(x=>x.visible=false); sparkLight7.intensity=0; pitLight7.intensity=0; steelHeld7.visible=false;
+  shovelIn7.visible = e7 && ((s>st('e7_door')&&s<=st('e7_push'))||s>st('e7_pit'));
+  if(e7) shovelHeld.visible = s>=st('e7_shovel') && s<=st('e7_pit');
+  blanket7.visible=false; ash7.visible = stage==='e7_spark';
+  if(e7&&s>=st('e7_bridge')&&s<=st('e7_return')) potHeld.visible=true;
+  if(stage==='e7_stackin'){ logsHeld.visible=true; carryPose=true; }
+  // 눈 세상
+  drift7.visible = e7 && s>=st('e7_stove') && s<=st('e7_push'); drift7.scale.set(1.15,.6,.75); drift7.position.set(-.5,0,13.7);
+  pathObjs.forEach((g,i)=>{ g.visible = e7 && s<=st('e7_bed') && (s>st('e7_shovel')||(stage==='e7_shovel'&&!!clear7[i])); g.scale.z=1; });
+  tracks7.visible = e7 && s>=st('e7_field') && s<=st('e7_bed');
+  snowClods7.forEach(c=>c.visible=false); dirtClods7.forEach(c=>c.visible=false);
+  // 구덩이 덫
+  const dug=e7&&s>st('e7_pit'), fresh=dug&&s<=st('e7_bed');
+  const caved=e7&&s>=st('e7_spark')&&s<=st('e7_trap'); pit7.closed=caved;
+  setPit(dug?1:0,fresh?1:0); pit7.rim.visible=fresh; pit7.mound.material = fresh ? pit7.soil : snowM;
+  pitSticks7.forEach(x=>{x.visible=fresh;x.position.copy(x.userData.to);}); pitLeaves7.forEach(x=>{x.visible=fresh;x.position.copy(x.userData.to);});
+  pit7.cave.visible=caved; pit7.cave.scale.setScalar(1); pit7.cave.position.y=0;
+  pit7.caveSticks.forEach((x,i)=>{x.visible=caved;const a=i/6*6.28;x.position.set(Math.cos(a)*.55,.1,Math.sin(a)*.55);});
+  // 멧돼지 · 썰매 · 고기
+  boar7.visible = e7 && s>=st('e7_spark') && s<=st('e7_drag'); boar7.scale.setScalar(1);
+  if(stage==='e7_drag'){ if(boar7.parent!==sled7) sled7.add(boar7); boar7.position.set(0,.36,-.15); boar7.rotation.set(Math.PI/2*.92,Math.PI/2,0);
+    if(d2D(sled7.position,player.pos)>4){ sled7.position.set(player.pos.x-Math.sin(player.theta)*1.7,0,player.pos.z-Math.cos(player.theta)*1.7); } }
+  else { if(boar7.parent!==scene) scene.add(boar7); boar7.position.set(PIT.x-.1,-1.3,PIT.z+.2); boar7.rotation.set(1.35,.6,0); }
+  sled7.visible = e7 && s>=st('e7_drag'); if(s>st('e7_drag')&&!sled7.userData.placed){ sled7.position.set(BUTCH7.x-.7,BUTCH7.y+.02,BUTCH7.z+.3); sled7.rotation.y=2.2; }
+  meatPile7.visible=false; meatHeld7.visible = stage==='e7_store'||stage==='e7_grill'; if(meatHeld7.visible) carryPose=true;
+  bags7.forEach(b=>b.visible=false); tub7.visible=false;
+  const stored=e7&&s>st('e7_store'); storeMound7.visible=stored; storeMound7.position.set(TUB7.x,0,TUB7.z); storeMound7.scale.set(.8,.33,.8);
+  storeLogs7.forEach((l,i)=>{l.visible=stored;l.position.copy(storeLogPos(i));});
+  // 식사
+  pan7.visible = stage==='e7_eat'; slices7.forEach(x=>{x.visible=stage==='e7_eat';x.position.copy(x.userData.to);x.userData.m.color.setHex(0x7a4424);x.userData.f.color.setHex(0xd9a04a);});
+  saltDish7.visible = stage==='e7_eat'||stage==='e7_grill'; stewPot7.visible=false; stewBits7.forEach(b=>b.visible=false);
+  if(e7&&(stage==='e7_eat')) potOnStove.visible=false;
+  noSink=false; pitDrop=0;
+}
+const _applyVisuals3=applyVisuals; applyVisuals=function(){_applyVisuals3();ep7Visuals();};
+const _invList=invList; invList=function(){ const L=_invList(), s=SI(stage);
+  if(s>=SI('e7_shovel')&&s<=SI('e7_pit')) L.push('삽'); if(s>=SI('e7_bridge')&&s<=SI('e7_return')) L.push('작은 스텐 냄비 (빈 것)');
+  if(stage==='e7_stackin') L.push('마른 장작 한 아름'); if(stage==='e7_drag') L.push('꽁꽁 언 멧돼지 (썰매)'); if(stage==='e7_store') L.push('손질한 멧돼지 고기'); if(stage==='e7_grill') L.push('오늘 먹을 고깃덩어리');
+  return L; };
+const _updateHUD=updateHUD; updateHUD=function(){ _updateHUD(); if(stage==='e7_shovel') $('obj').textContent=OBJ[stage]+` (${sum(clear7)}/3)`; };
+/* ---- EP.7 매 프레임 ---- */
+function updateEP7(dt){
+  const e7=SI(stage)>=SI('e7_fish');
+  SNOW.value+=(snowT-SNOW.value)*Math.min(1,dt*(seq?.4:2)); if(Math.abs(snowT-SNOW.value)<.004) SNOW.value=snowT;
+  const f=Math.min(1,dt*.8); WX.gray+=(WX.tg-WX.gray)*f; WX.fall+=(WX.tf-WX.fall)*f; WX.blue+=(WX.tb-WX.blue)*f;
+  stepFlakes(dt);
+  const snowy=SNOW.value>.5; if(grassIM) grassIM.visible=!snowy; snowDeco7.visible=fieldSnow7.visible=snowy; if(snowy) sprouts.visible=false;
+  door7.a+=(door7.t-door7.a)*Math.min(1,dt*4); shedDoor.rotation.y=door7.a; doorCol.y1=(e7&&Math.abs(door7.t)<.3)?2.1:-99;
+  const deep=snowy&&!noSink&&!inShed(player.pos)&&!onPath7(player.pos.x,player.pos.z)&&pitDrop<=0&&!(player.y>1&&player.pos.x>BR.x0&&player.pos.x<BR.x1);
+  sink7+=((deep?.24:0)-sink7)*Math.min(1,dt*6); char.root.position.y-=sink7+pitDrop;
+  stepPrints();
+  if(cold7>0){const k=1-cold7;fireLight.intensity*=k;fireGlass.material.emissiveIntensity*=k;stoveDoor.userData.glass.material.emissiveIntensity*=k;}
+  if(stage==='e7_drag'&&started&&!seq){ player.pose='drag'; const hx=player.pos.x,hz=player.pos.z; let dx=sled7.position.x-hx,dz=sled7.position.z-hz; const dl=Math.hypot(dx,dz)||1;
+    if(dl>1.75){sled7.position.x=hx+dx/dl*1.75;sled7.position.z=hz+dz/dl*1.75;} sled7.position.y=groundH(sled7.position.x,sled7.position.z,player.y)+.02; sled7.rotation.y=Math.atan2(hx-sled7.position.x,hz-sled7.position.z); }
+  else if(player.pose==='drag') player.pose='stand';
+  if(AC){ if(!aStorm){const s=AC.createBufferSource();s.buffer=nb;s.loop=true;const fl=AC.createBiquadFilter();fl.type='bandpass';fl.frequency.value=480;fl.Q.value=.5;aStorm=AC.createGain();aStorm.gain.value=0;s.connect(fl).connect(aStorm).connect(master);s.start();}
+    setG(aStorm,WX.fall*(inShed(player.pos)?.12:.3)*(.75+.25*Math.sin(time*.9)+.15*Math.sin(time*2.3)),dt*2); }
+  if(started&&!seq&&!ended&&e7&&!warping){
+    if(stage==='e7_field'&&d2D(player.pos,V(FLD.x0-.6,0,FCZ+2.5))<3.2) S.e7_field();
+    else if(stage==='e7_tracks'&&d2D(player.pos,TRACK7)<3.6) S.e7_tracks();
+    else if(stage==='e7_bridge'&&player.pos.x>127&&player.y>3.8){go('e7_lines');hint('얼어붙은 낚싯줄을 차례로 당겨 보자.',3.5);}
+    else if(stage==='e7_return'&&player.pos.x<114) S.e7_chill();
+    else if(stage==='e7_drag'&&d2D(player.pos,BUTCH7)<3.6) S.e7_butcher();
+  }
+}
+const _updateEP3=updateEP3; updateEP3=function(dt){_updateEP3(dt);updateEP7(dt);};
+/* ---------- EP.7 「사라진 밤」 ---------- */
+const put7=(x,z,th)=>{player.pos.set(x,0,z);player.y=groundH(x,z,player.y);player.pos.y=player.y;player.theta=th;player.speed=0;};
+const via7=(o,a,b,k,arc=.2)=>{ if(k<.5) fly(o,a,handW(1),k*2,arc); else fly(o,handW(1),b,(k-.5)*2,arc); };
+const coughSnd=()=>{[0,240,600,800].forEach(t=>setTimeout(()=>burst(420,'bandpass',.2,.12),t));};
+function introEP7(){
+  bigText('EP.7<small>「사라진 밤」</small>');
+  if(cart.attached) detachCart(); cart.x=-3.0;cart.z=17.0;cart.yaw=.5;cart.y=0;cart.pitch=0;placeCart();
+  put7(-.5,15,Math.PI); tod.t=TOD.e7_fish; SNOW.value=0; WX.gray=.8; WX.fall=0; WX.blue=0; clear7=[0,0,0]; fp7.n=0; fp7.im.count=0; sled7.userData.placed=false;
+  play([
+    {cam:C([9,3.5,27],[0,1.5,9],[7,3.2,24],[0,1.4,9]),cut:true,dur:3.6,say:'세상이 멸망한 지 50년.'},
+    {cam:()=>faceCam({d:2.1,h:1.5}),cut:true,dur:4.6,say:'며칠을 쉬지 않고 겨울 채비에 매달린 끝에, 결국 몸살이 나고 말았다.',pose:'stand',fn(){put7(-.5,15.2,Math.PI*.85);}},
+    {cam:()=>faceCam({d:1.5,h:1.5,ly:1.3}),dur:4.4,say:'기침이 터지고 온몸이 떨리지만, 지금 드러누울 수는 없다.',pose:'cough',fn(){coughSnd();setTimeout(coughSnd,1900);}},
+    {cam:C([-4,1.2,20],[10,9,-30],[-3,1.3,19],[14,10,-30]),cut:true,dur:6,say:'잿빛 구름이 낮게 깔리고, 바람 끝에 축축한 냉기가 묻어난다. 날씨가 크게 바뀔 조짐이다.',pose:'stand'},
+  ],()=>hint('마당의 모닥불 옆에서 물고기부터 갈무리하자.',3.5));
+}
+Object.assign(S,{
+  e7_fish(){ const T=V(SALT7.x,.1,SALT7.z), RK=V(BF.x-.95,.95,BF.z); play([
+    {at:[T,{from:[.3,1],d:.8},{dist:1.9,h:1.2}],dur:5,say:'그동안 잡아 둔 물고기에 소금을 문질러 물기를 뺀다.',pose:'rub',fn(){saltGrains7.visible=true;saltGrains7.children.forEach(c=>c.visible=false);},up(k){const n=saltGrains7.children.length;saltGrains7.children.forEach((c,i)=>c.visible=i<k*1.15*n);}},
+    {at:[RK,{from:[.3,1],d:.95},{dist:2.4,h:1.5,ly:1.0}],dur:6.5,say:'참나무 연기 위에 걸어 두고, 온종일 훈제한다.',pose:'reachLoop',fn(){saltGrains7.visible=false;tod.target=.4;},up(k){saltFish7.forEach((f,i)=>{const kk=segK(k,i*.17,i*.17+.34);via7(f,f.userData.lay,f.userData.hang,kk,.25);f.rotation.set(Math.PI/2*(1-kk),Math.PI/2*kk,Math.PI/2*kk);});smokeStep(V(BF.x-.45,.5,BF.z),true);},end(){smokeStep(BF,false);go('e7_roots');}},
+  ],()=>hint('집 안으로 들어가 뿌리 채소를 갈무리하자.',3.5)); },
+  e7_roots(){ const T=V(ROOT7.x,.2,ROOT7.z), pot=V(-2.12,1.04,5.82); play([
+    {at:[T,{from:[-.25,1],d:.85},{dist:1.6,h:1.25}],dur:7,say:'돼지감자와 부들 뿌리는 서늘한 구석의 용기에 담고, 촉촉한 흙으로 덮어 둔다.',pose:'crouch',fn(){soil7.visible=false;roots7.forEach(r=>r.userData.heap=r.position.clone());},
+      up(k){roots7.forEach((r,i)=>{const kk=segK(k,i*.075,i*.075+.24);if(kk>0)via7(r,r.userData.heap,r.userData.to,kk,.12);});const sk=segK(k,.72,.97);soil7.visible=sk>0;soil7.scale.set(1.05,1+sk*6,1.05);soil7.position.y=.03+(.02+sk*.12)/2;},end(){roots7.forEach(r=>r.visible=false);rootBox7.userData.lid.rotation.x=0;clack();}},
+    {at:[TG.stoveTop,{from:FROM.stove,d:.8},{dist:1.8,h:1.45,ly:1.1}],dur:4,bar:'냉이 데치는 중…',pose:'reach',up(k){steamK=.6;greens7.forEach((g,i)=>{const kk=segK(k,i*.08,i*.08+.5);g.visible=kk>0&&kk<1;if(kk<.5)fly(g,handW(1),pot,kk*2,.1);else fly(g,pot,handW(1),kk*2-1,.1);});}},
+    {at:[V(-.2,1.9,5.3),{from:[0,1],d:.8},{dist:2.2,h:1.6,ly:1.6}],dur:5.5,say:'냉이는 끓는 물에 살짝 데친 뒤, 바짝 말려 둔다.',pose:'reach',fn(){dryLine7.visible=true;},up(k){greens7.forEach((g,i)=>{const kk=segK(k,.05+i*.13,.25+i*.13);g.visible=kk>0;fly(g,handW(1),g.userData.to,kk,.12);});},end(){go('e7_wood');}},
+  ],()=>hint('처마 밑 장작더미에서 장작을 가져오자.',3.5)); },
+  e7_wood(){ const T=V(-3.3,1.0,9); play([
+    {at:[T,{pos:[STACKP.x,STACKP.z]},{dist:2.6,h:1.6,ly:1.1}],dur:4.8,say:'처마 밑 장작더미에서, 당장 쓸 만큼만 골라 안아 든다.',pose:'reachLoop',fn(){const t=setInterval(clack,520);setTimeout(()=>clearInterval(t),3300);},up(k){woodStack.count=stackN-Math.floor(k*15);logsHeld.visible=k>.3;},end(){go('e7_stackin');}},
+  ],()=>hint('장작을 안고 집 안으로 들어가자.',3)); },
+  e7_stackin(){ const T=V(PILE7.x,.25,PILE7.z), TW=V(TIND7.x-.1,0,TIND7.z+.35); play([
+    {at:[T,{from:[1,.1],d:.85},{dist:1.9,h:1.3}],dur:5.4,say:'불티가 튀지 않도록, 난로에서 조금 떨어진 자리에 쌓는다.',pose:'crouch',fn(){pile7.count=0;},up(k){pile7.count=Math.floor(ease(k)*15);logsHeld.visible=k<.85;stoveLogs.forEach((l,i)=>{const p=(k*5+i/3)%1;l.visible=k<.94;fly(l,handW(1),V(PILE7.x,.1+k*.35,PILE7.z-.2+i*.2),p,.18);l.rotation.set(0,0,Math.PI/2);});if(Math.random()<.06)clack();},end(){stoveLogs.forEach(l=>{l.visible=false;l.rotation.set(0,Math.PI/2,Math.PI/2);});logsHeld.visible=false;carryPose=false;green7.visible=true;}},
+    {cam:close(V(TIND7.x,.05,TIND7.z+.15),{dist:1.15,h:.75}),dur:4.6,say:'그 옆에는 불쏘시개로 쓸 잔가지와 부싯깃을 따로 놓고,',pose:'crouch',fn(){mark(V(TIND7.x,0,TIND7.z+.15),{from:[1,0],d:.75});},up(k){const h=handW(1),a=segK(k,.05,.4),b=segK(k,.45,.85);twigs7.visible=a>0;fly(twigs7,h,TW,a,.1);tinder7.visible=b>0;fly(tinder7,h,V(TIND7.x,0,TIND7.z),b,.1);}},
+    {dur:4.2,say:'시내에서 주워 온 파이어스틸도 손 닿는 곳에 둔다.',pose:'crouch',fn(){steel7.visible=true;},up(k){fly(steel7,handW(1),V(TIND7.x+.22,.012,TIND7.z-.05),segK(k,.1,.6),.08);},end(){go('e7_door');}},
+  ],()=>hint('철문이 잘 여닫히는지 확인하자.',3)); },
+  e7_door(){ play([
+    {cam:C([1.6,1.7,10.4],[-.5,1.1,12.9]),dur:5,say:'철문을 한 번 여닫아 보며, 걸리는 데가 없는지 확인한다.',pose:'reach',fn(){put7(-.5,12.15,0);},up(k){door7.t=k>.12&&k<.6?0:-1.75;if(!this._c&&k>.4){this._c=1;clack();}}},
+    {cam:close(V(.62,.6,12.6),{dist:1.4,h:1.1}),dur:4.2,say:'만약을 대비해, 삽은 문 안쪽에 세워 둔다.',pose:'reach',fn(){mark(V(.62,0,12.6),{from:[-.3,-1],d:.75});shovelHeld.visible=true;},up(k){if(k>.5){shovelHeld.visible=false;shovelIn7.visible=true;}},end(){door7.t=0;}},
+    {cam:C([.6,2.3,12.2],[-1.9,.5,7.6],[.2,2.2,11.6],[-1.9,.5,7.6]),dur:4.8,say:'좁은 방 안에, 겨울을 버텨 낼 준비가 하나둘 자리를 잡았다.',pose:'stand'},
+    {cam:C([10,3.2,25],[0,1.6,9],[8,3,22],[0,1.6,9]),cut:true,dur:6,say:'며칠 뒤 저녁. 거센 바람과 함께, 마침내 폭설이 쏟아지기 시작한다.',fn(){put7(1.3,8.6,Math.PI/2);tod.t=.97;tod.target=1.02;WX.tg=1;WX.tf=1;WX.gray=.95;WX.fall=.55;rack.visible=false;saltFish7.forEach(f=>f.visible=false);fireGroup.visible=false;bfTarget=0;}},
+    {cam:C([-6,1.1,19],[-2,.4,15],[-9,1.3,21],[-3,.5,15]),cut:true,dur:5.4,say:'굵은 눈발이 마당과 길의 경계를 순식간에 지워 버린다.',fn(){snowT=1;},up(k){SNOW.value=Math.max(SNOW.value,ease(k));}},
+    {cam:C([.6,1.6,9.4],[2.9,1.65,9],[.9,1.6,9.3],[2.9,1.65,9]),cut:true,dur:6.5,say:'날이 밝아도 눈보라는 잦아들 줄 모른다. 한 발짝도 나갈 수 없는 고립의 시간.',fn(){tod.t=.16;tod.target=.2;SNOW.value=1;drift7.visible=true;},end(){go('e7_stove');}},
+  ],()=>hint('난로에 장작을 든든히 채워 넣자.',3)); },
+  e7_stove(){ play([
+    {cam:C([.9,1.2,10.6],[-.5,.7,12.9],[.7,1.1,10.9],[-.5,.6,12.9]),dur:4.4,say:'문틈으로 스미는 한기에, 겨울이 왔음을 실감한다.',pose:'shiver',fn(){put7(-.4,11.5,0);},up(){breathStep(time,true);}},
+    {at:[TG.stoveFront,{from:FROM.stove,d:.75},{dist:1.6,h:1.1}],dur:6.4,say:'화목 난로에 마른 장작과 생나무 기둥을 든든히 채워 넣는다.',pose:'crouch',fn(){breathStep(0,false);doorTarget=1;pile7.count=12;},up(k){stoveLogs.forEach((l,i)=>{const kk=segK(k,.05+i*.13,.3+i*.13);l.visible=kk>0&&kk<1;fly(l,handW(1),l.userData.to,kk,.12);});const g=segK(k,.55,.92);if(g>0){fly(green7,handW(1),V(-2.22,.42,6.0),g,.15);green7.rotation.set(0,Math.PI/2,Math.PI/2);green7.visible=g<1;}},end(){doorTarget=0;green7.visible=false;}},
+    {cam:C([.4,1.6,9.6],[2.9,1.65,9],[.2,1.7,10.2],[2.9,1.6,9]),dur:6.5,say:'길고 지루한 시간이 흐르고, 창고를 뒤흔들던 바람 소리가 마침내 잦아든다.',pose:'sit',fn(){mark(V(-2.2,0,5.82),{pos:[P.seat.x,P.seat.z]});WX.tf=0;WX.tg=0;WX.tb=1;tod.target=.24;},end(){go('e7_push');}},
+  ],()=>hint('문을 열고 밖을 살펴보자.',3)); },
+  e7_push(){ play([
+    {cam:C([1.5,1.5,10.6],[-.5,1.1,12.9]),dur:4.8,say:'조심스레 철문을 밀어 보지만, 손바닥만큼 벌어진 채 덜컥 멈춘다.',pose:'push',fn(){put7(-.45,12.25,0);},up(k){door7.t=k>.25?-.16:0;if(!this._c&&k>.42){this._c=1;clack();burst(180,'lowpass',.3,.25);}}},
+    {cam:C([1.9,.7,15.8],[-.5,.5,13.4],[1.4,.9,16.1],[-.5,.5,13.4]),cut:true,dur:5.2,say:'처마에서 쏟아진 눈이 문밖에 두껍게 얼어붙어, 길을 막고 있다.',pose:'push'},
+    {cam:C([1.5,1.5,10.6],[-.5,1.1,12.9],[1.3,1.5,10.9],[-.5,1.1,12.9]),cut:true,dur:5.2,shake:.012,say:'온몸으로 한참을 밀어낸 끝에야, 문이 열린다.',pose:'push',up(k){const e=ease(segK(k,.25,.95));door7.t=-.16-e*1.59;door7.a=door7.t;drift7.scale.set(1.15,.6-e*.28,.75-e*.3);drift7.position.z=13.7+e*.8;if(Math.random()<.1)burst(260,'lowpass',.12,.2);},end(){shovelIn7.visible=false;shovelHeld.visible=true;}},
+    {cam:C([3.9,2.6,13.5],[-8,.8,24],[4.7,3.5,13.1],[-10,.8,28]),cut:true,dur:5.4,say:'눈앞에는, 온 세상이 하얗게 지워진 설국이 펼쳐져 있다.',pose:'stand',fn(){put7(-.5,14.6,Math.PI*.95);drift7.visible=false;}},
+    {cam:C([-12,7,24],[60,3,-40],[-6,9,26],[90,3,-45]),cut:true,dur:6.4,say:'무너진 건물도, 갈라진 도로도, 먼 산자락까지 모두 눈 이불 아래 잠겼다.'},
+    {cam:()=>faceCam({d:2.6,h:1.6,a:.4}),cut:true,dur:6.4,say:'소리마저 눈에 묻힌 완벽한 정적. 숨이 막힐 듯한 고독이 밀려온다.',end(){go('e7_shovel');}},
+  ],()=>hint('삽으로 집 앞에 쌓인 눈부터 치우자.',3)); },
+  shovel7(i){ const p=PATH7[i], g=pathObjs[i], dir=V(Math.sin(p.ry),0,Math.cos(p.ry)), side=V(dir.z,0,-dir.x), n=sum(clear7), mid=V(p.x+dir.x*p.len/2,0,p.z+dir.z*p.len/2);
+    const say=['정신을 차리고, 삽으로 집 앞에 쌓인 눈부터 퍼낸다.','팔다리는 천근만근이고, 찬 공기를 들이마실 때마다 기침이 터진다.','무거운 몸을 이끌고, 한참 만에 마당에 길을 낸다.'][n];
+    noSink=true; play([
+    {cam:[V(mid.x+side.x*4.4+dir.x*.6,2.3,mid.z+side.z*4.4+dir.z*.6),V(mid.x,.6,mid.z),null,null],dur:6.2,bar:'눈 치우는 중…',say,pose:'dig',
+      fn(){g.visible=true;g.scale.z=.02;shovelHeld.visible=true;if(n===1)setTimeout(coughSnd,2400);},
+      up(k){const e=ease(k);g.scale.z=Math.max(.02,e);const x=p.x+dir.x*p.len*e,z=p.z+dir.z*p.len*e;player.pos.set(x-dir.x*.9,0,z-dir.z*.9);player.y=0;player.theta=p.ry;clodArc(snowClods7,V(x,.25,z),V(x+side.x*1.5,.1,z+side.z*1.5),seq.t,.9,.8);if(Math.random()<.07)burst(500,'lowpass',.1,.16);},
+      end(){snowClods7.forEach(c=>c.visible=false);noSink=false;clear7[i]=1;if(sum(clear7)>=3)go('e7_field');else{applyVisuals();updateHUD();}}},
+    ],()=>{ if(stage==='e7_field') hint('폭설에 보리밭이 상하지는 않았을까. 밭을 살펴보자.',3.5); }); },
+  e7_field(){ play([
+    {cam:C([FLD.x0-3.2,2.3,FLD.z1+2.5],[FCX,.3,FCZ],[FLD.x0-2.2,2.0,FLD.z1+1.5],[FCX,.3,FCZ]),dur:5.6,say:'걱정스러운 마음에 보리밭으로 간다. 다행히 눈이 고르게 덮여 있다.',pose:'stand',fn(){put7(FLD.x0-.9,FCZ+2.5,Math.PI/2);}},
+    {cam:C([FCX-2.6,.9,FLD.z0-.8],[FCX+.5,.3,FCZ],[FCX-1.4,.75,FLD.z0+.2],[FCX+.8,.3,FCZ+1]),cut:true,dur:4.4,say:'억지로 치우기보다, 이대로 두는 편이 낫다.',pose:'crouch'},
+    {cam:C([FCX+6,4.5,FCZ+9],[FCX,.3,FCZ],[FCX+8,5.5,FCZ+11],[FCX,.3,FCZ]),cut:true,dur:6.2,say:'두꺼운 눈이 칼바람을 막는 이불이 되어, 봄까지 씨앗을 지켜 줄 것이다.',pose:'stand',end(){go('e7_tracks');}},
+  ],()=>hint('집 주변을 마저 정리하자. 서쪽 눈밭에 무언가 찍혀 있다.',3.5)); },
+  e7_tracks(){ play([
+    {cam:C([-6.2,1.0,13.4],[-8.2,.02,11],[-6.8,.7,12.6],[-8.4,.02,10.4]),dur:5.2,say:'그때, 하얀 눈 위에 찍힌 선명한 짐승 발자국이 눈에 들어온다.',pose:'crouch',fn(){put7(-9.5,10.3,1.0);}},
+    {cam:C([-8,1.5,11],[-13,.2,-1],[-10,2.4,6],[-19,.4,-8]),cut:true,dur:5,say:'먹이를 찾아 산에서 내려온 야생 짐승의 흔적이다.'},
+    {cam:()=>faceCam({d:1.7,h:1.5}),cut:true,dur:4.8,say:'예전에 책에서 본 함정 만드는 법이 머릿속을 스친다.',pose:'stand',end(){go('e7_pit');}},
+  ],()=>hint('발자국이 이어지는 길목에 구덩이를 파자.',3.5)); },
+  e7_pit(){ const E=V(PIT.x+.1,0,PIT.z+1.2), md=V(PIT.x+1.55,.3,PIT.z-.5); noSink=true; play([
+    {cam:C([PIT.x+3.4,1.9,PIT.z+2.6],[PIT.x,.3,PIT.z],[PIT.x+3.0,1.7,PIT.z+2.2],[PIT.x,.2,PIT.z]),dur:6.2,say:'발자국이 이어지는 길목 한가운데, 삽으로 눈 덮인 땅을 찍어 파 내려간다.',pose:'dig',fn(){put7(E.x,E.z,Math.PI);shovelHeld.visible=true;pit7.rim.visible=true;pit7.mound.material=pit7.soil;},up(k){setPit(.02+k*.3);clodArc(dirtClods7,V(PIT.x,.2,PIT.z+.3),md,seq.t,.8,.9);if(Math.random()<.08)burst(300,'lowpass',.14,.14);}},
+    {cam:C([PIT.x-2.6,1.5,PIT.z+2.4],[PIT.x,.2,PIT.z],[PIT.x-2.2,1.6,PIT.z+2.8],[PIT.x,.1,PIT.z]),cut:true,dur:6.8,say:'꽁꽁 언 땅에 삽날이 잘 들어가지 않지만, 고기를 맛볼 기대에 팔에 힘이 들어간다.',pose:'dig',fn(){put7(PIT.x,PIT.z+.1,Math.PI*.8);},up(k){const d=.32+k*.5;setPit(d);pitDrop=d*1.23;clodArc(dirtClods7,V(PIT.x,.15,PIT.z),md,seq.t,.8,1.1);if(Math.random()<.08)burst(300,'lowpass',.14,.14);}},
+    {cam:C([PIT.x+2.4,2.5,PIT.z+2.6],[PIT.x,-.2,PIT.z],[PIT.x+1.8,2.9,PIT.z+2.0],[PIT.x,-.4,PIT.z]),cut:true,dur:5.6,say:'한참 뒤, 가슴까지 잠기는 깊은 구덩이가 모습을 드러낸다.',pose:'stand',fn(){dirtClods7.forEach(c=>c.visible=false);},up(k){const d=.82+k*.18;setPit(d);pitDrop=d*1.23;}},
+    {cam:C([PIT.x+2.2,1.5,PIT.z+2.4],[PIT.x,.1,PIT.z]),cut:true,dur:6.4,say:'구덩이 위에 가는 나뭇가지와 마른 낙엽을 얼기설기 얹고,',pose:'crouch',fn(){pitDrop=0;setPit(1);put7(E.x,E.z+.15,Math.PI);shovelHeld.visible=false;},up(k){pitSticks7.forEach((s,i)=>{const kk=segK(k,i*.045,i*.045+.16);s.visible=kk>0;fly(s,handW(1),s.userData.to,kk,.15);});pitLeaves7.forEach((l,i)=>{const kk=segK(k,.62+i*.02,.74+i*.02);l.visible=kk>0;fly(l,handW(1),l.userData.to,kk,.25);});}},
+    {dur:5.2,say:'그 위에 눈을 흩뿌려 흔적을 감쪽같이 지운다.',pose:'reachLoop',up(k){setPit(1,ease(segK(k,.1,.9)));clodArc(snowClods7,handW(1),V(PIT.x,.15,PIT.z),seq.t,1.2,.15);},end(){snowClods7.forEach(c=>c.visible=false);}},
+    {cam:()=>faceCam({d:2.2,h:1.5}),cut:true,dur:7,say:'덫을 완성하고, 허기를 달래러 섬진강교로 향한다. 눈이 깊어, 작은 스텐 냄비만 챙겨 들고 걷는다.',pose:'stand',fn(){potHeld.visible=true;},end(){noSink=false;go('e7_bridge');}},
+  ],()=>hint('섬진강교로 가자. 눈이 깊어 리어카는 두고 간다.',3.5)); },
+  e7_lines(){ play([
+    {at:[rail(0),{from:[0,1],d:.7,y:5},{dist:1.8,h:1.3,ly:.4}],dur:5.2,say:'얼어붙은 낚싯줄을 차례로 당겨 보지만, 전부 허탕이다.',pose:'reachLoop',fn(){emptyHook.visible=true;potHeld.visible=false;},up(k){const x=lineSpots[0].x+.1,y=WATER_Y+(5.7-WATER_Y)*ease(segK(k,.1,.9));emptyHook.position.set(x,y,-50.05);}},
+    {cam:C([150,6.8,-49.4],[152,-1.6,-58],[154,7.2,-49.4],[158,-1.6,-60]),dur:5.2,say:'날이 추워지면서, 물고기들의 움직임이 뚝 끊겨 버렸다.',end(){emptyHook.visible=false;go('e7_return');}},
+  ],()=>hint('빈 냄비를 들고 집으로 돌아가자.',3)); },
+  e7_chill(){ play([
+    {cam:()=>faceCam({d:2.2,h:1.5}),dur:5.6,say:'빈 냄비를 들고 돌아오는 길, 뼛속까지 파고드는 기이한 한기가 덮쳐 온다.',pose:'shiver',fn(){canvas.style.filter='saturate(.5) brightness(.92) contrast(1.06)';$('vig').classList.add('on');},up(){breathStep(time,true);}},
+    {cam:()=>faceCam({d:1.4,h:1.55,ly:1.35,a:-.5}),dur:4.2,say:'몸살이 도진 걸까. 하지만 무언가 이상하다.',pose:'shiver',up(){breathStep(time,true);}},
+    {cam:()=>faceCam({d:3.4,h:2.2,a:.2}),dur:6.8,shake:.01,say:'열이 오르는 게 아니라, 몸의 온기가 순식간에 밖으로 빠져나가는 듯하다. 이가 덜덜 떨린다.',pose:'shiver',up(){breathStep(time,true);},end(){breathStep(0,false);}},
+  ],()=>{ warpTo(-.5,11.4,Math.PI,()=>{go('e7_bed');hint('간신히 집에 닿았다. 난로에 장작부터 밀어 넣자.',3.5);}); }); },
+  e7_bed(){ const F=$('fade'); play([
+    {at:[TG.stoveFront,{from:FROM.stove,d:.75},{dist:1.6,h:1.1}],dur:5.2,say:'간신히 집에 들어와, 난로에 장작을 잔뜩 밀어 넣는다.',pose:'crouch',fn(){doorTarget=1;},up(k){stoveLogs.forEach((l,i)=>{const p=(k*2+i/3)%1;l.visible=k<.96;fly(l,handW(1),l.userData.to,p,.12);});pile7.count=12-Math.floor(k*6);},end(){doorTarget=0;stoveLogs.forEach(l=>l.visible=false);}},
+    {cam:C([.3,1.5,8.6],[2.2,.4,6.4],[.5,1.3,8.2],[2.2,.35,6.4]),dur:5.2,say:'침상 위로 쓰러지듯 누워, 모포를 끌어당긴다.',pose:'crouch',fn(){put7(1.6,6.7,Math.PI/2);},up(k){if(k>.35){char.root.visible=false;sleepHead.visible=true;blanket7.visible=true;const e=ease(segK(k,.35,.9));blanket7.scale.set(.75,.3,.5+e*1.25);blanket7.position.z=7.6-e*.85;}}},
+    {dur:5,say:'그리고 전원이 꺼지듯, 깊은 어둠 속으로 가라앉는다.',fn(){F.style.transition='opacity 2.6s';F.style.opacity='1';fireTarget=0;}},
+    {dur:3.4,fn(){ fp7.n=0;fp7.im.count=0;pathObjs.forEach(g=>g.visible=false);tracks7.visible=false;tod.t=1.02;tod.target=1.04;WX.tg=0;WX.tb=.6;WX.gray=0;cold7=1;fireLevel=0;pile7.count=6;pit7.closed=true;setPit(1,0);pit7.cave.visible=true;pit7.caveSticks.forEach(x=>x.visible=true);boar7.visible=true;pit7.rim.visible=false;pit7.mound.material=snowM;pitSticks7.forEach(s=>s.visible=false);pitLeaves7.forEach(s=>s.visible=false);clear7=[0,0,0]; }},
+    {cam:C([.9,1.0,7.6],[2.2,.5,6.2],[.7,1.1,7.9],[2.2,.55,6.3]),cut:true,dur:4.6,say:'살을 에는 냉기에 번쩍 눈이 떠진다.',pose:'sit',fn(){F.style.transition='opacity 1.2s';F.style.opacity='0';sleepHead.visible=false;blanket7.visible=false;char.root.visible=true;put7(1.55,6.7,-Math.PI/2);ash7.visible=true;}},
+    {cam:C([-.6,1.0,7.6],[-2.2,.5,5.9],[-.9,.9,7.3],[-2.2,.5,5.9]),dur:6.2,say:'하얀 입김이 훅 뿜어져 나오고, 뜨겁던 난로는 온기 하나 없이 식어 있다.',pose:'sit',up(){breathStep(time,true);}},
+    {cam:C([.5,1.6,9.2],[2.9,1.65,9],[.8,1.6,9.1],[2.9,1.65,9]),dur:7.2,say:'창틈 너머는 어느새 해가 저물어 어둑하다. 손끝이 곱아 오지만, 당장 불부터 피워야 한다.',pose:'sit',up(){breathStep(time,true);},end(){breathStep(0,false);go('e7_spark');}},
+  ],()=>hint('손 닿는 곳에 둔 파이어스틸을 집자.',3)); },
+  e7_spark(){ const T=V(TIND7.x,.05,TIND7.z), SF=V(-2.22,.3,6.0); play([
+    {at:[T,{from:[1,.25],d:.7},{dist:1.5,h:.95}],dur:5.2,say:'파이어스틸을 집어, 마른 부싯깃 위로 거칠게 불꽃을 튀긴다.',pose:'rub',fn(){steel7.visible=false;steelHeld7.visible=true;sparkLight7.color.setHex(0xffc060);},up(){sparkBurst(T,seq.t);if(Math.random()<.09)burst(4200,'highpass',.12,.05);breathStep(time,true);}},
+    {cam:close(T,{dist:.8,h:.5}),dur:5.2,say:'작은 불똥이 부싯깃에 옮겨붙어, 가느다란 연기를 피워 올린다.',pose:'crouch',fn(){breathStep(0,false);sparks7.forEach(s=>s.visible=false);sparkLight7.intensity=1.3;sparkLight7.color.setHex(0xff8a3a);},up(k){ember7.scale.setScalar(.4+k*1.2+Math.sin(seq.t*12)*.1);smokeStep(V(T.x,.06,T.z),true,.9,.5,.2);}},
+    {at:[TG.stoveFront,{from:FROM.stove,d:.75},{dist:1.6,h:1.1}],dur:6.2,say:'불씨를 조심스레 감싸 난로 안에 밀어 넣고, 마른 잔가지를 얹는다.',pose:'crouch',fn(){smokeStep(T,false);sparkLight7.intensity=0;doorTarget=1;steelHeld7.visible=false;steel7.visible=true;},up(k){const a=segK(k,.05,.4);fly(tinder7,handW(1),SF,a,.08);tinder7.visible=a<1;const b=segK(k,.45,.8);if(b>0){fly(twigs7,handW(1),V(SF.x,.36,SF.z),b,.1);twigs7.visible=b<1;}cold7=1-ease(segK(k,.4,1));fireTarget=.25+segK(k,.4,1)*.6;},end(){doorTarget=0;twigs7.visible=true;twigs7.position.set(TIND7.x-.1,0,TIND7.z+.35);}},
+    {cam:()=>faceCam({d:1.7,h:1.2,ly:1.0}),dur:4.8,say:'다시 타오르는 불빛 앞에서, 묘한 위화감이 밀려온다.',pose:'crouch',fn(){fireTarget=1;cold7=0;}},
+    {cam:C([-1.5,.75,7.0],[-2.22,.3,5.95],[-1.7,.6,6.7],[-2.22,.28,5.95]),dur:7.4,say:'낮에 잠깐 눈을 붙였을 뿐인데, 가득 채워 둔 장작과 생나무 기둥이 한 줌 재가 되어 있다.',pose:'crouch',fn(){doorTarget=1;ash7.visible=true;},end(){doorTarget=0;go('e7_out');}},
+  ],()=>hint('몸을 조금 녹였으면, 문을 열고 나가 보자.',3.5)); },
+  e7_out(){ play([
+    {cam:C([1.5,1.5,10.6],[-.5,1.1,12.9]),dur:4.2,say:'철문을 열자, 기이한 광경이 펼쳐진다.',pose:'push',fn(){put7(-.45,12.25,0);door7.t=-1.75;clack();}},
+    {cam:C([3.9,2.8,13.7],[-1.5,.1,16],[4.5,3.6,13.3],[-2.5,.1,17.5]),cut:true,dur:6.8,say:'분명 삽으로 치워 둔 마당의 길이, 새 눈 속에 흔적도 없이 사라져 있다.',pose:'stand',fn(){put7(-.5,13.9,Math.PI*.98);}},
+    {cam:C([-4.5,.5,17.5],[-.5,.1,14.5],[-5.5,.6,15.5],[-1,.1,14.2]),cut:true,dur:7.8,say:'잠든 사이 눈이 또 내린 걸까. 하지만 눈 치운 자국도 발자국도, 처음부터 없던 것처럼 매끄럽다.',end(){go('e7_trap');}},
+  ],()=>hint('눈을 헤치고 구덩이 덫으로 가 보자.',3.5)); },
+  e7_trap(){ const E=V(PIT.x+.2,0,PIT.z+1.5); noSink=true; play([
+    {cam:C([PIT.x+2.8,1.3,PIT.z+2.8],[PIT.x,0,PIT.z],[PIT.x+2.2,1.5,PIT.z+2.4],[PIT.x,-.1,PIT.z]),dur:5.6,say:'움푹 꺼진 채 눈이 수북이 덮인 덫은, 기이할 만큼 고요하다.',pose:'stand',fn(){put7(E.x,E.z,Math.PI);}},
+    {dur:5.6,say:'별 기대 없이, 무너져 내린 눈과 나뭇가지를 걷어 낸다.',pose:'reachLoop',fn(){put7(E.x,E.z-.3,Math.PI);pit7.closed=false;setPit(1,0);},up(k){const e=ease(k);pit7.cave.scale.set(1+e*.25,Math.max(.001,1-e*1.3),1+e*.25);pit7.cave.visible=e<.75;pit7.caveSticks.forEach((s,i)=>{const a=i/6*6.28;s.position.set(Math.cos(a)*(.55+e*1.5),.1-e*.06,Math.sin(a)*(.55+e*1.5));});clodArc(snowClods7,V(PIT.x,.1,PIT.z+.3),V(PIT.x-1.6,.1,PIT.z+.6),seq.t,1,.6);},end(){snowClods7.forEach(c=>c.visible=false);pit7.cave.visible=false;}},
+    {cam:C([PIT.x+1.1,2.3,PIT.z+1.5],[PIT.x,-1.1,PIT.z],[PIT.x+.8,2.0,PIT.z+1.1],[PIT.x,-1.2,PIT.z]),cut:true,dur:6.2,say:'그 아래, 멧돼지 한 마리가 구덩이에 빠진 채 그대로 얼어 죽어 있다.',pose:'crouch',fn(){put7(PIT.x-1.3,PIT.z+.3,Math.PI/2);pitLight7.intensity=4.5;}},
+    {cam:()=>faceCam({d:1.5,h:1.5,ly:1.3}),cut:true,dur:3.8,say:'순간, 등줄기가 서늘해진다.',pose:'stand'},
+    {cam:C([PIT.x+.2,1.2,PIT.z+.7],[PIT.x,-1.25,PIT.z],[PIT.x+.1,.6,PIT.z+.5],[PIT.x,-1.25,PIT.z]),cut:true,dur:6.8,say:'이만한 짐승이 속살까지 돌처럼 얼어붙으려면, 하룻밤으로는 불가능하다.'},
+    {cam:()=>faceCam({d:2.4,h:1.7,a:.3}),cut:true,dur:8.2,say:'꺼져 가던 감각, 식어 버린 난로, 다시 쌓인 눈. 모든 정황이 한 가지 사실을 가리키고 있다.',pose:'stand',fn(){pitLight7.intensity=0;}},
+    {cam:C([PIT.x+3.6,1.8,PIT.z+3.4],[PIT.x+.8,.3,PIT.z+.6]),cut:true,dur:6.8,say:'복잡한 생각은 잠시 접어 두고, 나뭇가지를 받쳐 썰매처럼 녀석을 끌어낸다.',pose:'reachLoop',fn(){sled7.visible=true;sled7.position.set(PIT.x+1.3,.02,PIT.z+1.1);sled7.rotation.y=.9;put7(PIT.x+.5,PIT.z+1.6,Math.PI*1.1);},up(k){const e=ease(segK(k,.1,.85));boar7.position.lerpVectors(V(PIT.x-.1,-1.3,PIT.z+.2),V(sled7.position.x,.36,sled7.position.z),e);boar7.position.y+=Math.sin(e*Math.PI)*.5;},end(){noSink=false;go('e7_drag');}},
+  ],()=>hint('멧돼지를 냇가까지 끌고 가자.',3.5)); },
+  e7_butcher(){ play([
+    {cam:()=>{const s=sled7.position;return [V(s.x+2.6,s.y+1.5,s.z+2.2),V(s.x,s.y+.3,s.z),V(s.x+2.2,s.y+1.3,s.z+1.8),V(s.x,s.y+.3,s.z)];},dur:8,bar:'손질하는 중…',say:'통째로 얼어붙은 탓에, 손질하는 데만 몇 시간이 훌쩍 지나간다.',pose:'rub',
+      fn(){const s=sled7.position,a=sled7.rotation.y;put7(s.x+Math.cos(a)*.9,s.z-Math.sin(a)*.9,a-Math.PI/2);knifeHeld.visible=true;meatPile7.visible=true;meatPile7.children.forEach(c=>c.visible=false);tod.target=1.16;sled7.userData.placed=true;},
+      up(k){boar7.scale.setScalar(Math.max(.001,1-ease(segK(k,.25,.95))*.999));const n=meatPile7.children.length,m=segK(k,.3,.95)*n;meatPile7.children.forEach((c,i)=>c.visible=k>.3&&i<m+.01);if(Math.random()<.05)burst(900,'bandpass',.08,.06);},
+      end(){knifeHeld.visible=false;go('e7_store');}},
+  ],()=>hint('손질한 고기를 챙겨 마당으로 돌아가자.',3.5)); },
+  e7_store(){ const G=V(STORE7.x,0,STORE7.z), lay=i=>V(G.x+.15+(i%2)*.3,.1,G.z+.1+Math.floor(i/2)*.28); noSink=true; play([
+    {at:[V(G.x,.1,G.z),{from:[.6,1],d:.85},{dist:2.1,h:1.3}],dur:4.6,say:'힘들게 얻은 고기다. 남은 것부터 갈무리한다.',pose:'crouch',fn(){tub7.visible=true;tub7.position.copy(TUB7);tubLid7.position.set(.5,.02,.35);bags7.forEach(b=>{b.visible=false;b.material.color.setHex(0x9c3836);b.material.roughness=.5;});},up(k){bags7.forEach((b,i)=>{const kk=segK(k,i*.18,i*.18+.3);b.visible=kk>0;fly(b,handW(1),lay(i),kk,.12);});meatHeld7.visible=k<.7;}},
+    {cam:close(V(G.x,.2,G.z),{dist:1.5,h:1.05}),dur:7.2,say:'냄새가 새지 않게 두꺼운 비닐로 단단히 감싸, 큰 스텐 들통에 차곡차곡 넣는다.',pose:'crouch',up(k){bags7.forEach((b,i)=>{const w=segK(k,i*.08,i*.08+.25);b.material.color.lerpColors(_c1.setHex(0x9c3836),_c2.setHex(0x101113),w);b.material.roughness=.5-.3*w;const kk=segK(k,.45+i*.1,.62+i*.1);if(kk>0)via7(b,lay(i),V(TUB7.x,.12+i*.09,TUB7.z),kk,.15);});const l=segK(k,.9,1);tubLid7.position.set(.5*(1-l),.02+.48*l,.35*(1-l));}},
+    {cam:C([G.x+2.6,1.7,G.z+2.4],[TUB7.x,.2,TUB7.z]),cut:true,dur:8.2,say:'들통을 눈 속 깊이 파묻고, 그 위에 무거운 장작을 빈틈없이 쌓아 덮는다.',pose:'dig',fn(){bags7.forEach(b=>b.visible=false);shovelHeld.visible=true;storeMound7.visible=true;storeMound7.position.set(TUB7.x,0,TUB7.z);storeMound7.scale.set(.01,.01,.01);put7(TUB7.x+.95,TUB7.z+.6,-Math.PI*.68);},
+      up(k){const a=ease(segK(k,0,.45));tub7.position.y=-a*.55;storeMound7.scale.set(.2+a*.6,a*.32+.01,.2+a*.6);if(k<.45)clodArc(snowClods7,V(TUB7.x+.6,.15,TUB7.z+.4),V(TUB7.x,.2,TUB7.z),seq.t,1,.5);else{snowClods7.forEach(c=>c.visible=false);shovelHeld.visible=false;player.pose='reachLoop';}
+        storeLogs7.forEach((l,i)=>{const kk=segK(k,.5+i*.04,.6+i*.04);l.visible=kk>0;fly(l,handW(1),storeLogPos(i),kk,.2);});},
+      end(){tub7.visible=false;}},
+    {cam:()=>faceCam({d:1.9,h:1.5}),cut:true,dur:5.2,say:'고된 일을 모두 마치자, 참아 왔던 허기가 한꺼번에 밀려온다.',pose:'stand',fn(){meatHeld7.visible=true;},end(){noSink=false;go('e7_grill');}},
+  ],()=>hint('오늘 먹을 고기를 들고 난로 앞으로 가자.',3.5)); },
+  e7_grill(){ const PN=V(-2.2,.95,5.84); play([
+    {at:[TG.stoveTop,{from:FROM.stove,d:.8},{dist:1.7,h:1.4}],dur:6.8,say:'온기에 살짝 녹은 고기를 먹기 좋게 썰어, 달궈진 스텐 프라이팬에 올린다.',pose:'reach',fn(){pan7.visible=true;potOnStove.visible=false;slices7.forEach(s=>{s.visible=false;s.userData.m.color.setHex(0xb04a48);s.userData.f.color.setHex(0xf0e8dc);});},up(k){slices7.forEach((s,i)=>{const kk=segK(k,.15+i*.14,.3+i*.14);s.visible=kk>0;fly(s,handW(1),s.userData.to,kk,.08);});meatHeld7.visible=k<.8;if(k>.3&&Math.random()<.12)burst(5200,'highpass',.07,.08);}},
+    {cam:C([-1.55,1.5,6.25],[-2.2,.9,5.84],[-1.7,1.42,6.2],[-2.2,.9,5.84]),dur:7.2,say:'하얀 비계가 자글자글 녹아내리며, 고소한 기름 냄새가 방 안을 가득 채운다.',up(k){smokeStep(PN,true,.7,.6,.22);slices7.forEach((s,i)=>{s.userData.m.color.lerpColors(_c1.setHex(0xb04a48),_c2.setHex(0x7a4424),k);s.userData.f.color.lerpColors(_c1.setHex(0xf0e8dc),_c2.setHex(0xd9a04a),k);s.position.y=s.userData.to.y+Math.sin(seq.t*20+i)*.0015;});if(Math.random()<.2)burst(5200,'highpass',.07,.08);},end(){smokeStep(PN,false);go('e7_eat');}},
+  ],()=>hint('난롯가에 앉아 먹자.',3)); },
+  e7_eat(){ const mouth=()=>{const h=char.head.getWorldPosition(new THREE.Vector3());h.y-=.05;return h;}, salt=V(-1.72,.05,7.12); play([
+    {cam:C([-2.55,1.3,8.1],[-1.68,.45,7.15],[-2.5,1.2,7.95],[-1.68,.45,7.15]),dur:6.2,say:'노릇하게 익은 고기 한 점을 소금에 살짝 찍어 입에 넣는다.',pose:'sitEat',fn(){mark(V(-2.2,0,5.82),{pos:[P.seat.x,P.seat.z]});},up(k){const s=slices7[0],a=segK(k,.1,.42),b=segK(k,.52,.88);if(b>0){fly(s,salt,mouth(),b,.1);s.visible=b<1;}else via7(s,s.userData.to,salt,a,.1);}},
+    {cam:()=>faceCam({d:1.2,h:.9,ly:.75}),dur:6.2,say:'바삭한 비계가 터지며, 진한 육즙과 묵직한 지방의 풍미가 쏟아진다.',pose:'sitEat'},
+    {cam:C([-2.2,1.2,7.3],[-1.75,.7,6.6],[-2.3,1.1,7.5],[-1.75,.7,6.6]),dur:8.2,say:'조개나 물고기와는 차원이 다른, 진짜 육고기의 맛이다. 굽는 족족 쉴 새 없이 입에 넣는다.',pose:'sitEat',up(k){slices7.forEach((s,i)=>{if(!i)return;const kk=segK(k,(i-1)*.22,(i-1)*.22+.2);if(kk>0){via7(s,s.userData.to,mouth(),kk,.12);s.visible=kk<1;}});},end(){go('e7_stew');}},
+  ],()=>hint('남은 고기로 국을 끓이자.',3)); },
+  e7_stew(){ ended=true; const pot=V(-2.2,1.02,5.84); play([
+    {at:[TG.stoveTop,{from:FROM.stove,d:.8},{dist:1.7,h:1.4}],dur:8.2,say:'작은 냄비에 남은 고기와 물을 붓고, 갈무리해 둔 돼지감자와 말린 냉이를 넣어 푹 끓인다.',pose:'reach',fn(){pan7.visible=false;potOnStove.visible=false;stewPot7.visible=true;stewTop7.material.color.setHex(0x5a6870);},up(k){stewBits7.forEach((b,i)=>{const kk=segK(k,.1+i*.08,.25+i*.08);b.visible=kk>0;fly(b,handW(1),b.userData.to,kk,.1);});greens7.forEach((g,i)=>{if(i<4)return;const kk=segK(k,.62+(i-4)*.12,.86+(i-4)*.12);if(kk>0){via7(g,g.userData.to,pot,kk,.2);g.visible=kk<1;}});}},
+    {cam:C([-1.55,1.55,6.25],[-2.2,.95,5.84],[-1.7,1.45,6.2],[-2.2,.95,5.84]),dur:6.2,say:'소금으로 간을 맞추자, 진한 고기 기름 위로 구수한 냉이 향이 퍼진다.',up(k){smokeStep(pot,true,.8,.5,.25);stewTop7.material.color.lerpColors(_c1.setHex(0x5a6870),_c2.setHex(0xb89a62),k);stewBits7.forEach((b,i)=>b.position.y=b.userData.to.y+Math.sin(seq.t*7+i)*.004);}},
+    {cam:C([-2.15,1.0,6.9],[-1.6,.6,7.4]),dur:7.8,say:'건더기를 건져 먹고 뜨거운 국물까지 남김없이 들이켜자, 온기가 온몸으로 퍼져 나간다.',pose:'sitEat',fn(){smokeStep(pot,false);mark(V(-2.2,0,5.82),{pos:[P.seat.x,P.seat.z]});spoonHeld.visible=true;}},
+    {cam:()=>faceCam({d:1.4,h:.95,ly:.8}),dur:6.2,say:'배가 든든해지자, 아까의 서늘한 느낌이 다시 조용히 고개를 든다.',pose:'sit',fn(){spoonHeld.visible=false;}},
+    {cam:()=>handCam({fc:.25,r:.4,h:1.0,f:.42,ly:.5}),dur:6.8,say:'통째로 비어 버린 시간. 그 추위 속에서도 동상 하나 입지 않은 손.',pose:'sitHold'},
+    {cam:C([.6,1.5,9.3],[2.9,1.65,9],[.9,1.55,9.2],[2.9,1.65,9]),dur:7.2,say:'지난 50년의 빈틈과, 내 몸을 둘러싼 알 수 없는 의문들이 머릿속을 맴돈다.',pose:'sit'},
+    {cam:C([9,3.5,24],[0,1.4,9],[11,4.5,27],[0,1.4,9]),cut:true,dur:5,say:'세상이 멸망한 지 50년.',pose:'sit'},
+    {cam:C([FCX+5,2.2,FCZ+8],[FCX,.4,FCZ],[FCX+7,4.2,FCZ+11],[FCX-2,.4,FCZ-2]),cut:true,dur:8.8,say:'불안이 밀려오지만, 눈에 묻힌 씨앗이 봄을 기다리듯, 잃어버린 진실에 한 걸음씩 다가가 보려 한다.',pose:'sit'},
+  ],()=>{go('end7');showEnd(7);}); },
+});
+A({p:()=>P.bag,r:1.8,when:at('end6'),label:'EP.7 「사라진 밤」 시작하기',run(){go('e7_fish');introEP7();}});
+A({p:()=>SALT7,r:2.2,when:at('e7_fish'),label:'물고기에 소금 문지르기',run:S.e7_fish});
+A({p:()=>V(ROOT7.x,0,ROOT7.z+.9),r:1.6,when:at('e7_roots'),label:'뿌리 채소 갈무리하기',run:S.e7_roots});
+A({p:()=>STACKP,r:2.2,when:at('e7_wood'),label:'장작 골라 안아 들기',run:S.e7_wood});
+A({p:()=>V(PILE7.x+.9,0,PILE7.z),r:1.7,when:at('e7_stackin'),label:'난로에서 떨어진 자리에 장작 쌓기',run:S.e7_stackin});
+A({p:()=>P.door,r:1.6,when:at('e7_door'),label:'철문 여닫아 보기',run:S.e7_door});
+A({p:()=>P.stove,r:1.4,when:at('e7_stove'),label:'난로에 장작 채워 넣기',run:S.e7_stove});
+A({p:()=>P.door,r:1.6,when:at('e7_push'),label:'철문 밀어 보기',run:S.e7_push});
+PATH7.forEach((p,i)=>A({p:()=>V(p.x-(i===2?.3:0),0,p.z+(i<2?.5:0)),r:2.0,when:()=>stage==='e7_shovel'&&!clear7[i]&&(i===0||!!clear7[i-1]),label:'삽으로 눈 치우기',run:()=>S.shovel7(i)}));
+A({p:()=>PIT,r:2.6,when:at('e7_pit'),label:'삽으로 구덩이 파기',run:S.e7_pit});
+A({p:()=>lineSpots[0],r:2.2,when:at('e7_lines'),label:'얼어붙은 낚싯줄 당겨 보기',run:S.e7_lines});
+A({p:()=>P.stove,r:1.4,when:at('e7_bed'),label:'난로에 장작 밀어 넣기',run:S.e7_bed});
+A({p:()=>V(TIND7.x+.7,0,TIND7.z),r:1.5,when:at('e7_spark'),label:'파이어스틸로 불꽃 튀기기',run:S.e7_spark});
+A({p:()=>P.door,r:1.6,when:at('e7_out'),label:'철문 열기',run:S.e7_out});
+A({p:()=>PIT,r:2.8,when:at('e7_trap'),label:'무너진 눈과 나뭇가지 걷어 내기',run:S.e7_trap});
+A({p:()=>STORE7,r:2.4,when:at('e7_store'),label:'남은 고기 갈무리하기',run:S.e7_store});
+A({p:()=>P.stove,r:1.4,when:at('e7_grill'),label:'프라이팬에 고기 굽기',run:S.e7_grill});
+A({p:()=>P.seat,r:1.8,when:at('e7_eat'),label:'난롯가에 앉아 고기 먹기',run:S.e7_eat});
+A({p:()=>P.stove,r:1.4,when:at('e7_stew'),label:'고깃국 끓이기',run:S.e7_stew});
+const _target=target; target=function(){ switch(stage){
+  case 'end6': return P.bag; case 'e7_fish': return SALT7; case 'e7_roots': return V(ROOT7.x,0,ROOT7.z+.9); case 'e7_wood': return STACKP; case 'e7_stackin': return V(PILE7.x+.9,0,PILE7.z);
+  case 'e7_door': case 'e7_push': case 'e7_out': return P.door; case 'e7_stove': case 'e7_bed': case 'e7_grill': case 'e7_stew': return P.stove;
+  case 'e7_shovel': { const i=clear7.findIndex(c=>!c); return i<0?null:V(PATH7[i].x-(i===2?.3:0),0,PATH7[i].z+(i<2?.5:0)); }
+  case 'e7_field': return V(FLD.x0-.6,0,FCZ+2.5); case 'e7_tracks': return TRACK7; case 'e7_pit': case 'e7_trap': return PIT;
+  case 'e7_bridge': return V(131,5,-45); case 'e7_lines': return lineSpots[0]; case 'e7_return': return V(110,0,-45);
+  case 'e7_spark': return V(TIND7.x+.7,0,TIND7.z); case 'e7_drag': return BUTCH7; case 'e7_store': return STORE7; case 'e7_eat': return P.seat;
+  } return _target(); };
 /* ================= end / start screens ================= */
 function showEnd(ep){
   document.exitPointerLock?.();
-  $('endT').textContent = ep===1?'EP.1 「시작」':ep===2?'EP.2 「일상」':ep===3?'EP.3 「낚시왕」':ep===4?'EP.4 「첫 삽」':ep===5?'EP.5 「월동준비」':'EP.6 「과거의 오르골」';
-  $('endS').textContent = ep===1?'불청객들의 침입이 시작되었다.':ep===2?'세상이 멸망한 지 50년.':ep===3?'치킨이 조금도 부럽지 않은 맛.':ep===4?'달빛이 내려앉은 검은 밭.':ep===5?'하얀 입김이 훅 피어오른다.':'잠들어 있던 멜로디가 울려 퍼진다.';
+  $('endT').textContent = ep===1?'EP.1 「시작」':ep===2?'EP.2 「일상」':ep===3?'EP.3 「낚시왕」':ep===4?'EP.4 「첫 삽」':ep===5?'EP.5 「월동준비」':ep===6?'EP.6 「과거의 오르골」':'EP.7 「사라진 밤」';
+  $('endS').textContent = ep===1?'불청객들의 침입이 시작되었다.':ep===2?'세상이 멸망한 지 50년.':ep===3?'치킨이 조금도 부럽지 않은 맛.':ep===4?'달빛이 내려앉은 검은 밭.':ep===5?'하얀 입김이 훅 피어오른다.':ep===6?'잠들어 있던 멜로디가 울려 퍼진다.':'눈에 묻힌 씨앗이 봄을 기다리듯.';
   const B=$('endB'); B.innerHTML='';
   const mk=(t,pri,fn)=>{const b=document.createElement('button');b.textContent=t;if(pri)b.className='pri';b.onclick=fn;B.appendChild(b);};
   const roam=()=>{$('end').style.display='none';ended=false;};
@@ -2368,6 +2907,7 @@ function showEnd(ep){
   else if(ep===3){ mk('다음 화 ▶ EP.4 「첫 삽」',true,()=>{roam();go('e4_search');introEP4();}); mk('계속 둘러보기',false,roam); }
   else if(ep===4){ mk('다음 화 ▶ EP.5 「월동준비」',true,()=>{roam();go('e5_open');introEP5();}); mk('계속 둘러보기',false,roam); }
   else if(ep===5){ mk('다음 화 ▶ EP.6 「과거의 오르골」',true,()=>{roam();go('e6_intro');introEP6();}); mk('계속 둘러보기',false,roam); }
+  else if(ep===6){ mk('다음 화 ▶ EP.7 「사라진 밤」',true,()=>{roam();musicBoxPlay(false);go('e7_fish');introEP7();}); mk('계속 둘러보기',false,roam); }
   else { mk('계속 둘러보기',true,roam); mk('처음부터 다시',false,()=>{clearSave();location.reload();}); }
   $('end').style.display='flex';
 }
@@ -2379,12 +2919,13 @@ function begin(mode){
     stage=ORDER.includes(sv.stage)?sv.stage:'wake'; sticks=sv.sticks||sticks; tied=sv.tied||tied; acorns=sv.acorns||acorns; stones=sv.stones||stones; ash=sv.ash||ash; cut=sv.cut||cut; pick=sv.pick||pick; spread=sv.spread||spread; snags=sv.snags||snags;
     if(sv.p) player.pos.set(sv.p[0],sv.p[1],sv.p[2]); player.y=player.pos.y;
     if(sv.c&&SI(stage)>=SI('pull')){cart.x=sv.c[0];cart.z=sv.c[1];cart.yaw=sv.c[2];cart.y=groundH(cart.x,cart.z,player.pos.y);}
-    if(stage==='end1') stage='e2_check'; if(stage==='end2') stage='e3_trap'; if(stage==='end3') stage='e4_search'; if(stage==='end4') stage='e5_open'; if(stage==='end5') stage='e6_intro';
+    if(stage==='end1') stage='e2_check'; if(stage==='end2') stage='e3_trap'; if(stage==='end3') stage='e4_search'; if(stage==='end4') stage='e5_open'; if(stage==='end5') stage='e6_intro'; if(stage==='end6') stage='e7_fish';
   } else if(mode==='ep2'){ stage='e2_check'; all(); }
   else if(mode==='ep3'){ stage='e3_trap'; all(); }
   else if(mode==='ep4'){ stage='e4_search'; all(); ash=[1,1,1,1]; }
   else if(mode==='ep6'){ stage='e6_intro'; all(); ash=[1,1,1,1]; cut=[1,1,1,1]; pick=[1,1,1]; spread=[1,1,1]; snags=[1,1,1]; }
   else if(mode==='ep5'){ stage='e5_open'; all(); ash=[1,1,1,1]; cut=[1,1,1,1]; pick=[1,1,1]; spread=[1,1,1]; }
+  else if(mode==='ep7'){ stage='e7_fish'; all(); ash=[1,1,1,1]; cut=[1,1,1,1]; pick=[1,1,1]; spread=[1,1,1]; snags=[1,1,1]; }
   tod.t=TOD[stage]; applyVisuals(); updateHUD(); placeCart();
   $('fade').style.opacity='0';
   if(stage==='wake') introEP1();
@@ -2393,6 +2934,7 @@ function begin(mode){
   else if(mode==='ep4'||(mode==='cont'&&stage==='e4_search')) introEP4();
   else if(mode==='ep5'||(mode==='cont'&&stage==='e5_open')) introEP5();
   else if(mode==='ep6'||(mode==='cont'&&stage==='e6_intro')) introEP6();
+  else if(mode==='ep7'||(mode==='cont'&&stage==='e7_fish')) introEP7();
   else hint('— 이어서 —',2);
   canvas.focus();
 }
@@ -2402,6 +2944,7 @@ $('bEp3').onclick=()=>{clearSave();begin('ep3');};
 $('bEp4').onclick=()=>{clearSave();begin('ep4');};
 $('bEp5').onclick=()=>{clearSave();begin('ep5');};
 $('bEp6').onclick=()=>{clearSave();begin('ep6');};
+$('bEp7').onclick=()=>{clearSave();begin('ep7');};
 $('bCont').onclick=()=>begin('cont');
 const openCredits=()=>{const c=$('credits'),r=$('roll');r.style.animation='none';void r.offsetWidth;r.style.animation='';c.style.display='block';};
 const closeCredits=()=>{$('credits').style.display='none';};
@@ -2469,6 +3012,10 @@ function animateChar(dt){
   if(pz==='dig'){const c=.5+.5*Math.sin(time*3.2);T.hipsY=.84-c*.06;T.th=[-.5,.15];T.sh=[.65,.3];T.spine=.35+c*.3;T.ua=[-.9-c*.5,-1.1-c*.5];T.fa=[-.5,-.4];T.uaZ=[-.18,.18];}
   if(pz==='pound'){const c=Math.abs(Math.sin(time*3.6));T.spine=.2+(1-c)*.25;T.ua=[-1.0-c*1.3,-1.0-c*1.3];T.fa=[-.6,-.6];T.uaZ=[-.25,.25];}
   if(pz==='rub'){const c=Math.sin(time*3.5);T.hipsY=.48;T.th=[-1.45,-1.25];T.sh=[1.45,1.6];T.spine=.62;T.ua=[-.95,-1.05+c*.3];T.fa=[-.3,-.2];T.uaZ=[0,-.1+c*.25];T.neckX=.2;}
+  if(pz==='push'){const c=.5+.5*Math.sin(time*7);T.hipsY=.84;T.th=[-.55,.3];T.sh=[.6,.25];T.spine=.42+c*.05;T.ua=[-1.35,-1.35];T.fa=[-.25-c*.1,-.25-c*.1];T.uaZ=[-.1,.1];}
+  if(pz==='shiver'){const j=Math.sin(time*38)*.035;T.hipsY=.86;T.spine=.3+j;T.ua=[-.75+j,-.75-j];T.fa=[-1.9,-1.9];T.uaZ=[-.55,.55];T.neckX=.3+j;}
+  if(pz==='cough'){const c=Math.max(0,Math.sin(time*9))*Math.max(0,Math.sin(time*2.2));T.spine=.22+c*.3;T.ua[1]=-.9;T.uaZ[1]=.4;T.fa[1]=-2.05;T.neckX=.2+c*.25;}
+  if(pz==='drag'){T.spine=.3;T.ua=[.5,.5];T.fa=[-.3,-.3];T.uaZ=[.12,-.12];}
   lerpTo(c.hips.position,'y',T.hipsY,f); lerpTo(c.spine.rotation,'x',T.spine,f); lerpTo(c.neck.rotation,'x',T.neckX,f); lerpTo(c.neck.rotation,'z',T.neckZ,f);
   for(let i=0;i<2;i++){lerpTo(c.th[i].rotation,'x',T.th[i],moving?1:f);lerpTo(c.sh[i].rotation,'x',T.sh[i],moving?1:f);lerpTo(c.ua[i].rotation,'x',T.ua[i],moving?Math.min(1,dt*14):f);lerpTo(c.ua[i].rotation,'z',T.uaZ[i],f);lerpTo(c.fa[i].rotation,'x',T.fa[i],f);}
 }
@@ -2588,10 +3135,10 @@ function update(dt){
 }
 function collide(p,r,y){for(const c of colliders){if(y+1.7<c.y0||y+.3>c.y1)continue;const cx=clamp(p.x,c.x0,c.x1),cz=clamp(p.z,c.z0,c.z1),dx=p.x-cx,dz=p.z-cz,d2=dx*dx+dz*dz;
   if(d2<r*r){if(d2>1e-9){const d=Math.sqrt(d2);p.x+=dx/d*(r-d);p.z+=dz/d*(r-d);}else{const l=p.x-c.x0,rr=c.x1-p.x,t=p.z-c.z0,b=c.z1-p.z,m=Math.min(l,rr,t,b);if(m===l)p.x=c.x0-r;else if(m===rr)p.x=c.x1+r;else if(m===t)p.z=c.z0-r;else p.z=c.z1+r;}}}}
-applyVisuals(); updateHUD(); placeCart(); applyTOD(0); camera.position.set(9,3.5,27); camLook.set(0,1.5,9);
+snowInit(); applyVisuals(); updateHUD(); placeCart(); applyTOD(0); camera.position.set(9,3.5,27); camLook.set(0,1.5,9);
 renderer.setAnimationLoop(()=>{const dt=Math.min(.05,clock.getDelta());update(dt);renderer.render(scene,camera);});
-window.__game={voice:VOICE,player,cart,go,S,get stage(){return stage;},get seq(){return seq;},tp:(x,z)=>{player.pos.x=x;player.pos.z=z;player.y=groundH(x,z);player.pos.y=player.y;},acts,sticks,tied,acorns,stones,ash,char,
-  setYaw:(y,p)=>{yaw=y;if(p!==undefined)pitch=p;},step:(n=1,dt=1/30)=>{for(let i=0;i<n;i++)update(dt);renderer.render(scene,camera);},skip:()=>{let g=0;while(seq&&g++<50)skipStep();},interact};
+window.__game={SNOW,WX,scene,camera,THREE,voice:VOICE,player,cart,go,S,get stage(){return stage;},get seq(){return seq;},tp:(x,z)=>{player.pos.x=x;player.pos.z=z;player.y=groundH(x,z);player.pos.y=player.y;},acts,sticks,tied,acorns,stones,ash,char,
+  setYaw:(y,p)=>{yaw=y;if(p!==undefined)pitch=p;},rend:()=>renderer.render(scene,camera),begin,step:(n=1,dt=1/30)=>{for(let i=0;i<n;i++)update(dt);renderer.render(scene,camera);},skip:()=>{let g=0;while(seq&&g++<50)skipStep();},interact};
 </script>
 </body>
 </html>
