@@ -408,17 +408,21 @@ let fireLight,fireGlass,stoveDoor,smallPot,potOnStove,bigPot,homeBoxes=[],cupMes
   { const BX=2.2,BZ=6.62;
     const mt=shadow(new THREE.Mesh(new RoundedBoxGeometry(.98,.17,2.04,3,.06),std({color:0x4b4e57,roughness:1}))); mt.position.set(BX,.085,BZ); scene.add(mt);
     const pipe=shadow(new THREE.Mesh(new RoundedBoxGeometry(1.0,.03,2.06,2,.012),std({color:0x33353c,roughness:1}))); pipe.position.set(BX,.085,BZ); scene.add(pipe);
-    const vinyl=std({color:0x0e0f12,roughness:.2,metalness:.1,envMap:envTex,envMapIntensity:1.0,flatShading:true});
-    const pg=new THREE.SphereGeometry(1,20,12); { const p=pg.attributes.position; for(let i=0;i<p.count;i++){ const x=p.getX(i),y=p.getY(i),z=p.getZ(i),n=1+.07*Math.sin(x*9+z*7)*Math.cos(y*11+x*5)+.04*Math.sin(z*17+y*13); p.setXYZ(i,x*n,y*n,z*n); } pg.computeVertexNormals(); }
-    const pw=shadow(new THREE.Mesh(pg,vinyl)); pw.scale.set(.42,.09,.25); pw.position.set(BX,.215,5.9); pw.rotation.y=.08; scene.add(pw);
+    const vinyl=std({color:0x1b1d22,roughness:.4,metalness:0,envMap:envTex,envMapIntensity:.55});
+    const pg=new RoundedBoxGeometry(.66,.17,.4,6,.08); { const p=pg.attributes.position; for(let i=0;i<p.count;i++){ const x=p.getX(i),y=p.getY(i),z=p.getZ(i),c=Math.cos(x/.33*1.35)*Math.cos(z/.2*1.35); p.setY(i,y*(.62+.5*Math.max(0,c))+(y>0?-.035*Math.exp(-(x*x+z*z)/.012):0)+.004*Math.sin(x*40+z*31)); } pg.computeVertexNormals(); }
+    const pw=shadow(new THREE.Mesh(pg,vinyl)); pw.position.set(BX,.262,5.9); pw.rotation.y=.06; scene.add(pw);
     const knit=canvasTex(128,128,(g,w,h)=>{speckle(g,w,h,'#72706c',38);g.lineWidth=1.4;for(let i=-h;i<w;i+=7){g.strokeStyle='rgba(28,28,30,.38)';g.beginPath();g.moveTo(i,0);g.lineTo(i+h,h);g.stroke();g.strokeStyle='rgba(210,205,196,.16)';g.beginPath();g.moveTo(i+h+3,0);g.lineTo(i+3,h);g.stroke();}},[6,8]);
     const bm=std({map:knit,color:0xb9b4ac,roughness:1,side:THREE.DoubleSide});
-    const mk=(z0,z1,hump,fold)=>{ const g=new THREE.PlaneGeometry(1.26,z1-z0,18,22); g.rotateX(-Math.PI/2); const p=g.attributes.position, zc=(z0+z1)/2;
-      for(let i=0;i<p.count;i++){ const x=p.getX(i),z=p.getZ(i)+zc, e=smooth(.44,.63,Math.abs(x)), body=smooth(z0,z0+.3,z)*(1-.45*smooth(6.9,7.6,z));
-        let y=.182+hump*Math.exp(-(x/.24)*(x/.24))*body+.012*Math.sin(x*17+z*13)+.01*Math.sin(z*23+x*5)-e*.155;
+    const mk=(z0,z1,hump,fold,edge=0)=>{ const g=new THREE.PlaneGeometry(1.26,z1-z0,18,22); g.rotateX(-Math.PI/2); const p=g.attributes.position, zc=(z0+z1)/2;
+      for(let i=0;i<p.count;i++){ const x=p.getX(i),z=p.getZ(i)+zc, e=smooth(.44,.63,Math.abs(x)), body=(edge+(1-edge)*smooth(z0,z0+.3,z))*(1-.5*smooth(6.9,7.6,z)), wide=.24+.1*edge*(1-smooth(z0+.2,z0+.9,z));
+        let y=.182+hump*Math.exp(-(x/wide)*(x/wide))*body+.012*Math.sin(x*17+z*13)+.01*Math.sin(z*23+x*5)-e*.155;
         y+=fold*.07*Math.exp(-Math.pow((z-z0-.09)/.08,2))*(1-e); p.setX(i,x*(1-e*.07)); p.setY(i,Math.max(.012,y)); }
       g.computeVertexNormals(); const m=shadow(new THREE.Mesh(g,bm)); m.position.set(BX,0,zc); scene.add(m); return m; };
-    P.bedSleep=mk(6.1,7.68,.2,.6); P.bedIdle=mk(6.42,7.68,.04,1); P.bedSleep.visible=false;
+    P.bedSleep=mk(6.34,7.68,.2,.25,.8); P.bedSleep.userData={z0:6.34,z1:7.68};
+    { const sk=std({color:0x0b0b0c,roughness:.75}), g=new THREE.Group(); scene.add(g); P.sleeper=g; g.visible=false;
+      const sh=shadow(new THREE.Mesh(new THREE.CapsuleGeometry(.125,.36,6,14),sk)); sh.rotation.z=Math.PI/2; sh.scale.set(1,1,.85); sh.position.set(BX,.335,6.27); g.add(sh);
+      const nk=shadow(new THREE.Mesh(new THREE.CylinderGeometry(.07,.085,.14,12),sk)); nk.rotation.x=Math.PI/2; nk.position.set(BX,.36,6.17); g.add(nk);
+      P.sleepHands=[-1,1].map(d=>{ const h=new THREE.Group(); const fist=shadow(new THREE.Mesh(new THREE.SphereGeometry(.058,14,10),sk)); fist.scale.set(1.05,.8,1.15); h.add(fist); for(let k=0;k<4;k++){ const fg=shadow(new THREE.Mesh(new THREE.CapsuleGeometry(.014,.035,4,8),sk)); fg.rotation.x=Math.PI/2-.5; fg.position.set(-.036+k*.024,-.012,.055); h.add(fg); } const arm=shadow(new THREE.Mesh(new THREE.CapsuleGeometry(.04,.2,4,10),sk)); arm.rotation.x=Math.PI/2+.25; arm.rotation.z=d*.5; arm.position.set(d*.07,-.03,-.13); h.add(arm); h.userData.x=BX+d*.19; g.add(h); return h; }); } P.bedIdle=mk(6.42,7.68,.04,1); P.bedSleep.visible=false;
     const lc=[0x7a4a20,0x8e5a26,0x5a3a22]; for(const [x,y,z] of [[BX-.2,.305,5.84],[BX+.22,.3,5.98],[BX-.3,.18,6.35],[BX+.1,.18,6.5],[BX+.33,.18,6.2]]){ const l=new THREE.Mesh(new THREE.PlaneGeometry(.1,.07),std({color:lc[(rand()*3)|0],roughness:1,side:THREE.DoubleSide})); l.rotation.set(-Math.PI/2+R(-.25,.25),0,rand()*6); l.position.set(x,y,z); scene.add(l); } }
   // 침상 쪽 창문: 아래쪽 절반만 검은 비닐로 가려 고정
   { const g=new THREE.PlaneGeometry(2.9,.76,30,9), p=g.attributes.position;
@@ -584,7 +588,7 @@ function makeCharacter(){
   return {root,mesh,headMesh,hips,spine,chest,neck,head,ua,fa,hd,th,sh,ft,pack};
 }
 const char=makeCharacter(); scene.add(char.root);
-const sleepHead=shadow(new THREE.Mesh(new THREE.SphereGeometry(.28,40,28),std({color:0x090909,roughness:.7}))); sleepHead.position.set(2.2,.47,5.93); scene.add(sleepHead);
+const sleepHead=shadow(new THREE.Mesh(new THREE.SphereGeometry(.28,40,28),std({color:0x090909,roughness:.7}))); sleepHead.position.set(2.2,.55,5.93); scene.add(sleepHead);
 const player={pos:V(1.5,0,6.6),y:0,theta:Math.PI,speed:0,phase:0,pose:'stand'};
 
 /* ================= REST STOP ================= */
@@ -2751,7 +2755,9 @@ function updateEP7(dt){
   SNOW.value+=(snowT-SNOW.value)*Math.min(1,dt*(seq?.4:2)); if(Math.abs(snowT-SNOW.value)<.004) SNOW.value=snowT;
   const f=Math.min(1,dt*.8); WX.gray+=(WX.tg-WX.gray)*f; WX.fall+=(WX.tf-WX.fall)*f; WX.blue+=(WX.tb-WX.blue)*f;
   stepFlakes(dt);
-  P.bedSleep.visible=sleepHead.visible; P.bedIdle.visible=!sleepHead.visible;
+  { const sl=sleepHead.visible, b=P.bedSleep, u=b.userData; if(sl&&!b.visible) u.t=0; b.visible=P.sleeper.visible=sl; P.bedIdle.visible=!sl;
+    if(sl){ u.t=Math.min(1,(u.t||0)+dt/2.2); const e=ease(u.t), L=u.z1-u.z0, sc=.62+.38*e, edge=u.z1-L*sc, tug=u.t<1?Math.sin(u.t*Math.PI*5)*.012:Math.sin(time*.9)*.003; b.scale.z=sc; b.position.z=u.z1-L*sc/2;
+      P.sleepHands.forEach((h,i)=>{ h.position.set(h.userData.x,.365+Math.sin(time*1.1+i)*.004,edge+.035+tug); h.rotation.x=-.25; }); } }
   const snowy=SNOW.value>.5; if(grassIM) grassIM.visible=!snowy; snowDeco7.visible=fieldSnow7.visible=snowy; if(snowy) sprouts.visible=false;
   door7.a+=(door7.t-door7.a)*Math.min(1,dt*4); shedDoor.rotation.y=door7.a; doorCol.y1=(e7&&Math.abs(door7.t)<.3)?2.1:-99;
   const deep=snowy&&!noSink&&!inShed(player.pos)&&!onPath7(player.pos.x,player.pos.z)&&pitDrop<=0&&!(player.y>1&&player.pos.x>BR.x0&&player.pos.x<BR.x1);
