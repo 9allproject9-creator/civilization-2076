@@ -1192,12 +1192,12 @@ const close=(T,o={})=>()=>sideCam(player.pos,T,Object.assign({dist:.95,h:.85,loo
 
 /* ---- 나레이션 (타입캐스트 AI 성우 '필재', 1.2배속 재생) ---- */
 const VOICE={map:new Map(),cache:new Map(),cur:null,on:true,rate:1.2};
-fetch('voice/lines.json').then(r=>r.ok?r.json():[]).then(L=>L.forEach((t,i)=>VOICE.map.set(t,'voice/'+String(i+1).padStart(3,'0')+'.mp3'))).catch(()=>{});
+VOICE.ready=fetch('voice/lines.json').then(r=>r.ok?r.json():[]).then(L=>{L.forEach((t,i)=>VOICE.map.set(t,'voice/'+String(i+1).padStart(3,'0')+'.mp3'));VOICE.loaded=true;fetch('voice/001.mp3').catch(()=>{});}).catch(()=>{VOICE.loaded=true;});
 function voiceEl(){if(!VOICE.el){const a=new Audio();a.preload='auto';a.preservesPitch=true;a.mozPreservesPitch=true;a.webkitPreservesPitch=true;VOICE.el=a;}return VOICE.el;}
 function voiceAudio(t){const src=VOICE.map.get(t);if(!src)return null;if(!VOICE.cache.has(t)){VOICE.cache.set(t,1);fetch(src).catch(()=>{});}return src;}
 function unlockVoice(){const a=voiceEl();if(a.dataset.ok)return;a.dataset.ok='1';a.muted=true;a.src='voice/001.mp3';const p=a.play();if(p&&p.then)p.then(()=>{if(a.muted){a.pause();a.muted=false;}}).catch(()=>{a.muted=false;});}
 function stopVoice(){if(VOICE.cur){VOICE.cur.pause();VOICE.cur=null;}}
-function narrate(t,step){stopVoice();if(!t||!VOICE.on)return;const src=voiceAudio(t);if(!src)return;const a=voiceEl();a.muted=false;a.onloadedmetadata=()=>{a.playbackRate=VOICE.rate;if(VOICE.cur===a&&step&&isFinite(a.duration))step._vd=a.duration/VOICE.rate+.35;};a.src=src;a.defaultPlaybackRate=VOICE.rate;a.playbackRate=VOICE.rate;a.volume=.95;VOICE.cur=a;const p=a.play();if(p&&p.catch)p.catch(()=>{});}
+function narrate(t,step){stopVoice();if(!t||!VOICE.on)return;if(!VOICE.loaded){VOICE.ready.then(()=>{if(seq&&seq.steps[seq.i]===step)narrate(t,step);});if(step)step._vd=Math.max(step._vd||0,(step.dur||0)+2.5);return;}const src=voiceAudio(t);if(!src)return;const a=voiceEl();a.muted=false;const cur=()=>VOICE.cur===a&&a.dataset.line===t&&seq&&seq.steps[seq.i]===step;a.dataset.line=t;if(step)step._vd=Math.max(step._vd||0,(step.dur||0)+2.5);a.onloadedmetadata=()=>{a.playbackRate=VOICE.rate;};a.onplaying=()=>{a.playbackRate=VOICE.rate;if(cur()&&isFinite(a.duration))step._vd=seq.t+(a.duration-a.currentTime)/VOICE.rate+.35;};a.onerror=()=>{if(cur())step._vd=0;};a.src=src;a.defaultPlaybackRate=VOICE.rate;a.playbackRate=VOICE.rate;a.volume=.95;VOICE.cur=a;const p=a.play();if(p&&p.catch)p.catch(()=>{if(cur())step._vd=0;});}
 function preloadVoices(steps){steps.forEach(s=>{if(s.say)voiceAudio(s.say);});}
 /* ---- cutscene sequencer ---- */
 let seq=null, camOv=null, camReturn=0, shadowFocus=null;
