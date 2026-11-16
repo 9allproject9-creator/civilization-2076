@@ -404,10 +404,31 @@ let fireLight,fireGlass,stoveDoor,smallPot,potOnStove,bigPot,homeBoxes=[],cupMes
   fireLight=new THREE.PointLight(0xff8a3a,4,9,1.8); fireLight.position.set(-2.1,.6,6.3); scene.add(fireLight);
   P.stove=V(-1.95,0,6.75);
   // sleeping bag — far-right corner seen from the door, along the east wall, head at the back
-  const bag=new THREE.Group(); bag.position.set(2.27,0,6.55); bag.rotation.y=-Math.PI/2; scene.add(bag);
-  const b1=shadow(new THREE.Mesh(new THREE.CapsuleGeometry(.32,1.45,8,16),M.bag)); b1.rotation.z=Math.PI/2; b1.scale.set(.42,1,1); b1.position.y=.15; bag.add(b1);
-  const b2=shadow(new THREE.Mesh(new THREE.SphereGeometry(.45,16,12),std({color:0x5f6064,roughness:1}))); b2.scale.set(1.3,.32,.9); b2.position.set(.35,.2,.05); bag.add(b2);
-  const pil=shadow(new THREE.Mesh(new THREE.CapsuleGeometry(.12,.3,6,10),std({color:0x3d3f44,roughness:1}))); pil.rotation.x=Math.PI/2; pil.position.set(-1.0,.1,0); bag.add(pil);
+  // 낮은 매트리스 + 검은 비닐 베개 + 모포 (동쪽 벽을 따라, 머리는 북쪽)
+  { const BX=2.2,BZ=6.62;
+    const mt=shadow(new THREE.Mesh(new RoundedBoxGeometry(.98,.17,2.04,3,.06),std({color:0x4b4e57,roughness:1}))); mt.position.set(BX,.085,BZ); scene.add(mt);
+    const pipe=shadow(new THREE.Mesh(new RoundedBoxGeometry(1.0,.03,2.06,2,.012),std({color:0x33353c,roughness:1}))); pipe.position.set(BX,.085,BZ); scene.add(pipe);
+    const vinyl=std({color:0x0e0f12,roughness:.2,metalness:.1,envMap:envTex,envMapIntensity:1.0,flatShading:true});
+    const pg=new THREE.SphereGeometry(1,20,12); { const p=pg.attributes.position; for(let i=0;i<p.count;i++){ const x=p.getX(i),y=p.getY(i),z=p.getZ(i),n=1+.07*Math.sin(x*9+z*7)*Math.cos(y*11+x*5)+.04*Math.sin(z*17+y*13); p.setXYZ(i,x*n,y*n,z*n); } pg.computeVertexNormals(); }
+    const pw=shadow(new THREE.Mesh(pg,vinyl)); pw.scale.set(.42,.09,.25); pw.position.set(BX,.215,5.9); pw.rotation.y=.08; scene.add(pw);
+    const knit=canvasTex(128,128,(g,w,h)=>{speckle(g,w,h,'#72706c',38);g.lineWidth=1.4;for(let i=-h;i<w;i+=7){g.strokeStyle='rgba(28,28,30,.38)';g.beginPath();g.moveTo(i,0);g.lineTo(i+h,h);g.stroke();g.strokeStyle='rgba(210,205,196,.16)';g.beginPath();g.moveTo(i+h+3,0);g.lineTo(i+3,h);g.stroke();}},[6,8]);
+    const bm=std({map:knit,color:0xb9b4ac,roughness:1,side:THREE.DoubleSide});
+    const mk=(z0,z1,hump,fold)=>{ const g=new THREE.PlaneGeometry(1.26,z1-z0,18,22); g.rotateX(-Math.PI/2); const p=g.attributes.position, zc=(z0+z1)/2;
+      for(let i=0;i<p.count;i++){ const x=p.getX(i),z=p.getZ(i)+zc, e=smooth(.44,.63,Math.abs(x)), body=smooth(z0,z0+.3,z)*(1-.45*smooth(6.9,7.6,z));
+        let y=.182+hump*Math.exp(-(x/.24)*(x/.24))*body+.012*Math.sin(x*17+z*13)+.01*Math.sin(z*23+x*5)-e*.155;
+        y+=fold*.07*Math.exp(-Math.pow((z-z0-.09)/.08,2))*(1-e); p.setX(i,x*(1-e*.07)); p.setY(i,Math.max(.012,y)); }
+      g.computeVertexNormals(); const m=shadow(new THREE.Mesh(g,bm)); m.position.set(BX,0,zc); scene.add(m); return m; };
+    P.bedSleep=mk(6.1,7.68,.2,.6); P.bedIdle=mk(6.42,7.68,.04,1); P.bedSleep.visible=false;
+    const lc=[0x7a4a20,0x8e5a26,0x5a3a22]; for(const [x,y,z] of [[BX-.2,.305,5.84],[BX+.22,.3,5.98],[BX-.3,.18,6.35],[BX+.1,.18,6.5],[BX+.33,.18,6.2]]){ const l=new THREE.Mesh(new THREE.PlaneGeometry(.1,.07),std({color:lc[(rand()*3)|0],roughness:1,side:THREE.DoubleSide})); l.rotation.set(-Math.PI/2+R(-.25,.25),0,rand()*6); l.position.set(x,y,z); scene.add(l); } }
+  // 침상 쪽 창문: 아래쪽 절반만 검은 비닐로 가려 고정
+  { const g=new THREE.PlaneGeometry(2.9,.76,30,9), p=g.attributes.position;
+    for(let i=0;i<p.count;i++){ const u=p.getX(i),v=p.getY(i),a=Math.atan2(v-.4,u-1.4),d=Math.hypot(u-1.4,v-.4),pull=Math.exp(-d*1.1);
+      p.setZ(i,.028*Math.sin(u*9+v*5)+.02*Math.sin(u*21-v*13)+.018*Math.sin(v*17)+.05*Math.sin(a*16)*pull); }
+    g.computeVertexNormals();
+    const vm=std({color:0x0d0e11,roughness:.42,metalness:0,envMap:envTex,envMapIntensity:.45,side:THREE.DoubleSide});
+    const sheet=shadow(new THREE.Mesh(g,vm)); sheet.rotation.y=-Math.PI/2; sheet.position.set(2.7,1.3,9); scene.add(sheet);
+    const knot=shadow(new THREE.Mesh(new THREE.SphereGeometry(.07,10,8),vm)); knot.scale.set(.8,1,1.2); knot.position.set(2.69,1.68,9-1.38); scene.add(knot);
+    const tape=std({color:0x8c8a80,roughness:.9}); for(const z of [7.75,8.5,9.3,10.2]) box(.012,.05,.16,tape,2.735,1.64,z,{}); for(const z of [7.66,10.34]) box(.012,.16,.05,tape,2.735,1.2,z,{}); }
   P.bag=V(1.55,0,6.6);
   // stones with stainless pots — immediately right of the door
   const sA=shadow(new THREE.Mesh(new RoundedBoxGeometry(.9,.5,1.0,2,.06),M.stone)); sA.position.set(2.2,.25,11.0); scene.add(sA);
@@ -563,7 +584,7 @@ function makeCharacter(){
   return {root,mesh,headMesh,hips,spine,chest,neck,head,ua,fa,hd,th,sh,ft,pack};
 }
 const char=makeCharacter(); scene.add(char.root);
-const sleepHead=shadow(new THREE.Mesh(new THREE.SphereGeometry(.28,40,28),std({color:0x090909,roughness:.7}))); sleepHead.position.set(2.27,.3,5.85); scene.add(sleepHead);
+const sleepHead=shadow(new THREE.Mesh(new THREE.SphereGeometry(.28,40,28),std({color:0x090909,roughness:.7}))); sleepHead.position.set(2.2,.47,5.93); scene.add(sleepHead);
 const player={pos:V(1.5,0,6.6),y:0,theta:Math.PI,speed:0,phase:0,pose:'stand'};
 
 /* ================= REST STOP ================= */
@@ -1693,7 +1714,7 @@ const S = {
   ],()=>hint('창가에 걸터앉아 쉬자.',3)); },
   e4_eat(){ ended=true; play([
     {cam:C([.5,1.55,10.7],[2.2,.85,9.0]),dur:4,say:'꾸덕꾸덕하게 말려 둔 농어 훈제포를 씹으며,',pose:'sitEatHigh',fn(){if(cart.attached)detachCart();mark(V(4,0,9),{pos:[WSEAT.x,WSEAT.z]});jerkyHeld.visible=true;if(tod.t<1.12)tod.t=1.12;tod.target=1.18;}},
-    {cam:C([1.45,1.62,9.95],[7,.3,8.1],[1.6,1.58,9.85],[7,.3,8.0]),dur:5.2,say:'창문 틈 너머, 달빛이 내려앉은 검은 밭을 가만히 바라본다.',pose:'sitHigh',fn(){jerkyHeld.visible=false;}},
+    {cam:C([1.45,2.08,9.95],[7,.95,8.1],[1.6,2.04,9.85],[7,.95,8.0]),dur:5.2,say:'창문 틈 너머, 달빛이 내려앉은 검은 밭을 가만히 바라본다.',pose:'sitHigh',fn(){jerkyHeld.visible=false;}},
     {cam:C([17,4,17.5],[6,.9,8.5],[19,5,20],[6,.9,8.5]),dur:5,say:'세상이 멸망한 지 50년.',pose:'sitHigh'},
   ],()=>{go('end4');showEnd(4);}); },
 };
@@ -2557,7 +2578,7 @@ function makeBoar(){ const g=new THREE.Group(), fur=noSnow(std({color:0x5a4636,r
   steel7=mkSteel(); steel7.position.set(TIND7.x+.22,.012,TIND7.z-.05); steel7.rotation.y=.6; steel7.visible=false; scene.add(steel7);
   steelHeld7=hold(mkSteel(),0,{y:-.1,z:.05});
   shovelIn7=new THREE.Group(); box(.03,.95,.03,M.wood,0,.24,0,{parent:shovelIn7}); box(.2,.26,.02,M.steel,0,0,0,{parent:shovelIn7}); shovelIn7.position.set(.62,.02,12.6); shovelIn7.rotation.x=.14; shovelIn7.visible=false; scene.add(shovelIn7);
-  blanket7=shadow(new THREE.Mesh(new THREE.SphereGeometry(.5,16,10),std({color:0x6b5a48,roughness:1}))); blanket7.scale.set(.75,.3,1.75); blanket7.position.set(2.27,.2,6.75); blanket7.visible=false; scene.add(blanket7);
+  blanket7=shadow(new THREE.Mesh(new THREE.SphereGeometry(.5,16,10),std({color:0x6b5a48,roughness:1}))); blanket7.scale.set(.75,.3,1.75); blanket7.position.set(2.27,.2,6.75); blanket7.visible=false; blanket7.material.visible=false; scene.add(blanket7);
   ash7=new THREE.Mesh(new THREE.SphereGeometry(.16,12,8),std({color:0xbdbab3,roughness:1})); ash7.scale.set(1.2,.3,1); ash7.position.set(-2.22,.2,5.98); ash7.visible=false; scene.add(ash7);
   { const sm=new THREE.MeshBasicMaterial({color:0xffe9a0}); for(let i=0;i<10;i++){ const s=new THREE.Mesh(new THREE.SphereGeometry(.007,5,4),sm); s.visible=false; scene.add(s); sparks7.push(s); } sparkLight7=new THREE.PointLight(0xffc060,0,3,1.5); sparkLight7.position.set(TIND7.x,.25,TIND7.z); scene.add(sparkLight7); pitLight7=new THREE.PointLight(0xb4c8ff,0,4.5,1.4); pitLight7.position.set(PIT.x+.2,-.25,PIT.z+.2); scene.add(pitLight7); }
   rand=_r;
@@ -2730,6 +2751,7 @@ function updateEP7(dt){
   SNOW.value+=(snowT-SNOW.value)*Math.min(1,dt*(seq?.4:2)); if(Math.abs(snowT-SNOW.value)<.004) SNOW.value=snowT;
   const f=Math.min(1,dt*.8); WX.gray+=(WX.tg-WX.gray)*f; WX.fall+=(WX.tf-WX.fall)*f; WX.blue+=(WX.tb-WX.blue)*f;
   stepFlakes(dt);
+  P.bedSleep.visible=sleepHead.visible; P.bedIdle.visible=!sleepHead.visible;
   const snowy=SNOW.value>.5; if(grassIM) grassIM.visible=!snowy; snowDeco7.visible=fieldSnow7.visible=snowy; if(snowy) sprouts.visible=false;
   door7.a+=(door7.t-door7.a)*Math.min(1,dt*4); shedDoor.rotation.y=door7.a; doorCol.y1=(e7&&Math.abs(door7.t)<.3)?2.1:-99;
   const deep=snowy&&!noSink&&!inShed(player.pos)&&!onPath7(player.pos.x,player.pos.z)&&pitDrop<=0&&!(player.y>1&&player.pos.x>BR.x0&&player.pos.x<BR.x1);
